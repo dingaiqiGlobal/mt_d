@@ -16,20 +16,26 @@ export default {
 
   data() {
     return {
-      list: [       
+      list: [
         {
           id: 1,
           img: "/images/nav/base_maptalks.jpg",
           text: "base_maptalks",
-          path: "/"
+          path: "/",
         },
-      ]
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_WMS.jpg",
+          text: "WMS",
+          path: "/layer_WMS",
+        },
+      ],
     };
   },
 
   computed: {},
 
-  mounted() { },
+  mounted() {},
 
   methods: {
     //鼠标滚轮上下滑动时div左右滑动
@@ -39,8 +45,8 @@ export default {
       // console.log($scrollWrapper.scrollLeft)
       // 0到scrollLeft为滚动区域隐藏部分
       $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -60,9 +66,11 @@ export default {
     border: 1px solid #759dc0;
     padding: 2px 4px 4px 4px;
     background-color: #bcd8f4;
-    background-image: linear-gradient(#ffffff 0px,
-        rgba(255, 255, 255, 0) 3px,
-        rgba(255, 255, 255, 0.75) 100%);
+    background-image: linear-gradient(
+      #ffffff 0px,
+      rgba(255, 255, 255, 0) 3px,
+      rgba(255, 255, 255, 0.75) 100%
+    );
     box-sizing: content-box;
     border-radius: 4px;
     cursor: pointer;
