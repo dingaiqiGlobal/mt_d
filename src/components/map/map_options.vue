@@ -7,8 +7,6 @@
 
 <script>
 import * as maptalks from "maptalks";
-// import * as THREE from "three";
-// import { ThreeLayer } from 'maptalks.three';
 export default {
   components: {},
 
@@ -21,6 +19,12 @@ export default {
   computed: {},
 
   mounted() {
+    /**
+     * 读取配置属性的值
+     * const centerCross = map.options.centerCross;
+     * 修改地图配置信息,可以使用config方法
+     * map.config({ centerCross: true });
+     */
     this.map = new maptalks.Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
