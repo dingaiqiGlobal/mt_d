@@ -35,6 +35,12 @@ export default {
           text: "VectorLayer参数",
           path: "/layer_VectorLayer",
         },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_GLTFLayer.jpg",
+          text: "GLTFLayer参数",
+          path: "/layer_GLTFLayer",
+        },
       ],
     };
   },

@@ -19,6 +19,11 @@ const routes = [
     name: 'layer_VectorLayer',
     component: () => import("../components/layer/layer_VectorLayer.vue")
   },
+  {
+    path: '/layer_GLTFLayer',
+    name: 'layer_GLTFLayer',
+    component: () => import("../components/layer/layer_GLTFLayer.vue")
+  },
 ]
 
 const router = new VueRouter({
