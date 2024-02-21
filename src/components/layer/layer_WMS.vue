@@ -90,7 +90,7 @@ export default {
         forceRenderOnZooming:false,//贴图缩放时渲染层的力
         forceRenderOnRotating:false,//贴图旋转时渲染层的力
         collisionScope:'layer',//层的碰撞范围：layer或map
-      });
+      }).addTo(this.map);
       /**
        * 瓦片请求是简单的image get请求，
        * 因为浏览器缓存策略的问题，
@@ -110,7 +110,6 @@ export default {
        * 这时就需要去强制刷新WMSTileLayer
        */
       //wmsLayer.forceReload();
-      this.map.addLayer(wmsTileLayer);
     },
   },
 };

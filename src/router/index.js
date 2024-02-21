@@ -14,6 +14,11 @@ const routes = [
     name: 'layer_WMS',
     component: () => import("../components/layer/layer_WMS.vue")
   },
+  {
+    path: '/layer_VectorLayer',
+    name: 'layer_VectorLayer',
+    component: () => import("../components/layer/layer_VectorLayer.vue")
+  },
 ]
 
 const router = new VueRouter({

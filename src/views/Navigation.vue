@@ -26,8 +26,14 @@ export default {
         {
           id: 1,
           img: "/images/nav/layer/layer_WMS.jpg",
-          text: "WMS",
+          text: "WMS参数",
           path: "/layer_WMS",
+        },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_VectorLayer.jpg",
+          text: "VectorLayer参数",
+          path: "/layer_VectorLayer",
         },
       ],
     };
