@@ -4,10 +4,15 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+  // {
+  //   path: '/',
+  //   name: 'base_maptalks',
+  //   component: () => import("../components/base_maptalks.vue")
+  // },
   {
-    path: '/',
-    name: 'base_maptalks',
-    component: () => import("../components/base_maptalks.vue")
+    path: '/map_options',
+    name: 'map_options',
+    component: () => import("../components/map/map_options.vue")
   },
   {
     path: '/layer_WMS',

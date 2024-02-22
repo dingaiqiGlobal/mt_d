@@ -29,6 +29,7 @@ export default {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 60,
+      bearing: -25, //旋转
       spatialReference: {
         projection: "EPSG:3857",
       },
