@@ -1,19 +1,23 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div class="control"></div>
+    <div class="control">
+      <button @click="_copy">拷贝</button>
+    </div>
   </div>
 </template>
 
 <script>
 import * as maptalks from "maptalks";
-import {GroupGLLayer, VectorTileLayer,GLTFMarker,GLTFLayer,PolygonLayer,} from "@maptalks/gl-layers";
+import { GroupGLLayer, GLTFMarker, GLTFLayer } from "@maptalks/gl-layers";
 export default {
   components: {},
 
   data() {
     return {
       map: null,
+      gltfLayer: null,
+      gltfMarker: null,
     };
   },
 
@@ -51,20 +55,25 @@ export default {
      */
     addGLTFLayer() {
       const symbol = {
-        url: "data/model/Cesium_Air.glb",
-        modelHeight: 240,
+        url: "data/model/Fox/Fox.gltf",
+        modelHeight: 240, //模型高度
         scaleX: 1,
         scaleY: 1,
         scaleZ: 1,
         rotationZ: 180,
       };
 
-      const gltfLayer = new GLTFLayer("gltf").addTo(this.map);
-      const gltfMarker = new GLTFMarker(this.map.getCenter(), {
+      this.gltfLayer = new GLTFLayer("gltf").addTo(this.map);
+      this.gltfMarker = new GLTFMarker(this.map.getCenter(), {
         symbol,
       });
-      gltfLayer.addGeometry(gltfMarker);
+      this.gltfLayer.addGeometry(this.gltfMarker);
     },
+    _copy() {
+      const copyOne = this.gltfMarker.copy().addTo(this.gltfLayer);
+      copyOne.setCoordinates([116.3998, 39.9127, 800]);
+    },
+    _animation() {},
   },
 };
 </script>
