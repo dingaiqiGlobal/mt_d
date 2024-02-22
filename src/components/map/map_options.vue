@@ -7,6 +7,7 @@
 
 <script>
 import * as maptalks from "maptalks";
+import { GroupGLLayer } from "@maptalks/gl-layers";
 export default {
   components: {},
 
@@ -33,12 +34,13 @@ export default {
       spatialReference: {
         projection: "EPSG:3857",
       },
-      baseLayer: new maptalks.TileLayer("tile", {
-        urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-        subdomains: ["a", "b", "c", "d"],
-        attribution:
-          '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
-      }),
+      // baseLayer: new maptalks.TileLayer("base", {
+      //   //底图
+      //   urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+      //   subdomains: ["a", "b", "c", "d"],
+      //   attribution:
+      //     '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
+      // }),
       layers: [], //最初将添加到地图的图层
 
       centerCross: true, //在地图中心显示红十字
@@ -90,7 +92,7 @@ export default {
       zoomControl: true, //显示缩放控件
       scaleControl: true, //显示比例尺控件
       overviewControl: true, //显示鹰眼图控件
-      fog: true, //开启远处画雾
+      fog: false, //开启远处画雾
       fogColor: [0, 233, 233],
       renderer: "canvas", //渲染类型
       devicePixelRatio: "", //覆盖设备默认像素的设备像素比率
@@ -99,7 +101,120 @@ export default {
       stopRenderOnOffscreen: true, //容器在屏幕外时是否停止贴图渲染
       originLatitudeForAltitude: 40, //海拔高度的原点纬度
       mousemoveThrottleTime: 48, //鼠标事件间隔时间
+
+      //灯光天空盒（必须结合--GroupGLLayer）
+      lights: {
+        //方相光
+        directional: {
+          direction: [1, 0, -1],
+          color: [1, 1, 1],
+        },
+        //环境光
+        ambient: {
+          //配置天空盒的资源
+          resource: {
+            url: {
+              front: "images/skybox/gradient/front.png",
+              back: "images/skybox/gradient/back.png",
+              left: "images/skybox/gradient/left.png",
+              right: "images/skybox/gradient/right.png",
+              top: "images/skybox/gradient/top.png",
+              bottom: "images/skybox/gradient/bottom.png",
+            },
+            prefilterCubeSize: 256,
+          },
+          exposure: 0.8, //灯光强度
+          hsv: [0, 0.34, 0],
+          orientation: 1, //定向
+        },
+      },
     });
+
+    const baseLayer = new maptalks.TileLayer("base", {
+      //底图
+      urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+      subdomains: ["a", "b", "c", "d"],
+      attribution:
+        '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
+      spatialReference: {
+        projection: "EPSG:3857",
+      },
+    });
+    const groupLayer = new GroupGLLayer("group", [baseLayer], {
+      sceneConfig: {
+        environment: {
+          enable: true,
+          mode: 1,
+          level: 0,
+          brightness: 0,
+        },
+        shadow: {
+          type: "esm",
+          enable: true,
+          quality: "high",
+          opacity: 0.11,
+          color: [0, 0, 0],
+          blurOffset: 1,
+        },
+        postProcess: {
+          enable: true,
+          antialias: {
+            enable: true,
+            taa: true,
+            jitterRatio: 0.25,
+          },
+          ssr: {
+            enable: true,
+          },
+          bloom: {
+            enable: true,
+            threshold: 0,
+            factor: 0.2,
+            radius: 0.105,
+          },
+          ssao: {
+            enable: true,
+            bias: 0.08,
+            radius: 0.08,
+            intensity: 1.5,
+          },
+          sharpen: {
+            enable: false,
+            factor: 0.2,
+          },
+        },
+        ground: {
+          enable: false,
+          renderPlugin: {
+            type: "fill",
+          },
+          symbol: {
+            polygonFill: [0.517647, 0.517647, 0.517647, 1],
+          },
+        },
+      },
+    });
+    groupLayer.addTo(this.map);
+
+    /**
+     * 开局视图动画
+     */
+    // let view2 = {
+    //   zoom: 12,
+    //   center: [116.39259, 39.90473],
+    //   pitch: 30,
+    //   bearing: 60,
+    // };
+    // this.map.animateTo(
+    //   view2,
+    //   {
+    //     duration: 3000,
+    //   },
+    //   (frame) => {
+    //     if (frame.state.playState === "finished") {
+    //     }
+    //   }
+    // ); //或者flyTo(view, optionsopt, stepopt)
   },
 
   methods: {},

@@ -19,8 +19,8 @@ export default {
       list: [
         {
           id: 1,
-          img: "/images/nav/map/base_maptalks.jpg",
-          text: "map_options",
+          img: "/images/nav/map/map_options.jpg",
+          text: "map参数",
           path: "/map_options",
         },
         {
