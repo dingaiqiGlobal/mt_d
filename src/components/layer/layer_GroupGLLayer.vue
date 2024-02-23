@@ -22,6 +22,17 @@ export default {
   computed: {},
 
   mounted() {
+    /**
+     * maptalks webgl 图层的汇总包;
+     * 包含的插件
+     * @maptalks/gl
+     * @maptalks/analysis
+     * @maptalks/vt
+     * @maptalks/gltf-layer
+     * @maptalks/3dtiles
+     * @maptalks/video-layer@maptalks/transform-control
+     * @maptalks/msd-json-loader
+     */
     this.map = new maptalks.Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
