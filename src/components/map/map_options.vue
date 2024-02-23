@@ -183,15 +183,6 @@ export default {
             factor: 0.2,
           },
         },
-        ground: {
-          enable: false,
-          renderPlugin: {
-            type: "fill",
-          },
-          symbol: {
-            polygonFill: [0.517647, 0.517647, 0.517647, 1],
-          },
-        },
       },
     });
     groupLayer.addTo(this.map);

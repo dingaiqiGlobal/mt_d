@@ -37,6 +37,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_GroupGLLayer.jpg",
+          text: "GroupGLLayer参数",
+          path: "/layer_GroupGLLayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_GLTFLayer.jpg",
           text: "GLTFLayer参数",
           path: "/layer_GLTFLayer",

@@ -63,9 +63,27 @@ export default {
         rotationZ: 180,
       };
 
-      this.gltfLayer = new GLTFLayer("gltf").addTo(this.map);
+      this.gltfLayer = new GLTFLayer("gltf",{
+        attribution:null,//属性
+        minZoom:null,
+        maxZoom:null,
+        visible:true,
+        opacity:1,
+        hitDetect:true,//是否开启图层绘制检测（动态鼠标样式），关闭可以提高性能
+        collisionScope:"layer",//碰撞检测索引的适用范围： map或者layer
+      }).addTo(this.map);
+
       this.gltfMarker = new GLTFMarker(this.map.getCenter(), {
+        fitSize:100,//模型加到地图上的初始尺寸，单位像素
         symbol,
+        id:null,
+        visible:true,
+        interactive:true,//是否能够交互
+        editable:true,//是否允许编辑
+        cursor:null,//鼠标样式
+        draggable:false,//是否允许拖拽
+        dragOnAxis:null,//是否沿x轴或者y轴拖拽，可选的值为"x"或者"y
+        zIndex:null
       });
       this.gltfLayer.addGeometry(this.gltfMarker);
     },
@@ -73,7 +91,6 @@ export default {
       const copyOne = this.gltfMarker.copy().addTo(this.gltfLayer);
       copyOne.setCoordinates([116.3998, 39.9127, 800]);
     },
-    _animation() {},
   },
 };
 </script>

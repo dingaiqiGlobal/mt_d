@@ -25,6 +25,11 @@ const routes = [
     component: () => import("../components/layer/layer_VectorLayer.vue")
   },
   {
+    path: '/layer_GroupGLLayer',
+    name: 'layer_GroupGLLayer',
+    component: () => import("../components/layer/layer_GroupGLLayer.vue")
+  },
+  {
     path: '/layer_GLTFLayer',
     name: 'layer_GLTFLayer',
     component: () => import("../components/layer/layer_GLTFLayer.vue")
