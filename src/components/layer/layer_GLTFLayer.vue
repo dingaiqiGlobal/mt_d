@@ -44,6 +44,12 @@ export default {
   },
 
   methods: {
+    /**
+     * GLTF图层包含
+     * GLTFLayer
+     * GLTFMarker
+     * MultiGLTFMarker
+     */
     addGLTFLayer() {
       const symbol = {
         //变种写法
