@@ -50,7 +50,7 @@ export default {
       offset: [0, 0], //	模型的绘制偏移量，如果是函数则会动态调用计算，函数的参数为模型的参考坐标： function (center) { }，可以用于计算
       services: [
         {
-          url: "data/3dtiles/dayanta/tileset.json",
+          url: "data/3dtiles/bim/tileset.json",
           // maximumScreenSpaceError值越小，加载的模型越清晰，但加载的数据量会变大
           // 清晰度可以接受的情况下，推荐把这个值设得越大越好，性能会越好
           maximumScreenSpaceError: 24.0,
@@ -58,10 +58,10 @@ export default {
           // urlParams: 'v=0.0',
           // fetch请求的额外参数
           // fetchOptions : { credentials : 'include' },
-          heightOffset: -500, //数据的高度偏移量，单位米，可以用于升高或降低模型
+          heightOffset: 0, //数据的高度偏移量，单位米，可以用于升高或降低模型
           // 环境光照值，倾斜摄影可以设为[1.0, 1.0, 1.0]获得最清晰的效果，非倾斜摄影可以适当降低，例如设为 [0.2, 0.2, 0.2]
           // 如果不设置，则采用地图上的默认光照值
-          ambientLight: [1.0, 1.0, 1.0],
+          ambientLight: [0.2, 0.2, 0.2],
           // maxExtent: maxExtent
         },
         // 其他的3dtiles数据源
