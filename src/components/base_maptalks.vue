@@ -28,7 +28,7 @@ export default {
         projection: "EPSG:3857",
       },
       baseLayer: new maptalks.TileLayer("tile", {
-        urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+        urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",//dark_all
         subdomains: ["a", "b", "c", "d"],
         attribution:
           '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
