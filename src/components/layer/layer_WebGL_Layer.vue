@@ -12,6 +12,7 @@ import {
   PointLayer,
   LineStringLayer,
   PolygonLayer,
+  ExtrudePolygonLayer,
 } from "@maptalks/gl-layers";
 export default {
   components: {},
@@ -173,18 +174,66 @@ export default {
     ).addTo(polyLayer);
 
     /**
+     * ExtrudePolygonLayer
+     * 其仅仅支持Polygon图形数据
+     */
+    const dataConfig = {
+      type: "3d-extrusion",
+      altitudeProperty: "height",
+      altitudeScale: 5,
+      defaultAltitude: 0,
+      top: true,
+      side: true,
+      // sideVerticalUVMode: 1
+      // textureYOrigin: 'bottom'
+    };
+    const material = {
+      baseColorFactor: [1, 1, 1, 1],
+      emissiveFactor: [1, 1, 1],
+      roughnessFactor: 0,
+      metalnessFactor: 0,
+      outputSRGB: 0,
+      uvScale: [0.001, 0.0013],
+    };
+    const extrudePolygonLayer = new ExtrudePolygonLayer("extrudePolygon0", {
+      dataConfig,
+      material,
+      geometryEvents: false,
+    });
+    //添加数据
+    fetch("data/json/data_Water.json")
+      .then((res) => res.json())
+      .then((geojson) => {
+        const polygons = maptalks.GeoJSON.toGeometry(geojson);
+        polygons.forEach((polygon) => {
+          polygon.setSymbol({
+            topPolygonFill: "#fff",
+            bottomPolygonFill: "#000",
+          });
+          polygon.setProperties({
+            height: 20,
+          });
+        });
+        extrudePolygonLayer.addGeometry(polygons);
+      });
+
+    /**
      * GroupGLLayer
      */
-    const groupLayer = new GroupGLLayer("group", [pointLayer, lineLayer, polyLayer], {
-      sceneConfig: {
-        environment: {
-          enable: true,
-          mode: 1,
-          level: 0,
-          brightness: 0,
+    const groupLayer = new GroupGLLayer(
+      "group",
+      [pointLayer, lineLayer, polyLayer, extrudePolygonLayer],
+      {
+        sceneConfig: {
+          environment: {
+            enable: true,
+            mode: 1,
+            level: 0,
+            brightness: 0,
+          },
         },
-      },
-    });
+      }
+    );
     groupLayer.addTo(this.map);
   },
 
