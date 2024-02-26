@@ -49,6 +49,11 @@ const routes = [
     name: 'layer_GeoJSONVectorTileLayer',
     component: () => import("../components/layer/layer_GeoJSONVectorTileLayer.vue")
   },
+  {
+    path: '/layer_WebGL_Layer',
+    name: 'layer_WebGL_Layer',
+    component: () => import("../components/layer/layer_WebGL_Layer.vue")
+  },
 ]
 
 const router = new VueRouter({

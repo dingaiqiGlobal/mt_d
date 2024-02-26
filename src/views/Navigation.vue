@@ -65,6 +65,12 @@ export default {
           text: "GeoJSON_VT参数",
           path: "/layer_GeoJSONVectorTileLayer",
         },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_WebGL_Layer.jpg",
+          text: "WebGL(点线面)参数",
+          path: "/layer_WebGL_Layer",
+        },
       ],
     };
   },
