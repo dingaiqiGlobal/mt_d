@@ -53,11 +53,17 @@ export default {
           text: "Geo3DTilesLayer参数",
           path: "/layer_Geo3DTilesLayer",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/layer/layer_VectorTileLayer.jpg",
           text: "VectorTileLayer参数",
           path: "/layer_VectorTileLayer",
+        },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_GeoJSONVectorTileLayer.jpg",
+          text: "GeoJSON_VT参数",
+          path: "/layer_GeoJSONVectorTileLayer",
         },
       ],
     };
