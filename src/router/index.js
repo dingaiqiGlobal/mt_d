@@ -34,6 +34,11 @@ const routes = [
     name: 'layer_GLTFLayer',
     component: () => import("../components/layer/layer_GLTFLayer.vue")
   },
+  {
+    path: '/layer_Geo3DTilesLayer',
+    name: 'layer_Geo3DTilesLayer',
+    component: () => import("../components/layer/layer_Geo3DTilesLayer.vue")
+  },
 ]
 
 const router = new VueRouter({

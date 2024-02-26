@@ -47,6 +47,12 @@ export default {
           text: "GLTFLayer参数",
           path: "/layer_GLTFLayer",
         },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_Geo3DTilesLayer.jpg",
+          text: "Geo3DTilesLayer参数",
+          path: "/layer_Geo3DTilesLayer",
+        },
       ],
     };
   },
