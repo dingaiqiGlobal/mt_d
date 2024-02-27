@@ -179,14 +179,15 @@ export default {
      */
     const dataConfig = {
       type: "3d-extrusion",
-      altitudeProperty: "height",
-      altitudeScale: 5,
-      defaultAltitude: 0,
+      altitudeProperty: "height",//海拔特性
+      altitudeScale: 5,//海拔sacle
+      defaultAltitude: 0,//默认海拔
       top: true,
       side: true,
       // sideVerticalUVMode: 1
       // textureYOrigin: 'bottom'
     };
+    //https://doc.maptalks.com/docs/style/material/
     const material = {
       baseColorFactor: [1, 1, 1, 1],
       emissiveFactor: [1, 1, 1],
