@@ -54,6 +54,11 @@ const routes = [
     name: 'layer_WebGL_Layer',
     component: () => import("../components/layer/layer_WebGL_Layer.vue")
   },
+  {
+    path: '/project_gltf',
+    name: 'project_gltf',
+    component: () => import("../components/project/project_gltf.vue")
+  },
 ]
 
 const router = new VueRouter({

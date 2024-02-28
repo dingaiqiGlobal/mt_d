@@ -71,6 +71,12 @@ export default {
           text: "WebGL(点线面)参数",
           path: "/layer_WebGL_Layer",
         },
+        {
+          id: 1,
+          img: "/images/nav/project/project_gltf.jpg",
+          text: "gltf方法",
+          path: "/project_gltf",
+        },
       ],
     };
   },

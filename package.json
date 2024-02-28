@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "@maptalks/gl-layers": "^0.32.0",
+    "@maptalks/transcoders.crn": "^0.97.1",
+    "@maptalks/transcoders.draco": "^0.97.1",
     "@maptalks/transcoders.ktx2": "^0.97.1",
     "core-js": "^3.8.3",
     "maptalks": "^1.0.0-rc.30",
+    "maptalks.modelcontrol": "^0.8.0",
     "maptalks.three": "^0.38.1",
     "three": "^0.138.0",
     "vue": "^2.6.14",
