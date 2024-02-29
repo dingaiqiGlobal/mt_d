@@ -23,7 +23,7 @@ export default {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 60,
-      bearing: -25, //旋转
+      bearing: -25,
       spatialReference: {
         projection: "EPSG:3857",
       },
@@ -33,7 +33,7 @@ export default {
         attribution:
           '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
       }),
-      layers: [], //最初将添加到地图的图层
+      layers: [],
     });
   },
 
