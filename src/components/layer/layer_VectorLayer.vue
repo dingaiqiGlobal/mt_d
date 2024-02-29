@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as maptalks from "maptalks";
+import { Map, TileLayer, VectorLayer, Marker, LineString, Polygon } from "maptalks";
 export default {
   components: {},
 
@@ -19,13 +19,13 @@ export default {
   computed: {},
 
   mounted() {
-    this.map = new maptalks.Map("map", {
+    this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 30,
       centerCross: false,
       doubleClickZoom: false,
-      baseLayer: new maptalks.TileLayer("tile", {
+      baseLayer: new TileLayer("tile", {
         urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
@@ -38,7 +38,7 @@ export default {
 
   methods: {
     addVectorLayer() {
-      const layer = new maptalks.VectorLayer("layer", {
+      const layer = new VectorLayer("layer", {
         style: null, //总style
         debug: false,
         enableSimplify: true, //启用简化几何图形
@@ -81,10 +81,10 @@ export default {
        */
       const center = this.map.getCenter().toArray();
       center.push(44);
-      const point = new maptalks.Marker(center, {
+      const point = new Marker(center, {
         id: "marker0",
         visible: true, //（常用）
-        editable: true, 
+        editable: true,
         interactive: true, //几何体是否可以相互作用
         cursor: null, //悬停样式
         measure: "EPSG:4326", //几何图形的度量代码，定义了measureGeometry如何进行测量
@@ -93,12 +93,14 @@ export default {
         dragOnAxis: null, //如果设置，则只能沿指定的轴拖动几何体，可能的值为：x、y
         //zIndex:,
         antiMeridian: false, //反子午线
-        symbol: {//（常用）
+        symbol: {
+          //（常用）
           markerFile: "images/icon/icon_Red.png",
           markerWidth: 20,
           markerHeight: 25,
         },
-        properties: {//（常用）
+        properties: {
+          //（常用）
           foo: "value",
         },
       });
@@ -110,19 +112,20 @@ export default {
         [116.35174, 39.89683, 33],
         [116.42967, 39.89788, 5000],
       ];
-      const line = new maptalks.LineString(coordinates, {
+      const line = new LineString(coordinates, {
         arrowStyle: null, //箭头的样式，可以是预定义的值或数组[箭头宽度，箭头高度]（数组中的值是线宽的倍数），可能的预定义值：classic ([3, 4])
         arrowPlacement: "vertex-last", //箭头的位置：vertex-first, vertex-last, vertex-firstlast, point
         smoothness: 0, //通过四阶贝塞尔插值进行线条平滑，默认为0
         enableSimplify: true, //启用简化
         simplifyTolerance: 2, //简化公差
         enableClip: true,
-        symbol: {//（常用）
+        symbol: {
+          //（常用）
           lineWidth: 3,
           lineColor: "red",
         },
         id: "line0",
-        visible: true,//（常用）
+        visible: true, //（常用）
         editable: true,
         interactive: true, //几何体是否可以相互作用
         cursor: null, //悬停样式
@@ -146,19 +149,20 @@ export default {
           [116.3856, 39.92122, 10],
         ],
       ];
-      const polygon = new maptalks.Polygon(coordinatesPolygon, {
+      const polygon = new Polygon(coordinatesPolygon, {
         smoothness: 0, //通过四阶贝塞尔插值进行线条平滑，默认为0
         enableSimplify: true, //启用简化
         simplifyTolerance: 2, //简化公差
         enableClip: true,
-        symbol: {//（常用）
+        symbol: {
+          //（常用）
           lineColor: "#34495e",
           lineWidth: 2,
           polygonFill: "rgb(135,196,240)",
           polygonOpacity: 0.6,
         },
         id: "polygon0",
-        visible: true,//（常用）
+        visible: true, //（常用）
         editable: true,
         interactive: true, //几何体是否可以相互作用
         cursor: null, //悬停样式

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as maptalks from "maptalks";
+import { Map, TileLayer, Marker, LineString, Polygon, GeoJSON } from "maptalks";
 import {
   GroupGLLayer,
   PointLayer,
@@ -26,7 +26,7 @@ export default {
   computed: {},
 
   mounted() {
-    this.map = new maptalks.Map("map", {
+    this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 60,
@@ -34,7 +34,7 @@ export default {
       spatialReference: {
         projection: "EPSG:3857",
       },
-      baseLayer: new maptalks.TileLayer("tile", {
+      baseLayer: new TileLayer("tile", {
         urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
@@ -67,7 +67,7 @@ export default {
       collisionScope: "layer",
     });
 
-    const marker = new maptalks.Marker([116.39225, 39.90552], {
+    const marker = new Marker([116.39225, 39.90552], {
       symbol: {
         textName: "天安门",
         textWeight: "bold",
@@ -101,7 +101,7 @@ export default {
       hitDetect: true,
       collisionScope: "layer",
     });
-    const line = new maptalks.LineString(
+    const line = new LineString(
       [
         [116.35036, 39.90552],
         [116.43002, 39.90644],
@@ -145,7 +145,7 @@ export default {
       collisionScope: "layer",
     });
 
-    const polygon = new maptalks.Polygon(
+    const polygon = new Polygon(
       [
         [
           [116.3856, 39.92122, 10],
@@ -179,9 +179,9 @@ export default {
      */
     const dataConfig = {
       type: "3d-extrusion",
-      altitudeProperty: "height",//海拔特性
-      altitudeScale: 5,//海拔sacle
-      defaultAltitude: 0,//默认海拔
+      altitudeProperty: "height", //海拔特性
+      altitudeScale: 5, //海拔sacle
+      defaultAltitude: 0, //默认海拔
       top: true,
       side: true,
       // sideVerticalUVMode: 1
@@ -205,7 +205,7 @@ export default {
     fetch("data/json/data_Water.json")
       .then((res) => res.json())
       .then((geojson) => {
-        const polygons = maptalks.GeoJSON.toGeometry(geojson);
+        const polygons = GeoJSON.toGeometry(geojson);
         polygons.forEach((polygon) => {
           polygon.setSymbol({
             topPolygonFill: "#fff",

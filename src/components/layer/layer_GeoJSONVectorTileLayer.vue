@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as maptalks from "maptalks";
+import { Map, TileLayer } from "maptalks";
 import { GroupGLLayer, GeoJSONVectorTileLayer } from "@maptalks/gl-layers";
 export default {
   components: {},
@@ -20,7 +20,7 @@ export default {
   computed: {},
 
   mounted() {
-    this.map = new maptalks.Map("map", {
+    this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 60,
@@ -28,7 +28,7 @@ export default {
       spatialReference: {
         projection: "EPSG:3857",
       },
-      baseLayer: new maptalks.TileLayer("tile", {
+      baseLayer: new TileLayer("tile", {
         urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", //dark_all
         subdomains: ["a", "b", "c", "d"],
         attribution:

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as maptalks from "maptalks";
+import { Map, TileLayer } from "maptalks";
 import { GroupGLLayer } from "@maptalks/gl-layers";
 export default {
   components: {},
@@ -26,7 +26,7 @@ export default {
      * 修改地图配置信息,可以使用config方法
      * map.config({ centerCross: true });
      */
-    this.map = new maptalks.Map("map", {
+    this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 60,
@@ -34,7 +34,7 @@ export default {
       spatialReference: {
         projection: "EPSG:3857",
       },
-      // baseLayer: new maptalks.TileLayer("base", {
+      // baseLayer: new TileLayer("base", {
       //   //底图
       //   urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
       //   subdomains: ["a", "b", "c", "d"],
@@ -130,7 +130,7 @@ export default {
       },
     });
 
-    const baseLayer = new maptalks.TileLayer("base", {
+    const baseLayer = new TileLayer("base", {
       //底图
       urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
       subdomains: ["a", "b", "c", "d"],

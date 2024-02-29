@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as maptalks from "maptalks";
+import { Map, TileLayer,WMSTileLayer } from "maptalks";
 export default {
   components: {},
 
@@ -19,13 +19,13 @@ export default {
   computed: {},
 
   mounted() {
-    this.map = new maptalks.Map("map", {
+    this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
       pitch: 60,
       centerCross: false,
       doubleClickZoom: false,
-      baseLayer: new maptalks.TileLayer("tile", {
+      baseLayer: new TileLayer("tile", {
         urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
@@ -38,7 +38,7 @@ export default {
 
   methods: {
     addWMSLayer() {
-      const wmsTileLayer = new maptalks.WMSTileLayer("wms", {
+      const wmsTileLayer = new WMSTileLayer("wms", {
         service: "WMS",
         layers: "zhjy:HDJD",
         styles: "",

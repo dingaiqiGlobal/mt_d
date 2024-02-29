@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as maptalks from "maptalks";
+import { Map, TileLayer } from "maptalks";
 import {
   GroupGLLayer,
   GLTFLayer,
@@ -26,13 +26,13 @@ export default {
   computed: {},
 
   mounted() {
-    this.map = new maptalks.Map("map", {
+    this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 15,
       pitch: 60,
       centerCross: false,
       doubleClickZoom: false,
-      baseLayer: new maptalks.TileLayer("tile", {
+      baseLayer: new TileLayer("tile", {
         urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
