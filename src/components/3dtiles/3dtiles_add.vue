@@ -71,6 +71,7 @@ export default {
      * 3dtiles
      */
     const geo3DTilesLayer = new Geo3DTilesLayer("Geo3DTilesLayer", {
+      geometryEvents: true,//考虑到性能问题Geo3DTilesLayer的事件交互(geometryEvents)默认是关闭的
       services: [
         {
           url: "data/3dtiles/bim/tileset.json",

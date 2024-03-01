@@ -10,7 +10,7 @@ import { Map, TileLayer, Circle } from "maptalks";
 import { GroupGLLayer, Geo3DTilesLayer, ClipOutsideMask } from "@maptalks/gl-layers";
 import "@maptalks/transcoders.draco";
 // import "@maptalks/transcoders.crn";
-// import "@maptalks/transcoders.ktx2";
+import "@maptalks/transcoders.ktx2";
 export default {
   components: {},
 
@@ -71,7 +71,7 @@ export default {
      * circle蒙皮（只裁剪3dtiles***）
      * circle.getShell()//获取圆边上的坐标集合***
      */
-    let circleGeometry = new Circle([116.401340,39.898740], 30, {
+    let circleGeometry = new Circle([116.40134, 39.89874], 30, {
       id: "circle0",
       properties: {
         name: "circle0",
@@ -83,6 +83,7 @@ export default {
      * 3dtiles
      */
     const geo3DTilesLayer = new Geo3DTilesLayer("Geo3DTilesLayer", {
+      geometryEvents: true, //考虑到性能问题Geo3DTilesLayer的事件交互(geometryEvents)默认是关闭的
       services: [
         {
           url: "data/3dtiles/bim/tileset.json",
