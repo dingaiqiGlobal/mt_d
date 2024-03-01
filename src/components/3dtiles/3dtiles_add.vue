@@ -55,7 +55,9 @@ export default {
         },
       },
     });
-    //底图
+    /**
+     * 底图
+     */
     const baseLayer = new TileLayer("base", {
       urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
       subdomains: ["a", "b", "c", "d"],
@@ -65,6 +67,9 @@ export default {
         projection: "EPSG:3857",
       },
     });
+    /**
+     * 3dtiles
+     */
     const geo3DTilesLayer = new Geo3DTilesLayer("Geo3DTilesLayer", {
       services: [
         {
@@ -84,7 +89,9 @@ export default {
         animation: false,
       });
     });
-    //groupLayer
+    /**
+     * groupLayer
+     */
     const groupLayer = new GroupGLLayer("group", [geo3DTilesLayer, baseLayer], {
       sceneConfig: {
         environment: {

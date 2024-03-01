@@ -86,8 +86,14 @@ export default {
         {
           id: 1,
           img: "/images/nav/3dtiles/3dtiles_view.jpg",
-          text: "3dtiles跳转视图",
+          text: "3dtiles视图",
           path: "/3dtiles_View",
+        },
+        {
+          id: 1,
+          img: "/images/nav/3dtiles/3dtiles_Mask.jpg",
+          text: "3dtiles蒙层",
+          path: "/3dtiles_Mask",
         },
       ],
     };
