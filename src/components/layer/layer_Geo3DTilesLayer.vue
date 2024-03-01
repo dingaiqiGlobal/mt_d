@@ -47,12 +47,12 @@ export default {
       maxGPUMemory: 512, //最大缓存数，单位 M bytes
       loadingLimitOnInteracting: 1, //地图交互过程中瓦片请求最大数量
       loadingLimit: 0, //瓦片请求最大数量
-      offset: [0, 0], //	模型的绘制偏移量，如果是函数则会动态调用计算，函数的参数为模型的参考坐标： function (center) { }，可以用于计算
+      offset: [0, 0], //	(坐标纠偏)模型的绘制偏移量，函数的参数为模型的参考坐标： function (center) { }，可以用于计算
       services: [
         {
           url: "data/3dtiles/bim/tileset.json",
           // maximumScreenSpaceError值越小，加载的模型越清晰，但加载的数据量会变大
-          // 清晰度可以接受的情况下，推荐把这个值设得越大越好，性能会越好
+          // 该值越小，渲染精度越高，项目允许的情况下，该值越大性能越好
           maximumScreenSpaceError: 24.0,
           // 数据请求的额外参数
           // urlParams: 'v=0.0',
@@ -63,6 +63,9 @@ export default {
           // 如果不设置，则采用地图上的默认光照值
           ambientLight: [0.2, 0.2, 0.2],
           // maxExtent: maxExtent
+          scale:[1,1,1],//3dtile整体的缩放参数
+          rotation:[0,0,0],//3dtile整体的旋转参数
+          coordOffset:[0,0],//3dtile整体偏移量参数
         },
         // 其他的3dtiles数据源
       ],

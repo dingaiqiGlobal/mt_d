@@ -64,6 +64,11 @@ const routes = [
     name: '3dtiles_add',
     component: () => import("../components/3dtiles/3dtiles_add.vue")
   },
+  {
+    path: '/3dtiles_view',
+    name: '3dtiles_view',
+    component: () => import("../components/3dtiles/3dtiles_view.vue")
+  },
 ]
 
 const router = new VueRouter({

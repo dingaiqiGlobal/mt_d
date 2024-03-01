@@ -47,7 +47,7 @@ export default {
         defaultIconSize: [20, 20], //标记图标的默认大小
         enableAltitude: true, //支持海拔(常用)
         //altitudeProperty:,//几何体的高度属性名称，如果enableAltitude为true，则默认为“高度”
-        drawAltitude: false, //绘制垂直线
+        drawAltitude: false, //绘制垂直线或者面，可以是对象
         sortByDistanceToCamera: false, //标记按相机距离排序
         roundPoint: false, //绘制前进行圆角以提高性能，但会导致动画中的几何体抖动
         altitude: 0, //海拔

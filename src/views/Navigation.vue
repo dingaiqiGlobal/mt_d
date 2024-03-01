@@ -77,11 +77,17 @@ export default {
           text: "gltf方法",
           path: "/project_gltf",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/3dtiles/3dtiles_add.jpg",
           text: "3dtiles添加",
           path: "/3dtiles_add",
+        },
+        {
+          id: 1,
+          img: "/images/nav/3dtiles/3dtiles_view.jpg",
+          text: "3dtiles跳转视图",
+          path: "/3dtiles_view",
         },
       ],
     };
