@@ -55,6 +55,11 @@ const routes = [
     component: () => import("../components/layer/layer_WebGL_Layer.vue")
   },
   {
+    path: '/layer_WebGL_Context',
+    name: 'layer_WebGL_Context',
+    component: () => import("../components/layer/layer_WebGL_Context.vue")
+  },
+  {
     path: '/project_gltf',
     name: 'project_gltf',
     component: () => import("../components/project/project_gltf.vue")

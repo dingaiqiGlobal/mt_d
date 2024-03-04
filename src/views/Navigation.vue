@@ -68,8 +68,14 @@ export default {
         {
           id: 1,
           img: "/images/nav/layer/layer_WebGL_Layer.jpg",
-          text: "WebGL(点线面)参数",
+          text: "WebGL图层(点线面)参数",
           path: "/layer_WebGL_Layer",
+        },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_WebGL_Context.jpg",
+          text: "WebGL图层上下文",
+          path: "/layer_WebGL_Context",
         },
         {
           id: 1,
