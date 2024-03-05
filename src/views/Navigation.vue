@@ -107,6 +107,12 @@ export default {
           text: "Marker样式",
           path: "/symbol_Marker",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_LineString.jpg",
+          text: "LineString样式",
+          path: "/symbol_LineString",
+        },
       ],
     };
   },

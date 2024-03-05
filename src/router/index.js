@@ -84,6 +84,11 @@ const routes = [
     name: 'symbol_Marker',
     component: () => import("../components/symbol/symbol_Marker.vue")
   },
+  {
+    path: '/symbol_LineString',
+    name: 'symbol_LineString',
+    component: () => import("../components/symbol/symbol_LineString.vue")
+  },
 ]
 
 const router = new VueRouter({

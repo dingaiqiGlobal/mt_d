@@ -31,7 +31,7 @@ export default {
         markerVerticalAlignment: "middle", //图标相对坐标点的垂直对齐方式，取值范围： top, middle, bottom
         textName: "天安门", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
         textSize: 14, //文字大小
-        textFill: "#ccc", //文字颜色
+        textFill: "#0900d9", //文字颜色
         textOpacity: 1, //文字透明度，取值范围0-1
         textFaceName: "monospace", //文字字体，与css的font-family定义相同(https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)
         textWeight: "normal", //文字字重,与css的font-weight定义相同
@@ -40,11 +40,12 @@ export default {
         textDx: 0, //文字在屏幕x轴上的偏移度，单位像素
         textDy: 24, //文字在屏幕y轴上的偏移度，单位像素
         textWrapWidth: 240, //文字换行长度，即文字长度超过该值时就会自动换行
-        textHaloFill: "#fff", //文字描边颜色
-        textHaloRadius: 0, //文字描边半径
+        textHaloFill: "#58e61d", //文字描边颜色
+        textHaloRadius: 1, //文字描边半径
         textHaloOpacity: 1, //文字描边透明度，取值范围0-1
         textHorizontalAlignment: "middle", //文字相对坐标点的水平对齐方式，取值范围： left, middle, right
         textVerticalAlignment: "middle", //文字相对坐标点的垂直对齐方式，取值范围： top, middle, bottom
+        altitude: 1000, //海拔
       },
     };
   },
@@ -73,55 +74,66 @@ export default {
     /**
      * PointLayer
      */
+    let {
+      markerFile,
+      markerOpacity,
+      markerWidth,
+      markerHeight,
+      markerDx,
+      markerDy,
+      markerRotation,
+      markerHorizontalAlignment,
+      markerVerticalAlignment,
+      textName,
+      textSize,
+      textFill,
+      textOpacity,
+      textFaceName,
+      textWeight,
+      textStyle,
+      textRotation,
+      textDx,
+      textDy,
+      textWrapWidth,
+      textHaloFill,
+      textHaloRadius,
+      textHaloOpacity,
+      textHorizontalAlignment,
+      textVerticalAlignment,
+    } = this.point;
     let symbol = [
       {
-        //基础设置
-        markerFile: "images/icon/icon_Red.png",
-        markerOpacity: 1, //取值范围0-1，图标透明度
-        markerWidth: 28, //取值范围0-254，图标高度
-        markerHeight: 40, //取值范围0-254，图标高度
-        markerDx: 0, //取值范围0-127，图标在屏幕范围x轴上的偏移量
-        markerDy: 0, //取值范围0-127，图标在屏幕范围y轴上的偏移量
-        markerRotation: 0, //取值范围0-360，图标的旋转角度，单位度
-        //对齐
-        markerHorizontalAlignment: "middle", //图标相对坐标点的水平对齐方式，取值范围： left, middle, right
-        markerVerticalAlignment: "middle", //图标相对坐标点的垂直对齐方式，取值范围： top, middle, bottom
-        //矢量图标
-        //以下必须有合法的markerType
-        // markerType: null, //矢量图标类别，可选的值： ellipse, cross, x, diamond, bar, square, triangle, pin, pie, rectangle
-        // markerFill: "#00f", //矢量图标的填充色
-        // markerFillPatternFile: null, //矢量图标的模式填充图片地址
-        // markerFillOpacity: 1, //矢量图标填充透明度，取值范围0-1
-        // markerLineColor: "#000", //矢量图标边框颜色
-        // markerLineWidth: 1, //矢量图标边框线宽
-        // markerLineOpacity: 1, //矢量图标边框透明度，取值范围0-1
-        // markerLineDasharray: 1, //矢量图标边框虚线样式
-        // markerLinePatternFile: null, //矢量图标边框的模充图片地址
+        markerFile,
+        markerOpacity,
+        markerWidth,
+        markerHeight,
+        markerDx,
+        markerDy,
+        markerRotation,
+        markerHorizontalAlignment,
+        markerVerticalAlignment,
       },
       {
-        //基础设置
-        textName: "天安门", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
-        textSize: 14, //文字大小
-        textFill: "#ccc", //文字颜色
-        textOpacity: 1, //文字透明度，取值范围0-1
-        textFaceName: "monospace", //文字字体，与css的font-family定义相同
-        textWeight: "normal", //文字字重,与css的font-weight定义相同
-        textStyle: "normal", //文字风格，支持斜体等，与cssfont-style定义相同
-        textRotation: 360, //文字旋转角度，0-360，单位度
-        textDx: 0, //文字在屏幕x轴上的偏移度，单位像素
-        textDy: 24, //文字在屏幕y轴上的偏移度，单位像素
-        textWrapWidth: 240, //文字换行长度，即文字长度超过该值时就会自动换行
-        //文字描边
-        textHaloFill: "#fff", //文字描边颜色
-        textHaloRadius: 0, //文字描边半径
-        textHaloOpacity: 1, //文字描边透明度，取值范围0-1
-        //对齐
-        textHorizontalAlignment: "middle", //文字相对坐标点的水平对齐方式，取值范围： left, middle, right
-        textVerticalAlignment: "middle", //文字相对坐标点的垂直对齐方式，取值范围： top, middle, bottom
+        textName,
+        textSize,
+        textFill,
+        textOpacity,
+        textFaceName,
+        textWeight,
+        textStyle,
+        textRotation,
+        textDx,
+        textDy,
+        textWrapWidth,
+        textHaloFill,
+        textHaloRadius,
+        textHaloOpacity,
+        textHorizontalAlignment,
+        textVerticalAlignment,
       },
     ];
     this.pointLayer = new PointLayer("point0", {});
-    this.marker = new Marker([116.39225, 39.90552], {
+    this.marker = new Marker([116.39225, 39.90552, this.point.Altitude], {
       symbol,
     }).addTo(this.pointLayer);
     /**
@@ -134,6 +146,13 @@ export default {
           mode: 1,
           level: 0,
           brightness: 0,
+        },
+        //只有GLTFMarker有泛光效果
+        postProcess: {
+          enable: true,
+          bloom: {
+            enable: true,
+          },
         },
       },
     });
@@ -153,7 +172,7 @@ export default {
       /**
        * 图形样式
        */
-      pointGeoSymbol.add(this.point, "markerFile");
+      pointGeoSymbol.add(this.point, "markerFile").name("图标地址");
       pointGeoSymbol
         .add(this.point, "markerOpacity")
         .min(0)
@@ -192,6 +211,12 @@ export default {
         .name("y轴上的偏移量")
         .onChange((value) => {
           this.updateSymbol();
+        });
+      pointGeoSymbol
+        .add(this.point, "altitude")
+        .name("海拔高度")
+        .onChange((value) => {
+          this.setAltitude(value);
         });
       pointGeoSymbol
         .add(this.point, "markerRotation")
@@ -306,7 +331,6 @@ export default {
         });
       pointTextSymbol
         .add(this.point, "textHaloRadius")
-        .step(0.1)
         .name("文字描边半径")
         .onChange((value) => {
           this.updateSymbol();
@@ -326,7 +350,7 @@ export default {
         .onChange((value) => {
           this.updateSymbol();
         });
-     pointTextSymbol
+      pointTextSymbol
         .add(this.point, "textVerticalAlignment", ["top", "middle", "bottom"])
         .name("垂直对齐")
         .onChange((value) => {
@@ -399,6 +423,9 @@ export default {
           textVerticalAlignment,
         },
       ]);
+    },
+    setAltitude(value) {
+      this.marker.setAltitude(value);
     },
   },
 };
