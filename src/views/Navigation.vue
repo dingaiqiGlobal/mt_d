@@ -101,6 +101,12 @@ export default {
           text: "3dtiles蒙层",
           path: "/3dtiles_Mask",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_Marker.jpg",
+          text: "Marker样式",
+          path: "/symbol_Marker",
+        },
       ],
     };
   },

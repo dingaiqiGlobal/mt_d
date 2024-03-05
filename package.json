@@ -12,6 +12,7 @@
     "@maptalks/transcoders.draco": "^0.97.1",
     "@maptalks/transcoders.ktx2": "^0.97.1",
     "core-js": "^3.8.3",
+    "dat.gui": "^0.7.9",
     "element-ui": "^2.15.14",
     "maptalks": "^1.0.0-rc.30",
     "maptalks.modelcontrol": "^0.8.0",
