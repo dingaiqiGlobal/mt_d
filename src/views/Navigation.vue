@@ -113,6 +113,12 @@ export default {
           text: "LineString样式",
           path: "/symbol_LineString",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_Polygon.jpg",
+          text: "Polygon样式",
+          path: "/symbol_Polygon",
+        },
       ],
     };
   },

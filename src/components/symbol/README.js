@@ -96,4 +96,15 @@ textAllowOverlap: false, //必须开启碰撞检测。当此文字与其他文�
 textIgnorePlacement: false, //必须开启碰撞检测。当此文字与其他文字碰撞时，是否仍然允许其他文字显示
 //三维透视
 textPerspectiveRatio: true, //是否开启三维透视，文字的近大远小效果
-      
+ 
+    
+    
+    
+/**
+ * Polygon
+ */
+polygonFill: "#00ffea", //面的填充色
+polygonOpacity: 0.5, //透明度,取值范围 0 - 1
+polygonPatternFile:null,//填充图片，支持url或者base64字符串
+uvScale:[1,1],//纹理的缩放倍数，两位数组
+uvOffset:[0,1],//两位数组，纹理的偏移量，0表示不偏移，1表示偏移量等于图片的尺寸，例如0.5表示偏移到图片的一半

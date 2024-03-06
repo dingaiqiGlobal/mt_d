@@ -89,6 +89,11 @@ const routes = [
     name: 'symbol_LineString',
     component: () => import("../components/symbol/symbol_LineString.vue")
   },
+  {
+    path: '/symbol_Polygon',
+    name: 'symbol_Polygon',
+    component: () => import("../components/symbol/symbol_Polygon.vue")
+  },
 ]
 
 const router = new VueRouter({
