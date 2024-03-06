@@ -55,6 +55,7 @@ export default {
         textPlacement: "line", //****沿线分布还是正常点分布必须为line***
         textSpacing: 25, //textPlacement必须是line。即图标沿线分布时，相互的间隔，单位像素
         // mergeOnProperty: null, //(可选)看文档-textPlacement必须是line。是否按照给定property属性合并该属性的值相同的line
+        altitude: 1000, //海拔
       },
     };
   },
@@ -119,6 +120,7 @@ export default {
       textVerticalAlignment,
       textPlacement,
       textSpacing,
+      altitude,
     } = this.lineString;
     lineDasharray = lineDasharray.split(","); //字符串转数组
     let symbol = [
@@ -162,12 +164,12 @@ export default {
     this.lineStringLayer = new LineStringLayer("line0", {});
     this.lineGeometry = new LineString(
       [
-        [116.36835, 39.89841, 0],
-        [116.37663, 39.90533, 0],
-        [116.38968, 39.89874, 0],
-        [116.39367, 39.89881, 0],
-        [116.40053, 39.90631, 0],
-        [116.40573, 39.89956, 0],
+        [116.36835, 39.89841, altitude],
+        [116.37663, 39.90533, altitude],
+        [116.38968, 39.89874, altitude],
+        [116.39367, 39.89881, altitude],
+        [116.40053, 39.90631, altitude],
+        [116.40573, 39.89956, altitude],
       ],
       {
         symbol,
@@ -252,6 +254,12 @@ export default {
         .name("X偏移量")
         .onChange((value) => {
           this.updateSymbol();
+        });
+      lineStringGeoSymbol
+        .add(this.lineString, "altitude")
+        .name("海拔高度")
+        .onChange((value) => {
+          this.setAltitude(value);
         });
       lineStringGeoSymbol
         .add(this.lineString, "lineStrokeWidth")
@@ -490,6 +498,9 @@ export default {
           textSpacing,
         },
       ]);
+    },
+    setAltitude(value) {
+      this.lineGeometry.setAltitude(value);
     },
   },
 };

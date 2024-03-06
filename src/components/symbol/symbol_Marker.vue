@@ -100,6 +100,7 @@ export default {
       textHaloOpacity,
       textHorizontalAlignment,
       textVerticalAlignment,
+      altitude
     } = this.point;
     let symbol = [
       {
@@ -133,7 +134,7 @@ export default {
       },
     ];
     this.pointLayer = new PointLayer("point0", {});
-    this.marker = new Marker([116.39225, 39.90552, this.point.Altitude], {
+    this.marker = new Marker([116.39225, 39.90552, altitude], {
       symbol,
     }).addTo(this.pointLayer);
     /**

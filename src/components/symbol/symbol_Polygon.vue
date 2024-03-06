@@ -22,6 +22,7 @@ export default {
       Polygon: {
         polygonFill: "#00ffea", //面的填充色
         polygonOpacity: 0.5, //透明度,取值范围 0 - 1
+        altitude: 1000, //海拔
         //polygonPatternFile:null,//填充图片，支持url或者base64字符串
         //uvScale:[1,1],//纹理的缩放倍数，两位数组
         //uvOffset:[0,1],//两位数组，纹理的偏移量，0表示不偏移，1表示偏移量等于图片的尺寸，例如0.5表示偏移到图片的一半
@@ -103,6 +104,7 @@ export default {
       textHaloOpacity,
       textHorizontalAlignment,
       textVerticalAlignment,
+      altitude,
     } = this.Polygon;
     lineDasharray = lineDasharray.split(",");
     let symbol = [
@@ -190,6 +192,11 @@ export default {
         .name("填充透明度")
         .onChange((value) => {
           this.updateSymbol();
+        });
+      PolygonGeoSymbol.add(this.Polygon, "altitude")
+        .name("海拔高度")
+        .onChange((value) => {
+          this.setAltitude(value);
         });
       /**
        * 边框样式
@@ -421,6 +428,9 @@ export default {
           textVerticalAlignment,
         },
       ]);
+    },
+    setAltitude(value) {
+      this.PolygonGeometry.setAltitude(value);
     },
   },
 };
