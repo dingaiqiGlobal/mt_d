@@ -242,10 +242,6 @@ export default {
         .onChange((value) => {
           this.updateSymbol();
         });
-
-      /**
-       * 文字样式
-       */
       /**
        * 文字样式
        */

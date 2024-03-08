@@ -119,6 +119,12 @@ export default {
           text: "Polygon样式",
           path: "/symbol_Polygon",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_GeojsonVT_Polygon.jpg",
+          text: "GeojsonVTPolygon样式",
+          path: "/symbol_GeojsonVT_Polygon",
+        },
       ],
     };
   },
