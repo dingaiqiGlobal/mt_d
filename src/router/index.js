@@ -99,6 +99,11 @@ const routes = [
     name: 'symbol_GeojsonVT_Polygon',
     component: () => import("../components/symbol/symbol_GeojsonVT_Polygon.vue")
   },
+  {
+    path: '/symbol_GeojsonVT_LineString',
+    name: 'symbol_GeojsonVT_LineString',
+    component: () => import("../components/symbol/symbol_GeojsonVT_LineString.vue")
+  },
 ]
 
 const router = new VueRouter({
