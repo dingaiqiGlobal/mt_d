@@ -20,7 +20,7 @@ export default {
       PolygonSymbol: {
         polygonFill: "#00ffea", //面的填充色
         polygonOpacity: 0.5, //透明度,取值范围 0 - 1
-        polygonBloom: false, //发光*****
+        polygonBloom: false, //发光***
         //polygonPatternFile:null,//填充图片，支持url或者base64字符串
         //uvScale:[1,1],//纹理的缩放倍数，两位数组
         //uvOffset:[0,1],//两位数组，纹理的偏移量，0表示不偏移，1表示偏移量等于图片的尺寸，例如0.5表示偏移到图片的一半
@@ -469,6 +469,20 @@ export default {
         },
       ]);
     },
+        updatePolygonBoom(value) {
+      this.GeoJSONLayer.highlight([
+        {
+          name: "test-fill",
+          // id: 0,
+          filter: (feature) => {
+            const name = feature.properties.NAME;
+            return name;
+          },
+          plugin: "area-fill",
+          bloom: value,
+        },
+      ]);
+    },
     updateLineColor() {
       let { lineColor } = this.PolygonSymbol;
       this.GeoJSONLayer.updateSymbol("area-border", {
@@ -525,7 +539,7 @@ export default {
         textSize,
       });
     },
-    updateText() {
+    updateTextFill() {
       let { textFill } = this.PolygonSymbol;
       this.GeoJSONLayer.updateSymbol("area-text", {
         textFill,

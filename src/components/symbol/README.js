@@ -1,4 +1,25 @@
 /**
+ * Altitude
+ */
+maptalks生态体系内图层对高度和海拔的支持情况
+maptalks里图形管理类图层都支持海拔数据(z)的渲染, 包括:
+VectorLayer
+PointLayer
+LineStringLayer
+PolygonLayer
+GLTFLayer
+ExtrudePolygonLayer
+ThreeLayer
+
+支持图形垂直高度(height)的图层有：
+GLTFLayer
+ExtrudePolygonLayer
+ThreeLayer
+
+
+
+
+/**
  * Marker
  */
 //基础属性

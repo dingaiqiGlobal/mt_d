@@ -21,13 +21,17 @@ export default {
         lineColor: "#f70404", //线的颜色
         lineWidth: 5, //线宽，取值范围 0 - 127
         lineOpacity: 1, //线的透明度，取值范围 0 - 1
+        lineJoin: "miter", //线的连接样式，可选的值：miter，round，bevel
+        lineCap: "butt", //线头的样式，可选的值：butt，round，square
+        lineDx: 50, //线在屏幕坐标x轴上的偏移量，单位像素，取值范围：-128 - 127
+        lineDy: 0, //线在屏幕坐标y轴上的偏移量，单位像素，取值范围：-128 - 127
         lineStrokeWidth: 0, //线的描边宽度，取值范围 0 - 127
         lineStrokeColor: "#37f611", //线的描边的颜色
-        //geojson-vt:不支持虚线??
         lineDasharray: "20,20,20,20", //线的虚线样式，****四位数组[20, 20, 20, 20]，单位像素,
         lineDashColor: "#fff", //线虚线的颜色
+        lineBloom: false, //泛光
         //标注
-        textName: "标注面", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
+        textName: "", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
         textSize: 14, //文字大小
         textFill: "#0900d9", //文字颜色
         textOpacity: 1, //文字透明度，取值范围0-1
@@ -43,8 +47,8 @@ export default {
         textHaloOpacity: 1, //文字描边透明度，取值范围0-1
         textHorizontalAlignment: "middle", //文字相对坐标点的水平对齐方式，取值范围： left, middle, right
         textVerticalAlignment: "middle", //文字相对坐标点的垂直对齐方式，取值范围： top, middle, bottom
+        //textPlacement: "line", //***沿线分布，必须写symbol中(可能影响字体与旋转)
         textSpacing: 250, //沿线分布间隔
-        //textPlacement: "NAME", //textPlacement必须是line。是否按照给定property属性合并该属性的值相同的line，能让沿线分布的文字绘制得更加准确，例如：
       },
     };
   },
@@ -87,10 +91,15 @@ export default {
       lineColor,
       lineWidth,
       lineOpacity,
+      lineJoin,
+      lineCap,
+      lineDx,
+      lineDy,
       lineStrokeWidth,
       lineStrokeColor,
       lineDasharray,
       lineDashColor,
+      lineBloom,
       textName,
       textSize,
       textFill,
@@ -110,7 +119,6 @@ export default {
       textSpacing,
     } = this.LineStringSymbol;
     lineDasharray = lineDasharray.split(",");
-    console.log(lineDasharray);
     const style = {
       style: [
         {
@@ -131,10 +139,15 @@ export default {
             lineColor,
             lineWidth,
             lineOpacity,
+            lineJoin,
+            lineCap,
+            lineDx,
+            lineDy,
             lineStrokeWidth,
             lineStrokeColor,
             lineDasharray,
             lineDashColor,
+            lineBloom,
           },
         },
         {
@@ -168,7 +181,7 @@ export default {
             textHaloOpacity,
             textHorizontalAlignment,
             textVerticalAlignment,
-            textPlacement: "line",//必须写在这里***
+            textPlacement: "line", //必须写在这里***(可能影响字体与旋转)
             textSpacing,
           },
         },
@@ -214,6 +227,208 @@ export default {
       const LineStringAllSymbol = this.gui.addFolder("线要素样式");
       const LineStringGeoSymbol = LineStringAllSymbol.addFolder("图形样式");
       const LineStringTextSymbol = LineStringAllSymbol.addFolder("标注样式");
+      /**
+       * 图形样式
+       */
+      LineStringGeoSymbol.addColor(this.LineStringSymbol, "lineColor")
+        .name("线的颜色")
+        .onChange((value) => {
+          this.updateLineColor();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineWidth")
+        .min(0)
+        .max(127)
+        .name("线宽")
+        .onChange((value) => {
+          this.updateLineWidth();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineOpacity")
+        .min(0)
+        .max(1)
+        .name("线的透明度")
+        .onChange((value) => {
+          this.updateLineOpacity();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineJoin", [
+        "miter",
+        "round",
+        "bevel",
+      ])
+        .name("线的连接样式")
+        .onChange((value) => {
+          this.updateLineJoin();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineCap", [
+        "butt",
+        "round",
+        "square",
+      ])
+        .name("线头的样式")
+        .onChange((value) => {
+          this.updateLineCap();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineDx")
+        .min(-128)
+        .max(127)
+        .name("X偏移量")
+        .onChange((value) => {
+          this.updateLineDx();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineDy")
+        .min(-128)
+        .max(127)
+        .name("y偏移量")
+        .onChange((value) => {
+          this.updateLineDy();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineStrokeWidth")
+        .min(0)
+        .max(127)
+        .name("描边宽度")
+        .onChange((value) => {
+          this.updateLineStrokeWidth();
+        });
+      LineStringGeoSymbol.addColor(this.LineStringSymbol, "lineStrokeColor")
+        .name("描边颜色")
+        .onChange((value) => {
+          this.updateLineStrokeColor();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineDasharray")
+        .name("虚线样式")
+        .onChange((value) => {
+          this.updateLineDasharray();
+        });
+      LineStringGeoSymbol.addColor(this.LineStringSymbol, "lineDashColor")
+        .name("虚线的颜色")
+        .onChange((value) => {
+          this.updateLineDashColor();
+        });
+      LineStringGeoSymbol.add(this.LineStringSymbol, "lineBloom")
+        .name("泛光")
+        .onChange((value) => {
+          this.updateLineBloom();
+        });
+      /**
+       * 文字样式
+       */
+      LineStringTextSymbol.add(this.LineStringSymbol, "textName")
+        .name("标注字段")
+        .onChange((value) => {
+          this.updateTextName();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textSize")
+        .name("文字大小")
+        .onChange((value) => {
+          this.updateTextSize();
+        });
+      LineStringTextSymbol.addColor(this.LineStringSymbol, "textFill")
+        .name("文字颜色")
+        .onChange((value) => {
+          this.updateTextFill();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textOpacity")
+        .min(0)
+        .max(1)
+        .step(0.1)
+        .name("文字透明度")
+        .onChange((value) => {
+          this.updateTextOpacity();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textFaceName", [
+        "serif",
+        "sans-serif",
+        "monospace",
+        "cursive",
+        "fantasy",
+      ])
+        .name("文字字体")
+        .onChange((value) => {
+          this.updateTextFaceName();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textWeight", [
+        "normal",
+        "bold",
+        "lighter",
+        "bolder",
+      ])
+        .name("文字字重")
+        .onChange((value) => {
+          this.updateTextWeight();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textStyle", [
+        "normal",
+        "italic",
+        "oblique",
+      ])
+        .name("文字风格")
+        .onChange((value) => {
+          this.updateTextStyle();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textRotation")
+        .min(0)
+        .max(360)
+        .step(5)
+        .name("文字旋转角度")
+        .onChange((value) => {
+          this.updateTextRotation();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textDx")
+        .min(0)
+        .max(127)
+        .step(1)
+        .name("x轴上的偏移量")
+        .onChange((value) => {
+          this.updateTextDx();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textDy")
+        .min(0)
+        .max(127)
+        .step(1)
+        .name("y轴上的偏移量")
+        .onChange((value) => {
+          this.updateTextDy();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textWrapWidth")
+        .name("文字换行长度")
+        .onChange((value) => {
+          this.updateTextWrapWidth();
+        });
+      LineStringTextSymbol.addColor(this.LineStringSymbol, "textHaloFill")
+        .name("文字描边颜色")
+        .onChange((value) => {
+          this.updateTextHaloFill();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textHaloRadius")
+        .name("文字描边半径")
+        .onChange((value) => {
+          this.updateTextHaloRadius();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textHaloOpacity")
+        .min(0)
+        .max(1)
+        .step(0.1)
+        .name("文字描边透明度")
+        .onChange((value) => {
+          this.updateTextHaloOpacity();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textHorizontalAlignment", [
+        "left",
+        "middle",
+        "right",
+      ])
+        .name("水平对齐")
+        .onChange((value) => {
+          this.updateTextHorizontalAlignment();
+        });
+      LineStringTextSymbol.add(this.LineStringSymbol, "textVerticalAlignment", [
+        "top",
+        "middle",
+        "bottom",
+      ])
+        .name("垂直对齐")
+        .onChange((value) => {
+          this.updateTextVerticalAlignment();
+        });
 
       /**
        * 开启
@@ -221,6 +436,180 @@ export default {
       LineStringAllSymbol.open();
       LineStringGeoSymbol.close();
       LineStringTextSymbol.close();
+    },
+    /**
+     * 更新样式不选择setStyle
+     * updateSymbol 用于图层样式的局部更新，相比 setStyle 性能更高，
+     * 且除了部分需重构 Mesh 的属性一般不会造成图层刷新闪烁
+     */
+    updateLineColor() {
+      let { lineColor } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineColor,
+      });
+    },
+    updateLineWidth() {
+      let { lineWidth } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineWidth,
+      });
+    },
+    updateLineOpacity() {
+      let { lineOpacity } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineOpacity,
+      });
+    },
+    updateLineJoin() {
+      let { lineJoin } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineJoin,
+      });
+    },
+    updateLineCap() {
+      let { lineCap } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineCap,
+      });
+    },
+    updateLineDx() {
+      let { lineDx } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineDx,
+      });
+    },
+    updateLineDy() {
+      let { lineDy } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineDy,
+      });
+    },
+    updateLineStrokeWidth() {
+      let { lineStrokeWidth } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineStrokeWidth,
+      });
+    },
+    updateLineStrokeColor() {
+      let { lineStrokeColor } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineStrokeColor,
+      });
+    },
+    updateLineDasharray() {
+      let { lineDasharray } = this.LineStringSymbol;
+      lineDasharray = lineDasharray.split(",");
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineDasharray,
+      });
+    },
+    updateLineDashColor() {
+      let { lineDashColor } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineDashColor,
+      });
+    },
+    updateLineBloom() {
+      let { lineBloom } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-border", {
+        lineBloom,
+      });
+    },
+    updateTextName() {
+      let { textName } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textName,
+      });
+    },
+    updateTextSize() {
+      let { textSize } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textSize,
+      });
+    },
+    updateTextFill() {
+      let { textFill } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textFill,
+      });
+    },
+    updateTextOpacity() {
+      let { textOpacity } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textOpacity,
+      });
+    },
+    updateTextFaceName() {
+      let { textFaceName } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textFaceName,
+      });
+    },
+    updateTextWeight() {
+      let { textWeight } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textWeight,
+      });
+    },
+    updateTextStyle() {
+      let { textStyle } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textStyle,
+      });
+    },
+    updateTextRotation() {
+      let { textRotation } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textRotation,
+      });
+    },
+    updateTextDx() {
+      let { textDx } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textDx,
+      });
+    },
+    updateTextDy() {
+      let { textDy } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textDy,
+      });
+    },
+    updateTextWrapWidth() {
+      let { textWrapWidth } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textWrapWidth,
+      });
+    },
+    updateTextHaloFill() {
+      let { textHaloFill } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textHaloFill,
+      });
+    },
+    updateTextHaloRadius() {
+      let { textHaloRadius } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textHaloRadius,
+      });
+    },
+    updateTextHaloOpacity() {
+      let { textHaloOpacity } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textHaloOpacity,
+      });
+    },
+    updateTextHorizontalAlignment() {
+      let { textHorizontalAlignment } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textHorizontalAlignment,
+      });
+    },
+    updateTextVerticalAlignment() {
+      let { textVerticalAlignment } = this.LineStringSymbol;
+      this.GeoJSONLayer.updateSymbol("line-text", {
+        textVerticalAlignment,
+      });
     },
   },
 };
