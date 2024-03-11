@@ -29,9 +29,8 @@ export default {
         lineOpacity: 1, //线的透明度，取值范围 0 - 1
         lineStrokeWidth: 0, //线的描边宽度，取值范围 0 - 127
         lineStrokeColor: "#37f611", //线的描边的颜色
-        //geojson-vt:不支持虚线??
-        lineDasharray: "20, 20, 20, 20", //线的虚线样式，****四位数组[20, 20, 20, 20]，单位像素,
-        lineDashColor: "#ff0000", //线虚线的颜色
+        lineDasharray: "20,20,20,20", //线的虚线样式，****四位数组[20,20,20,20]，单位像素,
+        lineDashColor: "#fff", //线虚线的颜色
         //标注
         textName: "标注面", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
         textSize: 14, //文字大小
@@ -286,6 +285,16 @@ export default {
         .onChange((value) => {
           this.updateLineStrokeColor();
         });
+      PolygonGeoSymbol.add(this.PolygonSymbol, "lineDasharray")
+        .name("虚线样式")
+        .onChange((value) => {
+          this.updateLineDasharray();
+        });
+      PolygonGeoSymbol.addColor(this.PolygonSymbol, "lineDashColor")
+        .name("虚线的颜色")
+        .onChange((value) => {
+          this.updateLineDashColor();
+        });
       /**
        * 文字样式
        */
@@ -490,6 +499,20 @@ export default {
         lineStrokeColor,
       });
     },
+    updateLineDasharray() {
+      let { lineDasharray } = this.PolygonSymbol;
+      lineDasharray = lineDasharray.split(","); //字符串转数组
+      this.GeoJSONLayer.updateSymbol("area-border", {
+        lineDasharray,
+      });
+    },
+    updateLineDashColor() {
+      let { lineDashColor } = this.PolygonSymbol;
+      this.GeoJSONLayer.updateSymbol("area-border", {
+        lineDashColor,
+      });
+    },
+
     updateTextName() {
       let { textName } = this.PolygonSymbol;
       this.GeoJSONLayer.updateSymbol("area-text", {

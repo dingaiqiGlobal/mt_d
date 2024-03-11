@@ -24,8 +24,8 @@ export default {
         lineStrokeWidth: 0, //线的描边宽度，取值范围 0 - 127
         lineStrokeColor: "#37f611", //线的描边的颜色
         //geojson-vt:不支持虚线??
-        lineDasharray: "20, 20, 20, 20", //线的虚线样式，****四位数组[20, 20, 20, 20]，单位像素,
-        lineDashColor: "#ff0000", //线虚线的颜色
+        lineDasharray: "20,20,20,20", //线的虚线样式，****四位数组[20, 20, 20, 20]，单位像素,
+        lineDashColor: "#fff", //线虚线的颜色
         //标注
         textName: "标注面", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
         textSize: 14, //文字大小
@@ -110,6 +110,7 @@ export default {
       textSpacing,
     } = this.LineStringSymbol;
     lineDasharray = lineDasharray.split(",");
+    console.log(lineDasharray);
     const style = {
       style: [
         {
