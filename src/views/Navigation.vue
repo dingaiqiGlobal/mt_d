@@ -125,11 +125,17 @@ export default {
           text: "GeojsonVTPolygon样式",
           path: "/symbol_GeojsonVT_Polygon",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/symbol/symbol_GeojsonVT_LineString.jpg",
           text: "GeojsonVTLineString样式",
           path: "/symbol_GeojsonVT_LineString",
+        },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_GeojsonVT_Marker.jpg",
+          text: "GeojsonVT_Marker样式",
+          path: "/symbol_GeojsonVT_Marker",
         },
       ],
     };
