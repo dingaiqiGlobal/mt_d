@@ -109,6 +109,11 @@ const routes = [
     name: 'symbol_GeojsonVT_Marker',
     component: () => import("../components/symbol/symbol_GeojsonVT_Marker.vue")
   },
+  {
+    path: '/symbol_Heatmap',
+    name: 'symbol_Heatmap',
+    component: () => import("../components/symbol/symbol_Heatmap.vue")
+  },
 ]
 
 const router = new VueRouter({

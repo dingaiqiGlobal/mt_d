@@ -137,6 +137,12 @@ export default {
           text: "GeojsonVT_Marker样式",
           path: "/symbol_GeojsonVT_Marker",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_Heatmap.jpg",
+          text: "热力图",
+          path: "/symbol_Heatmap",
+        },
       ],
     };
   },
