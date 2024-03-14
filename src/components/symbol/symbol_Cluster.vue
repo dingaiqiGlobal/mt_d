@@ -15,7 +15,8 @@ export default {
   data() {
     return {
       map: null,
-      heatmapLayer: null,
+      clusterLayer: null,
+      clusterMarkers: null,
       clusterAllSymbol: {
         maxClusterRadius: 160, //最大聚类半径（默认为160)
         clusterSymbol: {
@@ -36,7 +37,7 @@ export default {
         },
         maxClusterZoom: 18, //绘制为簇的最大缩放
         markerSymbol: {
-          markerFile: "images/icon/icon_Red.png",
+          markerFile: "images/icon/cluster1.png",
           markerOpacity: 1,
           markerWidth: 28,
           markerHeight: 40,
@@ -130,11 +131,10 @@ export default {
         .then((json) => {
           //GeoJSON2Marker-GeoJSON中的方法
           GeoJSON.toGeometryAsync(json).then((geos) => {
-            // console.log(geos)
             geos.map((item) => {
               item.setSymbol(markerSymbol);
             });
-            // console.log(geos)
+            this.clusterMarkers = geos; //marker保存起来
             this.addClusterLayer({
               id: "cluster_01",
               markers: geos,
@@ -148,7 +148,7 @@ export default {
     },
     addClusterLayer(options) {
       let { id, markers, maxClusterRadius, symbol, textSymbol, maxClusterZoom } = options;
-      let clusterLayer = new ClusterLayer(id, markers, {
+      this.clusterLayer = new ClusterLayer(id, markers, {
         maxClusterRadius,
         symbol,
         textSymbol,
@@ -159,7 +159,7 @@ export default {
         geometryEvents: true,
         single: true,
       });
-      this.map.addLayer(clusterLayer);
+      this.map.addLayer(this.clusterLayer);
     },
     initGui() {
       /**
@@ -168,6 +168,42 @@ export default {
       this.gui = new dat.GUI();
       this.gui.domElement.style = "position:absolute;top:10px;left:10px";
       const ClueterSymbol = this.gui.addFolder("聚散图");
+      ClueterSymbol.add(this.clusterAllSymbol, "maxClusterRadius")
+        .min(0)
+        .max(1000)
+        .step(1)
+        .name("聚类半径")
+        .onChange((value) => {
+          //解决不了刷新问题
+          this.clusterLayer.config("maxClusterRadius", value);
+        });
+      ClueterSymbol.add(this.clusterAllSymbol, "maxClusterZoom")
+        .min(1)
+        .max(22)
+        .step(1)
+        .name("最大缩放")
+        .onChange((value) => {
+          this.clusterLayer.config("maxClusterZoom", value);
+        });
+      ClueterSymbol.add(this.clusterAllSymbol.clusterSymbol, "markerFile")
+        .name("聚合图标地址")
+        .onChange((value) => {
+          this.clusterLayer.config({
+            //内部聚起来的图标就在就是symbol中
+            symbol: {
+              markerFile: value,
+            },
+          });
+        });
+      ClueterSymbol.add(this.clusterAllSymbol.markerSymbol, "markerFile")
+        .name("散开图标地址")
+        .onChange((value) => {
+          this.clusterMarkers.map((item) => {
+            item.updateSymbol({
+              markerFile: value,
+            });
+          });
+        });
       ClueterSymbol.open();
     },
   },

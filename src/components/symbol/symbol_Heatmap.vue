@@ -162,11 +162,11 @@ export default {
           let gradient;
           if (value === "style1") {
             gradient = {
-              0.2: "#3c1cc1",
-              0.4: "#b74df4",
-              0.6: "#ea89ed",
-              0.8: "#fbb9b9",
-              1.0: "#f5df3d",
+              0.4: "blue",
+              0.6: "cyan",
+              0.7: "lime",
+              0.8: "yellow",
+              1.0: "red",
             };
           }
           if (value === "style2") {
