@@ -143,6 +143,12 @@ export default {
           text: "热力图",
           path: "/symbol_Heatmap",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_Cluster.jpg",
+          text: "聚散图",
+          path: "/symbol_Cluster",
+        },
       ],
     };
   },

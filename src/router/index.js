@@ -114,6 +114,11 @@ const routes = [
     name: 'symbol_Heatmap',
     component: () => import("../components/symbol/symbol_Heatmap.vue")
   },
+  {
+    path: '/symbol_Cluster',
+    name: 'symbol_Cluster',
+    component: () => import("../components/symbol/symbol_Cluster.vue")
+  },
 ]
 
 const router = new VueRouter({

@@ -17,8 +17,8 @@ export default {
       map: null,
       heatmapLayer: null,
       heatSymbol: {
-        radius: 25,//点半径
-        blur: 15,//模糊半径
+        radius: 25, //点半径
+        blur: 15, //模糊半径
         gradient: "style1",
         // gradient: { //样式选择
         //   0.4: "blue",
@@ -54,8 +54,9 @@ export default {
 
   methods: {
     /**
+     * cnpm i maptalks.heatmap --save
      * 是maptalks.Layer 的子类，继承了所有的方法
-     * new maptalks.HeatmapLayer(id, data, options)
+     * new HeatLayer(id, data, options)
      * 一、属性
      * id          String           图层id
      * data        Array[]          [[x, y, value], [x, y, value]..]
@@ -161,11 +162,11 @@ export default {
           let gradient;
           if (value === "style1") {
             gradient = {
-              0.4: "blue",
-              0.6: "cyan",
-              0.7: "lime",
-              0.8: "yellow",
-              1.0: "red",
+              0.2: "#3c1cc1",
+              0.4: "#b74df4",
+              0.6: "#ea89ed",
+              0.8: "#fbb9b9",
+              1.0: "#f5df3d",
             };
           }
           if (value === "style2") {
