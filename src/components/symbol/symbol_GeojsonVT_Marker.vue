@@ -137,6 +137,23 @@ export default {
             markerHorizontalAlignment,
             markerVerticalAlignment,
             markerBloom,
+          },
+        },
+        {
+          name: "marker-text",
+          renderPlugin: {
+            dataConfig: {
+              type: "point",
+            },
+            sceneConfig: {
+              collision: true,
+              fading: false,
+              depthFunc: "always",
+            },
+            type: "text",
+          },
+          filter: true,
+          symbol: {
             textName: "{NAME}",
             textSize,
             textFill,
@@ -461,97 +478,97 @@ export default {
     },
     updateTextName() {
       let { textName } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textName,
       });
     },
     updateTextSize() {
       let { textSize } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textSize,
       });
     },
     updateTextFill() {
       let { textFill } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textFill,
       });
     },
     updateTextOpacity() {
       let { textOpacity } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textOpacity,
       });
     },
     updateTextFaceName() {
       let { textFaceName } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textFaceName,
       });
     },
     updateTextWeight() {
       let { textWeight } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textWeight,
       });
     },
     updateTextStyle() {
       let { textStyle } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textStyle,
       });
     },
     updateTextRotation() {
       let { textRotation } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textRotation,
       });
     },
     updateTextDx() {
       let { textDx } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textDx,
       });
     },
     updateTextDy() {
       let { textDy } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textDy,
       });
     },
     updateTextWrapWidth() {
       let { textWrapWidth } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textWrapWidth,
       });
     },
     updateTextHaloFill() {
       let { textHaloFill } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textHaloFill,
       });
     },
     updateTextHaloRadius() {
       let { textHaloRadius } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textHaloRadius,
       });
     },
     updateTextHaloOpacity() {
       let { textHaloOpacity } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textHaloOpacity,
       });
     },
     updateTextHorizontalAlignment() {
       let { textHorizontalAlignment } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textHorizontalAlignment,
       });
     },
     updateTextVerticalAlignment() {
       let { textVerticalAlignment } = this.MarkerSymbol;
-      this.GeoJSONLayer.updateSymbol("marker", {
+      this.GeoJSONLayer.updateSymbol("marker-text", {
         textVerticalAlignment,
       });
     },
