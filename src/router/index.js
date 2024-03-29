@@ -119,6 +119,11 @@ const routes = [
     name: 'symbol_Cluster',
     component: () => import("../components/symbol/symbol_Cluster.vue")
   },
+  {
+    path: '/symbol_GeojsonVT_Polygon_3d_extrusion',
+    name: 'symbol_GeojsonVT_Polygon_3d_extrusion',
+    component: () => import("../components/symbol/symbol_GeojsonVT_Polygon_3d_extrusion.vue")
+  },
 ]
 
 const router = new VueRouter({

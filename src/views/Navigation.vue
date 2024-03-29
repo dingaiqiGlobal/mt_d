@@ -149,6 +149,12 @@ export default {
           text: "聚散图",
           path: "/symbol_Cluster",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_GeojsonVT_Polygon_3d_extrusion.jpg",
+          text: "3d挤出面",
+          path: "/symbol_GeojsonVT_Polygon_3d_extrusion",
+        },
       ],
     };
   },
