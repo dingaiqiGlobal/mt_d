@@ -64,6 +64,7 @@ export default {
     const style = {
       style: [
         {
+          name: "id_3d-extrusion",
           renderPlugin: {
             // [必填] 固定为lit
             type: "lit",

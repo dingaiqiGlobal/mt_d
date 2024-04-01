@@ -124,6 +124,11 @@ const routes = [
     name: 'symbol_GeojsonVT_Polygon_3d_extrusion',
     component: () => import("../components/symbol/symbol_GeojsonVT_Polygon_3d_extrusion.vue")
   },
+  {
+    path: '/symbol_GeojsonVT_PoineModel',
+    name: 'symbol_GeojsonVT_PoineModel',
+    component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel.vue")
+  },
 ]
 
 const router = new VueRouter({

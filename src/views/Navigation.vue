@@ -155,6 +155,12 @@ export default {
           text: "3d挤出面",
           path: "/symbol_GeojsonVT_Polygon_3d_extrusion",
         },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_GeojsonVT_PoineModel.jpg",
+          text: "点模型渲染",
+          path: "/symbol_GeojsonVT_PoineModel",
+        },
       ],
     };
   },
