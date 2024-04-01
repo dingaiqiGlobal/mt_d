@@ -157,9 +157,15 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/symbol/symbol_GeojsonVT_PoineModel.jpg",
-          text: "点模型渲染",
-          path: "/symbol_GeojsonVT_PoineModel",
+          img: "/images/nav/symbol/symbol_GeojsonVT_PoineModel_MultiGLTFMarker.jpg",
+          text: "模型MultiGLTFMarker",
+          path: "/symbol_GeojsonVT_PoineModel_MultiGLTFMarker",
+        },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.jpg",
+          text: "模型GLTFMarker",
+          path: "/symbol_GeojsonVT_PoineModel_GLTFMarker",
         },
       ],
     };
