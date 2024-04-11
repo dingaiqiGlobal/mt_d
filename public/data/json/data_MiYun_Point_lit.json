@@ -1,0 +1,16 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.98698600000012,40.45542597000008]},"properties":{"OBJECTID":14,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.97628280000004,40.56615504000007]},"properties":{"OBJECTID":40,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.9055691000001,40.550649030000045]},"properties":{"OBJECTID":63,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.8973860000001,40.543365960000074]},"properties":{"OBJECTID":66,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.9160710000001,40.57550397000006]},"properties":{"OBJECTID":67,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.93336800000009,40.42447497000006]},"properties":{"OBJECTID":69,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.02508980000005,40.47400899000007]},"properties":{"OBJECTID":82,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.00193390000004,40.58264304000005]},"properties":{"OBJECTID":84,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.90694400000007,40.58416899000008]},"properties":{"OBJECTID":102,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.99780180000005,40.55545998000008]},"properties":{"OBJECTID":130,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.89947500000005,40.454874990000064]},"properties":{"OBJECTID":147,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.01247690000002,40.442061960000046]},"properties":{"OBJECTID":153,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.95518290000007,40.56242598000006]},"properties":{"OBJECTID":156,"NAME":"村"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.97851090000006,40.42629297000008]},"properties":{"OBJECTID":173,"NAME":"村"}}
+]}
