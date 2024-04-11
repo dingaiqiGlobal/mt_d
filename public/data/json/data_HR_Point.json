@@ -1,0 +1,8 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.55909825854079,40.48680752270378]},"properties":{"NAME":"怀柔_点_5"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.58765179061075,40.516312839176074]},"properties":{"NAME":"怀柔_点_2"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.55719468973612,40.51536105477374]},"properties":{"NAME":"怀柔_点_1"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.59145892822008,40.48775930710611]},"properties":{"NAME":"怀柔_点_6"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.62286781349704,40.516312839176074]},"properties":{"NAME":"怀柔_点_3"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.65808383638333,40.51536105477374]},"properties":{"NAME":"怀柔_点_4"}}
+]}

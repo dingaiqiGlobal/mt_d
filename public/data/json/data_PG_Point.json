@@ -1,0 +1,8 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.0749654046048,40.20032041760181]},"properties":{"NAME":"平谷_点_1"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.10542250547942,40.20127220200414]},"properties":{"NAME":"平谷_点_2"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.14063852836571,40.20127220200414]},"properties":{"NAME":"平谷_点_3"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.175854551252,40.20032041760181]},"properties":{"NAME":"平谷_点_4"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.07686897340946,40.171766885531845]},"properties":{"NAME":"平谷_点_5"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.10922964308875,40.17271866993418]},"properties":{"NAME":"平谷_点_6"}}
+]}

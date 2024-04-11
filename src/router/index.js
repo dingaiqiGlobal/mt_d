@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/map_ToJSON',
+    name: 'map_ToJSON',
+    component: () => import("../components/map/map_ToJSON.vue")
+  },
+  {
     path: '/map_options',
     name: 'map_options',
     component: () => import("../components/map/map_options.vue")

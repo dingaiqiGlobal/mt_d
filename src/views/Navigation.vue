@@ -20,6 +20,12 @@ export default {
         {
           id: 1,
           img: "/images/nav/map/map_options.jpg",
+          text: "map转json",
+          path: "/map_ToJSON",
+        },
+        {
+          id: 1,
+          img: "/images/nav/map/map_options.jpg",
           text: "map参数",
           path: "/map_options",
         },

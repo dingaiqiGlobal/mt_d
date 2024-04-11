@@ -1,0 +1,8 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.85986212967774,40.58484131614399]},"properties":{"NAME":"密云_点_1"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.89031923055236,40.58579310054632]},"properties":{"NAME":"密云_点_2"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.92553525343865,40.58579310054632]},"properties":{"NAME":"密云_点_3"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.96075127632494,40.58484131614399]},"properties":{"NAME":"密云_点_4"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.8617656984824,40.55628778407402]},"properties":{"NAME":"密云_点_5"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.8941263681617,40.557239568476355]},"properties":{"NAME":"密云_点_6"}}
+]}
