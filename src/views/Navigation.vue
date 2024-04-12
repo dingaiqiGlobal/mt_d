@@ -19,7 +19,7 @@ export default {
       list: [
         {
           id: 1,
-          img: "/images/nav/map/map_options.jpg",
+          img: "/images/nav/map/map_ToJSON.jpg",
           text: "map转json",
           path: "/map_ToJSON",
         },
