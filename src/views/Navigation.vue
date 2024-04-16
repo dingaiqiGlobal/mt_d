@@ -157,6 +157,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/symbol/symbol_Cluster.jpg",
+          text: "聚散图样式改变",
+          path: "/symbol_Cluster_Change",
+        },
+        {
+          id: 1,
           img: "/images/nav/symbol/symbol_GeojsonVT_Polygon_3d_extrusion.jpg",
           text: "3d挤出面",
           path: "/symbol_GeojsonVT_Polygon_3d_extrusion",
