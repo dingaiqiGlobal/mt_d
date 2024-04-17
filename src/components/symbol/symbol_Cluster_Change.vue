@@ -6,14 +6,14 @@
         type="textarea"
         :rows="2"
         placeholder="请输入内容"
-        v-model="clusterAllSymbol.clusterSymbol.markerFile"
+        v-model="clusterSymbol.symbol.markerFile"
       >
       </el-input>
       <el-input
         type="textarea"
         :rows="2"
         placeholder="请输入内容"
-        v-model="clusterAllSymbol.markerSymbol.markerFile"
+        v-model="markerSymbol.markerFile"
       >
       </el-input>
     </div>
@@ -29,9 +29,9 @@ export default {
   data() {
     return {
       map: null,
-      clusterAllSymbol: {
+      clusterSymbol: {
         maxClusterRadius: 160, //最大聚类半径（默认为160)
-        clusterSymbol: {
+        symbol: {
           markerFile: "images/icon/cluster1.png", //图标的地址
           markerOpacity: 1, //取值范围0-1，图标透明度
           markerWidth: 50, //图标高度
@@ -39,7 +39,7 @@ export default {
           markerHorizontalAlignment: "middle", //图标相对坐标点的水平对齐方式，取值范围： left, middle, right
           markerVerticalAlignment: "middle", //图标相对坐标点的垂直对齐方式，取值范围： top, middle, bottom
         },
-        clusterTextSymbol: {
+        textSymbol: {
           //聚类文本符号
           textSize: 30, //文字大小
           textFill: "#0900d9", //文字颜色
@@ -48,36 +48,41 @@ export default {
           textWeight: "normal", //文字字重,与css的font-weight定义相同(加粗)
         },
         maxClusterZoom: 18, //绘制为簇的最大缩放
-        markerSymbol: {
-          markerFile: "images/icon/icon_Red.png",
-          markerOpacity: 1,
-          markerWidth: 28,
-          markerHeight: 40,
-          markerHorizontalAlignment: "middle",
-          markerVerticalAlignment: "middle",
-          textName: "{NAME}", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
-          textSize: 10, //文字大小
-          textFill: "#0900d9", //文字颜色
-          textOpacity: 0.5, //文字透明度，取值范围0-1
-          textFaceName: "monospace", //文字字体，与css的font-family定义相同(https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)
-          textWeight: "normal", //文字字重,与css的font-weight定义相同
-          textStyle: "normal", //文字风格，支持斜体等，与cssfont-style定义相同
-          textDx: 0, //文字在屏幕x轴上的偏移度，单位像素
-          textDy: 24, //文字在屏幕y轴上的偏移度，单位像素
-          textWrapWidth: 240, //文字换行长度，即文字长度超过该值时就会自动换行
-          textHaloFill: "#58e61d", //文字描边颜色
-          textHaloRadius: 2, //文字描边半径
-          textHaloOpacity: 1, //文字描边透明度，取值范围0-1
-        },
+      },
+      markerSymbol: {
+        markerFile: "images/icon/icon_Red.png",
+        markerOpacity: 1,
+        markerWidth: 28,
+        markerHeight: 40,
+        markerHorizontalAlignment: "middle",
+        markerVerticalAlignment: "middle",
+        textName: "{NAME}", //{name}显示的文字内容，如果要显示某个属性得值，用大括号括起来即可
+        textSize: 10, //文字大小
+        textFill: "#0900d9", //文字颜色
+        textOpacity: 0.5, //文字透明度，取值范围0-1
+        textFaceName: "monospace", //文字字体，与css的font-family定义相同(https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-family)
+        textWeight: "normal", //文字字重,与css的font-weight定义相同
+        textStyle: "normal", //文字风格，支持斜体等，与cssfont-style定义相同
+        textDx: 0, //文字在屏幕x轴上的偏移度，单位像素
+        textDy: 24, //文字在屏幕y轴上的偏移度，单位像素
+        textWrapWidth: 240, //文字换行长度，即文字长度超过该值时就会自动换行
+        textHaloFill: "#58e61d", //文字描边颜色
+        textHaloRadius: 2, //文字描边半径
+        textHaloOpacity: 1, //文字描边透明度，取值范围0-1
       },
     };
   },
 
   computed: {},
   watch: {
-    clusterAllSymbol: {
+    clusterSymbol: {
       handler(nval, oval) {
         this.updateClusterSymbol(nval);
+      },
+      deep: true,
+    },
+    markerSymbol: {
+      handler(nval, oval) {
         this.updateMarkerSymbol(nval);
       },
       deep: true,
@@ -125,35 +130,78 @@ export default {
         .then((json) => {
           GeoJSON.toGeometryAsync(json).then((geos) => {
             geos.map((item) => {
-              item.setSymbol(this.clusterAllSymbol.markerSymbol);
+              item.setSymbol(this.markerSymbol);
             });
             let clusterLayer = new ClusterLayer(key, geos, {
-              maxClusterRadius: this.clusterAllSymbol.maxClusterRadius,
-              maxClusterZoom: this.clusterAllSymbol.maxClusterZoom,
-              symbol: this.clusterAllSymbol.clusterSymbol,
-              textSymbol: this.clusterAllSymbol.clusterTextSymbol,
+              maxClusterRadius: this.clusterSymbol.maxClusterRadius,
+              maxClusterZoom: this.clusterSymbol.maxClusterZoom,
+              symbol: this.clusterSymbol.symbol,
+              textSymbol: this.clusterSymbol.textSymbol,
             });
             this.map.addLayer(clusterLayer);
           });
         });
     },
     updateClusterSymbol(style) {
-      let { clusterSymbol, maxClusterRadius } = style;
+      let { maxClusterRadius, maxClusterZoom, symbol, textSymbol } = style;
+      let {
+        markerFile,
+        markerOpacity,
+        markerWidth,
+        markerHeight,
+        markerHorizontalAlignment,
+        markerVerticalAlignment,
+      } = symbol;
+      let {
+        textName,
+        textSize,
+        textFill,
+        textOpacity,
+        textFaceName,
+        textWeight,
+        textStyle,
+        textDx,
+        textDy,
+        textWrapWidth,
+        textHaloFill,
+        textHaloRadius,
+        textHaloOpacity,
+      } = textSymbol;
       let _target = this.map.getLayer("cluster_01");
       //必须传值，不能传对象
       _target.config({
+        maxClusterRadius: maxClusterRadius,
+        maxClusterZoom: maxClusterZoom,
         symbol: {
-          markerFile: clusterSymbol.markerFile,
+          markerFile: markerFile,
+          markerOpacity: markerOpacity,
+          markerWidth: markerWidth,
+          markerHeight: markerHeight,
+          markerHorizontalAlignment: markerHorizontalAlignment,
+          markerVerticalAlignment: markerVerticalAlignment,
+        },
+        textSymbol: {
+          textName: textName,
+          textSize: textSize,
+          textFill: textFill,
+          textOpacity: textOpacity,
+          textFaceName: textFaceName,
+          textWeight: textWeight,
+          textStyle: textStyle,
+          textDx: textDx,
+          textDy: textDy,
+          textWrapWidth: textWrapWidth,
+          textHaloFill: textHaloFill,
+          textHaloRadius: textHaloRadius,
+          textHaloOpacity: textHaloOpacity,
         },
       });
     },
     updateMarkerSymbol(style) {
-      //这个可以传对象
-      let { markerSymbol } = style;
       let _target = this.map.getLayer("cluster_01");
       let markerArr = _target._geoList;
       markerArr.map((item) => {
-        item.updateSymbol(markerSymbol);
+        item.updateSymbol(style);
       });
     },
   },
