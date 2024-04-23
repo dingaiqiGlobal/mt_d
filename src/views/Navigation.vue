@@ -157,7 +157,7 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/symbol/symbol_Cluster.jpg",
+          img: "/images/nav/symbol/symbol_Cluster_Change.jpg",
           text: "聚散图样式改变",
           path: "/symbol_Cluster_Change",
         },

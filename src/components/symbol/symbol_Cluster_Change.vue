@@ -16,6 +16,8 @@
         v-model="markerSymbol.markerFile"
       >
       </el-input>
+        <span class="demonstration">聚合透明度</span>
+    <el-slider :min=0 :max=1 :step=0.1 v-model="clusterSymbol.symbol.markerOpacity"></el-slider>
     </div>
   </div>
 </template>
@@ -97,7 +99,7 @@ export default {
         projection: "EPSG:3857",
       },
       baseLayer: new TileLayer("tile", {
-        urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+        urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
         subdomains: ["a", "b", "c", "d"],
         attribution:
           '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
@@ -143,6 +145,7 @@ export default {
         });
     },
     updateClusterSymbol(style) {
+      console.log(style)
       let { maxClusterRadius, maxClusterZoom, symbol, textSymbol } = style;
       let {
         markerFile,
