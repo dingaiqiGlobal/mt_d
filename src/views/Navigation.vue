@@ -31,6 +31,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/control/control_collection.jpg",
+          text: "控件",
+          path: "/control_collection",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_WMS.jpg",
           text: "WMS参数",
           path: "/layer_WMS",

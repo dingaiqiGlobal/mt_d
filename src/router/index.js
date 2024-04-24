@@ -20,6 +20,11 @@ const routes = [
     component: () => import("../components/map/map_options.vue")
   },
   {
+    path: '/control_collection',
+    name: 'control_collection',
+    component: () => import("../components/control/control_collection.vue")
+  },
+  {
     path: '/layer_WMS',
     name: 'layer_WMS',
     component: () => import("../components/layer/layer_WMS.vue")
