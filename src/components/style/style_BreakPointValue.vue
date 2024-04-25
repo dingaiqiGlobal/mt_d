@@ -1,8 +1,7 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div class="control">
-    </div>
+    <div class="control"></div>
   </div>
 </template>
 
@@ -39,13 +38,20 @@ export default {
 
   methods: {
     addLayer() {
-      const layer = new VectorLayer("layer", {}).addTo(this.map);
+      const layer = new VectorLayer("layer", {
+        //碰撞检测
+        collision: true,
+        collisionDelay: 250,
+        collisionBufferSize: 10,
+      }).addTo(this.map);
       fetch("data/json/data_Polygon_BJ.json")
         .then((res) => res.json())
         .then((geojson) => {
           const polygons = GeoJSON.toGeometry(geojson);
           polygons.forEach((polygon) => {
             polygon.options.enableSimplify = false; //启用简化
+            let { NAME } = polygon.properties;
+            console.log(NAME);
             polygon.setSymbol({
               polygonFill: {
                 //color-interpolate 颜色差值(新增)
@@ -65,10 +71,34 @@ export default {
               polygonOpacity: 1,
               lineWidth: 1,
               lineColor: "#444",
+              textName: NAME,
+              textHaloRadius: 0.2,
+              textHaloFill: "#fff",
             });
+            polygon.on("mouseover mouseout", this.mouseEventFunc);
           });
           layer.addGeometry(polygons);
         });
+    },
+    //鼠标移入移除事件
+    mouseEventFunc(e) {
+      const polygon = e.target;
+      if (e.type === "mouseover") {
+        if (!polygon._oldSymbol) {
+          polygon._oldSymbol = polygon.getSymbol();
+        }
+        polygon.setSymbol({
+          polygonFill: "#FFCF00",
+          lineWidth: 1,
+          lineColor: "#444",
+          shadowBlur: 5,
+          shodowColor: "black",
+        });
+      } else if (e.type === "mouseout") {
+        if (polygon._oldSymbol) {
+          polygon.setSymbol(polygon._oldSymbol);
+        }
+      }
     },
   },
 };
