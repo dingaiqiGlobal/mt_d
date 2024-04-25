@@ -185,6 +185,18 @@ export default {
           text: "模型GLTFMarker",
           path: "/symbol_GeojsonVT_PoineModel_GLTFMarker",
         },
+        {
+          id: 1,
+          img: "/images/nav/style/style_UniqueValue.jpg",
+          text: "唯一值渲染",
+          path: "/style_UniqueValue",
+        },
+        {
+          id: 1,
+          img: "/images/nav/style/style_BreakPointValue.jpg",
+          text: "断点值渲染",
+          path: "/style_BreakPointValue",
+        },
       ],
     };
   },

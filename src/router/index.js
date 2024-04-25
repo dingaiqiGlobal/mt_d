@@ -149,6 +149,16 @@ const routes = [
     name: 'symbol_GeojsonVT_PoineModel_GLTFMarker',
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.vue")
   },
+  {
+    path: '/style_UniqueValue',
+    name: 'style_UniqueValue',
+    component: () => import("../components/style/style_UniqueValue.vue")
+  },
+  {
+    path: '/style_BreakPointValue',
+    name: 'style_BreakPointValue',
+    component: () => import("../components/style/style_BreakPointValue.vue")
+  },
 ]
 
 const router = new VueRouter({
