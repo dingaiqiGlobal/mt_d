@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import * as dat from "dat.gui";
 import {
   Map,
   TileLayer,
@@ -34,6 +33,7 @@ import {
 } from "@maptalks/gl-layers";
 import { HeatLayer } from "maptalks.heatmap";
 import { ClusterLayer } from "maptalks.markercluster";
+import MapEvent from "./MapEvent";
 export default {
   components: {},
   data() {
@@ -46,6 +46,8 @@ export default {
     this.map = new Map("map", {
       center: [116.96457, 40.5138],
       zoom: 10,
+      pitch: 60,
+      bearing: -25,
       spatialReference: {
         projection: "EPSG:3857",
       },
@@ -67,26 +69,31 @@ export default {
         },
       },
     }).addTo(this.map);
+    //地图事件只限于GeoJSONVectorTileLayer图层，有空在扩展
+    new MapEvent(this.map);
     /**
      * Canvas
      */
     this.addHeatMapLayer();
     this.addClusterLayer();
-    this.add_Vector_Marker(); //不常用
-    this.add_Vector_LingString(); //不常用
-    this.add_Vector_Polygon(); //不常用
+    // this.add_Vector_Marker(); //不常用
+    // this.add_Vector_LingString(); //不常用
+    // this.add_Vector_Polygon(); //不常用
 
     /**
      * WebGL都不加入GroupGLLayer-密云
      * GeoJSONVTLayer利用样式插件
      */
-    //this.add_VectorTileLayer();
+    this.add_VectorTileLayer();
     this.add_WebGL_PointLayer();
     this.add_WebGL_LineStringLayer();
     this.add_WebGL_PolygonLayer();
     this.add_GeoJSONVTLayer_Point();
     this.add_GeoJSONVTLayer_LineString();
     this.add_GeoJSONVTLayer_Polygon();
+    this.add_GeoJSONVTLayer_GLTF();
+    this.add_GeoJSONVTLayer_LineString_Extrusion();
+    this.add_GeoJSONVTLayer_Polygon_Extrusion();
     this.add_GLTFLayer(); //可以添加多个GLTFMarker和MultiGLTFMarker
     this.add_MultiGLTFMarker();
     this.add_Geo3DTilesLayer(); //故宫
@@ -421,13 +428,184 @@ export default {
     add_GeoJSONVTLayer_LineString() {
       let GeoJSONLayer = new GeoJSONVectorTileLayer("VT_LineString_WebGL", {
         data: "data/json/data_MY_LineString.json",
+        style: {
+          style: [
+            {
+              name: `lineString_geo`,
+              renderPlugin: {
+                type: "line",
+                dataConfig: {
+                  type: "line",
+                  only2D: true,
+                },
+                sceneConfig: {
+                  depthFunc: "always",
+                  blendSrc: "one",
+                },
+              },
+              filter: true,
+              symbol: {
+                lineColor: "#5F9F9F",
+                lineWidth: 2,
+                lineOpacity: 1,
+              },
+            },
+          ],
+        },
       });
       this.map.addLayer(GeoJSONLayer);
     },
-
     add_GeoJSONVTLayer_Polygon() {
       let GeoJSONLayer = new GeoJSONVectorTileLayer("VT_Polygon_WebGL", {
         data: "data/json/data_MY_Polygon.json",
+        style: {
+          style: [
+            {
+              name: "area-fill",
+              renderPlugin: {
+                type: "fill",
+                dataConfig: {
+                  type: "fill",
+                  only2D: true,
+                },
+                sceneConfig: {
+                  depthFunc: "always",
+                  blendSrc: "one",
+                },
+              },
+              filter: true,
+              symbol: {
+                polygonFill: "#855E42",
+                polygonOpacity: 1,
+              },
+            },
+          ],
+        },
+      });
+      this.map.addLayer(GeoJSONLayer);
+    },
+    add_GeoJSONVTLayer_GLTF() {
+      let GeoJSONLayer = new GeoJSONVectorTileLayer("VT_GLTF_WebGL", {
+        data: "data/json/data_HR_Point.json",
+        style: {
+          style: [
+            {
+              name: `VT_GLTF_WebGL`,
+              renderPlugin: {
+                type: "gltf-lit",
+                dataConfig: {
+                  type: "native-point",
+                },
+                sceneConfig: {
+                  gltfAnimation: {
+                    enable: true,
+                  },
+                },
+              },
+              filter: true,
+              symbol: {
+                markerFill: "#4D4DFF",
+                url: "data/model/CesiumDrone.glb",
+                modelHeight: 1000,
+              },
+            },
+          ],
+        },
+      });
+      this.map.addLayer(GeoJSONLayer);
+    },
+    add_GeoJSONVTLayer_LineString_Extrusion() {
+      let GeoJSONLayer = new GeoJSONVectorTileLayer("VT_LineString_Extrusion", {
+        data: "data/json/data_HR_LineString.json",
+        style: {
+          style: [
+            {
+              name: `VT_LineString_Extrusion`,
+              renderPlugin: {
+                type: "lit",
+                dataConfig: {
+                  type: "line-extrusion",
+                  altitudeProperty: null,
+                  minHeightProperty: 0,
+                  altitudeScale: 1,
+                  defaultAltitude: 10000,
+                  topThickness: 0,
+                  top: false,
+                  side: true,
+                },
+                sceneConfig: {
+                  blendSrc: "src alpha",
+                  blendDst: "one minus src alpha",
+                  depthRange: [0, 1],
+                  excludes: [],
+                  depthFunc: "<=",
+                  animation: null,
+                  animationDuration: 800,
+                },
+              },
+              filter: true,
+              symbol: {
+                visible: true,
+                lineColor: "#4F2F4F",
+                lineWidth: 10,
+                lineOpacity: 1,
+                ssr: false,
+                material: {
+                  baseColorTexture: null,
+                  baseColorFactor: [1, 2, 1, 1],
+                  uvScale: [1, 1],
+                },
+              },
+            },
+          ],
+        },
+      });
+      this.map.addLayer(GeoJSONLayer);
+    },
+    add_GeoJSONVTLayer_Polygon_Extrusion() {
+      let GeoJSONLayer = new GeoJSONVectorTileLayer("VT_Polygon_Extrusion", {
+        data: "data/json/data_HR_Polygon.json",
+        style: {
+          style: [
+            {
+              name: `VT_Polygon_Extrusion`,
+              renderPlugin: {
+                type: "lit",
+                dataConfig: {
+                  type: "3d-extrusion",
+                  altitudeProperty: null,
+                  minHeightProperty: null,
+                  altitudeScale: 1,
+                  defaultAltitude: 1000,
+                  topThickness: 0,
+                  top: true,
+                  side: true,
+                },
+                sceneConfig: {
+                  blendSrc: "src alpha",
+                  blendDst: "one minus src alpha",
+                  depthRange: [0, 1],
+                  excludes: [],
+                  depthFunc: "<=",
+                  animation: null,
+                  animationDuration: 800,
+                },
+              },
+              filter: true,
+              symbol: {
+                visible: true,
+                polygonFill: "#6B238E",
+                polygonOpacity: 1,
+                ssr: false,
+                material: {
+                  baseColorTexture: null,
+                  baseColorFactor: [1, 2, 1, 1],
+                  uvScale: [1, 1],
+                },
+              },
+            },
+          ],
+        },
       });
       this.map.addLayer(GeoJSONLayer);
     },
@@ -487,7 +665,6 @@ export default {
     toJson() {
       const mapJSON = this.map.toJSON();
       document.getElementById("json").innerHTML = JSON.stringify(mapJSON);
-      console.log(this.map.getLayers(), "图层打印显示");
     },
   },
 };

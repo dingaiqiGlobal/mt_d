@@ -145,6 +145,11 @@ const routes = [
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_MultiGLTFMarker.vue")
   },
   {
+    path: '/symbol_GeojsonVT_MultiGLTFMarker_PluginStyle',
+    name: 'symbol_GeojsonVT_MultiGLTFMarker_PluginStyle',
+    component: () => import("../components/symbol/symbol_GeojsonVT_MultiGLTFMarker_PluginStyle.vue")
+  },
+  {
     path: '/symbol_GeojsonVT_PoineModel_GLTFMarker',
     name: 'symbol_GeojsonVT_PoineModel_GLTFMarker',
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.vue")

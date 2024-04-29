@@ -181,6 +181,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/symbol/symbol_GeojsonVT_MultiGLTFMarker_PluginStyle.jpg",
+          text: "模型gltf-lit渲染",
+          path: "/symbol_GeojsonVT_MultiGLTFMarker_PluginStyle",
+        },
+        {
+          id: 1,
           img: "/images/nav/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.jpg",
           text: "模型GLTFMarker",
           path: "/symbol_GeojsonVT_PoineModel_GLTFMarker",
