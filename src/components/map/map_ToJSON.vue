@@ -525,12 +525,12 @@ export default {
                 type: "lit",
                 dataConfig: {
                   type: "line-extrusion",
-                  altitudeProperty: null,
-                  minHeightProperty: 0,
+                  altitudeProperty: "HEIGHT",
+                  minHeightProperty: null,
                   altitudeScale: 1,
-                  defaultAltitude: 10000,
+                  defaultAltitude: 1,
                   topThickness: 0,
-                  top: false,
+                  top: true,
                   side: true,
                 },
                 sceneConfig: {
@@ -546,13 +546,13 @@ export default {
               filter: true,
               symbol: {
                 visible: true,
-                lineColor: "#4F2F4F",
+                lineColor: "red",
                 lineWidth: 10,
-                lineOpacity: 1,
+                lineOpacity: 0.5,
                 ssr: false,
                 material: {
                   baseColorTexture: null,
-                  baseColorFactor: [1, 2, 1, 1],
+                  baseColorFactor: [1, 1, 1, 1],
                   uvScale: [1, 1],
                 },
               },
