@@ -16,7 +16,13 @@ export default {
 
   data() {
     return {
-      list: [
+      list: [   
+        {
+          id: 1,
+          img: "/images/nav/three/three_rippleWall.jpg",
+          text: "波纹墙",
+          path: "/three_rippleWall",
+        },
         {
           id: 1,
           img: "/images/nav/map/map_ToJSON.jpg",

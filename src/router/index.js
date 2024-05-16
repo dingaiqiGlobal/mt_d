@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/three_rippleWall',
+    name: 'three_rippleWall',
+    component: () => import("../components/three/three_rippleWall.vue")
+  },
+  {
     path: '/map_ToJSON',
     name: 'map_ToJSON',
     component: () => import("../components/map/map_ToJSON.vue")
