@@ -7,10 +7,13 @@
 
 <script>
 import "maptalks/dist/maptalks.css";
-import * as maptalks from 'maptalks';
-import { GroupGLLayer} from "@maptalks/gl-layers";
+import * as maptalks from "maptalks";
+import { GroupGLLayer } from "@maptalks/gl-layers";
+
 import * as THREE from "three";
-import { ThreeLayer } from 'maptalks.three';
+import { ThreeLayer } from "maptalks.three";
+import rippleWall from "@/utils/maptalks.three.objects/rippleWall";
+import { getRippleWall, getWallTextureMaterial } from "@/utils/shader/shader.js";
 
 export default {
   components: {},
@@ -40,9 +43,20 @@ export default {
       }),
       layers: [],
     });
+    this.initLayer();
   },
 
-  methods: {},
+  methods: {
+    initLayer() {
+      let threeLayer = new ThreeLayer("t", {
+        forceRenderOnMoving: true,
+        forceRenderOnRotating: true,
+        forceRenderOnZooming: true,
+        animation: true,
+      });
+      let meshs = [];
+    },
+  },
 };
 </script>
 <style>
