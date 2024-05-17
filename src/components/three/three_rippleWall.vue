@@ -15,7 +15,6 @@ import { ThreeLayer } from "maptalks.three";
 //包裹
 import rippleWall from "@/utils/maptalks.three.objects/rippleWall";
 import { getRippleWall, getMeteorMaterial } from "@/utils/shader/shader";
-import { rippleWallCoord, rippleWallCoord2, ringCoord } from "@/utils/config/index";
 //弧线
 
 import { MeshLineMaterial } from "@/utils/lib/THREE.MeshLine";
@@ -38,8 +37,8 @@ export default {
 
   mounted() {
     this.map = new maptalks.Map("map", {
-      center: [121.4943311876787, 31.244199],
-      zoom: 17,
+      center: [116.33092, 40.00056],
+      zoom: 15,
       pitch: 60,
       bearing: -25,
       spatialReference: {
@@ -53,11 +52,43 @@ export default {
       }),
       layers: [],
     });
-    this.initLayer();
+    this.loadBuildingData();
   },
 
   methods: {
-    initLayer() {
+    loadBuildingData() {
+      fetch("data/json/data_building_effect.json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((geojson) => {
+          let result = [];
+          let features = geojson.features;
+          for (let i = 0; i < features.length; i++) {
+            result.push(features[i].geometry.coordinates);
+          }
+          this.initLayer(result);
+        });
+    },
+
+    loadArcLineData(threeLayer) {
+      fetch("data/json/data_arcline_effect.json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((geojson) => {
+          let result = [];
+          let features = geojson.features;
+          for (let i = 0; i < features.length; i++) {
+            result.push(features[i].geometry.coordinates);
+          }
+          // result = result.map((subarray) => {
+          //   return [...subarray, 50];
+          // });
+          this.addArcLine(threeLayer, result);
+        });
+    },
+    initLayer(data) {
       let threeLayer = new ThreeLayer("t", {
         forceRenderOnMoving: true,
         forceRenderOnRotating: true,
@@ -72,41 +103,49 @@ export default {
         // light.position.set(0, -10, 10);
         // scene.add(light);
 
-        //添加飞线
-        this.addArcLine(threeLayer);
-
         //墙体mesh实例化
-        let RippleWallMesh = this.getRippleWallMesh(threeLayer);
-        let MeteorMesh = this.getMeteorMesh(threeLayer);
+        for (let i = 0; i < data.length; i++) {
+          if (i % 2 === 0) {
+            threeLayer.addMesh(
+              meshs.concat(this.getRippleWallMesh(threeLayer, data[i][0]))
+            );
+          } else {
+            threeLayer.addMesh(meshs.concat(this.getMeteorMesh(threeLayer, data[i][0])));
+          }
+        }
+        //添加飞线
+        this.loadArcLineData(threeLayer);
 
-        //添加网格
-        threeLayer.addMesh(meshs.concat(RippleWallMesh, MeteorMesh));
+        // let RippleWallMesh = this.getRippleWallMesh(threeLayer, data[0][0]);
+        // let MeteorMesh = this.getMeteorMesh(threeLayer, data[1][0]);
+        // threeLayer.addMesh(meshs.concat(RippleWallMesh,MeteorMesh));
         threeLayer.config("animation", true);
       };
       threeLayer.addTo(this.map);
     },
     //黄色包裹
-    getMeteorMesh(threeLayer) {
+    getMeteorMesh(threeLayer, coord) {
       let material = getMeteorMaterial(); //shader
-      let mesh = new rippleWall(rippleWallCoord, { height: 250 }, material, threeLayer);
+      let mesh = new rippleWall(coord, { height: 250 }, material, threeLayer);
       mesh.getObject3d().renderOrder = 11;
       return [mesh];
     },
     //蓝色包裹
-    getRippleWallMesh(threeLayer) {
+    getRippleWallMesh(threeLayer, coord) {
       let material = getRippleWall(); //shader
-      let mesh = new rippleWall(rippleWallCoord2, { height: 250 }, material, threeLayer); //maptalks.three
+      let mesh = new rippleWall(coord, { height: 250 }, material, threeLayer); //maptalks.three
       mesh.getObject3d().renderOrder = 11;
       return [mesh];
     },
     //弧线
-    addArcLine(threeLayer) {
-      ringCoord.forEach((item) => {
-        let path = [
-          [121.50696853557473, 31.24378441172011],
-          [item.x, item.y],
-        ];
-        let linestring = new maptalks.LineString(path);
+    addArcLine(threeLayer, data) {
+      const path = [];
+      for (let i = 0; i < data.length - 1; i++) {
+        const result = [data[i], data[i + 1]];
+        path.push(result); // 将新数组添加到结果数组中
+      }
+      path.forEach((item) => {
+        let linestring = new maptalks.LineString(item);
         //texture-贴图信息
         const texture = new THREE.TextureLoader().load(
           require("@/assets/texture/lineTexture.png")

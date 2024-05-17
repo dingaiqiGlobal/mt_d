@@ -1,0 +1,236 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.33315064441253,
+                    39.99066154313471
+                ]
+            },
+            "properties": {
+                "name": "优盛大厦",
+                "address": "优盛大厦",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.3276167260755,
+                    39.99231039604075
+                ]
+            },
+            "properties": {
+                "name": "东升大厦",
+                "address": "东升大厦",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.32865698949692,
+                    39.992041484408006
+                ]
+            },
+            "properties": {
+                "name": "智造大街",
+                "address": "智造大街",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.33264112763474,
+                    39.99844582724059
+                ]
+            },
+            "properties": {
+                "name": "同方广场",
+                "address": "同方广场",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.31590491680709,
+                    39.995593948609056
+                ]
+            },
+            "properties": {
+                "name": "清华大学",
+                "address": "清华大学",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.32472946433441,
+                    39.992381162259896
+                ]
+            },
+            "properties": {
+                "name": "清华科技园",
+                "address": "清华科技园",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.3238944229485,
+                    39.99076061584149
+                ]
+            },
+            "properties": {
+                "name": "智源大厦",
+                "address": "智源大厦",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.32801301690264,
+                    39.98582821036716
+                ]
+            },
+            "properties": {
+                "name": "银谷大厦",
+                "address": "银谷大厦",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.30923520065276,
+                    39.99077830739628
+                ]
+            },
+            "properties": {
+                "name": "北京大学",
+                "address": "北京大学",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.32058256389254,
+                    39.990619083403224
+                ]
+            },
+            "properties": {
+                "name": "过程大厦",
+                "address": "过程大厦",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    116.31630828425622,
+                    39.99076061584151
+                ]
+            },
+            "properties": {
+                "name": "中科科仪",
+                "address": "中科科仪",
+                "remarks": "",
+                "zh_name": "",
+                "zh_address": "",
+                "gid": 0,
+                "bgcode": "",
+                "createtime": "1899-11-30T00:00:00.000Z",
+                "updatetime": "1899-11-30T00:00:00.000Z"
+            }
+        }
+    ]
+}
