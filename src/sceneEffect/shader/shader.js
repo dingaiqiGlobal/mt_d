@@ -1,6 +1,6 @@
-const Qg = require("@/utils/shader/glsl/Qg.glsl").default;
-const Gg = require("@/utils/shader/glsl/Gg.glsl").default;
-const Ky = require("@/utils/shader/glsl/Ky.glsl").default;
+const Qg = require("@/sceneEffect/shader/glsl/Qg.glsl").default;
+const Gg = require("@/sceneEffect/shader/glsl/Gg.glsl").default;
+const Ky = require("@/sceneEffect/shader/glsl/Ky.glsl").default;
 import * as THREE from "three";
 
 export function getRippleWall(opts = {}) {
@@ -30,8 +30,8 @@ export function getRippleWall(opts = {}) {
         let meshMaterial = new THREE.ShaderMaterial({
                 uniforms: uniforms,
                 defaultAttributeValues: {},
-                vertexShader: require("@/utils/shader/vert/RippleWall_vertex.vert").default,
-                fragmentShader: require("@/utils/shader/frag/RippleWall_fragment.frag").default,
+                vertexShader: require("@/sceneEffect/shader/vert/RippleWall_vertex.vert").default,
+                fragmentShader: require("@/sceneEffect/shader/frag/RippleWall_fragment.frag").default,
                 blending: THREE.AdditiveBlending,
                 transparent: !0,
                 depthWrite: !1,
