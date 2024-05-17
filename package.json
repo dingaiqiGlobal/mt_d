@@ -20,7 +20,8 @@
     "maptalks.modelcontrol": "^0.8.0",
     "maptalks.three": "^0.38.1",
     "raw-loader": "^4.0.2",
-    "three": "^0.138.0",
+    "three": "^0.116.1",
+    "three.meshline": "^1.2.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
