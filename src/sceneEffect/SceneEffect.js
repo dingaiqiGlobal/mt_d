@@ -11,10 +11,22 @@ import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
 //cnpm install three@0.116.1 --save  //three版本固定
 //import { MeshLineMaterial,} from 'three.meshline';
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
-class SceneEffect{ 
-    constructor(map) { 
+
+import VirtuallyGroup from '@/sceneEffect/VirtuallyGroup';
+class SceneEffect {
+    constructor(map) {
         this.map = map;
-        this.loadBuildingData()
+    }
+    //写死图层后期改
+    addLayer() {
+        let layer = this.map.getLayer("effectBuilding");
+        if (!layer) {
+            this.loadBuildingData();
+        }
+    }
+    removeLayer() {
+        let layer = this.map.getLayer("effectBuilding");
+        this.map.removeLayer(layer)
     }
     loadBuildingData() {
         fetch("data/json/data_building_effect.json")
@@ -49,7 +61,7 @@ class SceneEffect{
             });
     }
     initLayer(data) {
-        let threeLayer = new ThreeLayer("t", {
+        let threeLayer = new ThreeLayer("effectBuilding", {
             forceRenderOnMoving: true,
             forceRenderOnRotating: true,
             forceRenderOnZooming: true,
@@ -134,5 +146,5 @@ class SceneEffect{
             threeLayer.addMesh(arcline);
         });
     }
-}   
+}
 export default SceneEffect

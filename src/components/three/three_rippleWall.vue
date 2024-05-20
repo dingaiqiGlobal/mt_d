@@ -1,7 +1,10 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div class="control"></div>
+    <div class="control">
+     <button type="" @click="addLayer">添加</button>
+      <button type="" @click="removeLayer">移除</button>
+    </div>
   </div>
 </template>
 
@@ -18,6 +21,7 @@ export default {
   data() {
     return {
       map: null,
+      sceneEffect:null
     };
   },
 
@@ -40,10 +44,16 @@ export default {
       }),
       layers: [],
     });
-    new SceneEffect(this.map);
+    this.sceneEffect=new SceneEffect(this.map)
   },
 
   methods: {
+    addLayer(){
+     this.sceneEffect.addLayer()
+    },
+    removeLayer(){
+      this.sceneEffect.removeLayer()
+    }
   },
 };
 </script>
