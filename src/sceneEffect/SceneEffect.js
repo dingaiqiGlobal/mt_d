@@ -78,6 +78,7 @@ class SceneEffect {
             //墙体mesh实例化
             for (let i = 0; i < data.length; i++) {
                 if (i % 2 === 0) {
+                    console.log(data[i][0])
                     threeLayer.addMesh(
                         meshs.concat(this.getRippleWallMesh(threeLayer, data[i][0]))
                     );
@@ -145,6 +146,7 @@ class SceneEffect {
             );
             threeLayer.addMesh(arcline);
         });
+        console.log(path, "111111");
     }
 }
 export default SceneEffect
