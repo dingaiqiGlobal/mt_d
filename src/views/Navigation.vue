@@ -17,6 +17,12 @@ export default {
   data() {
     return {
       list: [   
+                {
+          id: 1,
+          img: "/images/nav/UIMarker/UIMarker_Base.jpg",
+          text: "UIMarker基础",
+          path: "/UIMarker_Base",
+        },
         {
           id: 1,
           img: "/images/nav/three/three_GitCollection.jpg",

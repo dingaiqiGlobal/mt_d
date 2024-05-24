@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/UIMarker_Base',
+    name: 'UIMarker_Base',
+    component: () => import("../components/UIMarker/UIMarker_Base.vue")
+  },
+  {
     path: '/three_GitCollection',
     name: 'three_GitCollection',
     component: () => import("../components/three/three_GitCollection.vue")
