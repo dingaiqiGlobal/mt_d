@@ -19,9 +19,9 @@ export default {
       list: [   
         {
           id: 1,
-          img: "/images/nav/three/three_rippleWall.jpg",
-          text: "波纹墙",
-          path: "/three_rippleWall",
+          img: "/images/nav/three/three_GitCollection.jpg",
+          text: "特效Git集合",
+          path: "/three_GitCollection",
         },
         {
           id: 1,

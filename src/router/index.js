@@ -10,9 +10,9 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
-    path: '/three_rippleWall',
-    name: 'three_rippleWall',
-    component: () => import("../components/three/three_rippleWall.vue")
+    path: '/three_GitCollection',
+    name: 'three_GitCollection',
+    component: () => import("../components/three/three_GitCollection.vue")
   },
   {
     path: '/map_ToJSON',
