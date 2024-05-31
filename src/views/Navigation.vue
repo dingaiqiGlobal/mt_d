@@ -16,8 +16,8 @@ export default {
 
   data() {
     return {
-      list: [   
-                {
+      list: [
+        {
           id: 1,
           img: "/images/nav/UIMarker/UIMarker_Base.jpg",
           text: "UIMarker基础",
@@ -34,6 +34,12 @@ export default {
           img: "/images/nav/map/map_ToJSON.jpg",
           text: "map转json",
           path: "/map_ToJSON",
+        },
+        {
+          id: 1,
+          img: "/images/nav/map/map_ToJSON.jpg",
+          text: "map转json特殊处理",
+          path: "/map_ToJSON_FromJSON",
         },
         {
           id: 1,

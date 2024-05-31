@@ -25,6 +25,11 @@ const routes = [
     component: () => import("../components/map/map_ToJSON.vue")
   },
   {
+    path: '/map_ToJSON_FromJSON',
+    name: 'map_ToJSON_FromJSON',
+    component: () => import("../components/map/map_ToJSON_FromJSON.vue")
+  },
+  {
     path: '/map_options',
     name: 'map_options',
     component: () => import("../components/map/map_options.vue")
