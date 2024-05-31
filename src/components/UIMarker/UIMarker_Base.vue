@@ -10,7 +10,9 @@ import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer, GeoJSONVectorTileLayer } from "@maptalks/gl-layers";
 
-import Util from  "@/utils/Util";
+import Util from "@/utils/Util";
+import "./UIMarkerLayer.css";
+import UIMarkerLayer from "./UIMarkerLayer";
 
 export default {
   components: {},
@@ -18,7 +20,8 @@ export default {
   data() {
     return {
       map: null,
-      groupLayer:null,
+      groupLayer: null,
+      uIMarkerLayer: null,
     };
   },
 
@@ -26,7 +29,7 @@ export default {
 
   mounted() {
     this.map = new maptalks.Map("map", {
-      center: [116.917880,40.472020],
+      center: [116.91788, 40.47202],
       zoom: 11,
       spatialReference: {
         projection: "EPSG:3857",
@@ -39,6 +42,9 @@ export default {
       }),
       layers: [],
     });
+    /**
+     * groupLayer
+     */
     this.groupLayer = new GroupGLLayer("group", [], {
       antialias: false, //是否开启WebGL原生抗锯齿
       geometryEvents: true, //是否允许子图层上的Geometry响应事件
@@ -101,10 +107,36 @@ export default {
     });
     this.groupLayer.addTo(this.map);
 
-    this.loadData("data/json/data_MiYun_Point_lit.json")
+    /**
+     * uiMarkerLayer
+     */
+    this.uiMarkerLayer = new UIMarkerLayer().addTo(this.map);
+
+    this.map.on("click", (e) => {
+      const identifyData = e.coordinate
+        ? this.groupLayer.identify(e.coordinate, {
+            layers: [], //指定的子图层
+            orderByCamera: true, //是否按照相机距离排序，更近的在前面
+          })[0]
+        : this.groupLayer.identifyAtPoint(e.containerPoint, {
+            layers: [],
+            orderByCamera: true,
+          })[0];
+      const target = identifyData && identifyData.data;
+      if (target) {
+        const feature = target.feature;
+        const coordinate=[e.coordinate.x,e.coordinate.y]
+        //console.log(coordinate)
+        this._uiMarker([116.90758, 40.55007], '111', feature.properties)
+      }
+    });
+    console.log(Vue,"ding");
+    //添加数据
+    this.loadData("data/json/data_MiYun_Point_lit.json");
   },
 
   methods: {
+    //GeojsonVT的方式
     loadData(url) {
       let id = Util.generateUUID();
       let GeoJSONLayer = new GeoJSONVectorTileLayer(id, {
@@ -112,7 +144,45 @@ export default {
         minZoom: 1,
         maxZoom: 22,
       });
-      this.groupLayer.addLayer(GeoJSONLayer)
+      this.groupLayer.addLayer(GeoJSONLayer);
+    },
+    _uiMarker(coordinate, title, data) {
+      let that = this;
+      let titleName = title || "";
+      if (!data && !data.length) return;
+      let Profile = Vue.extend({
+        template: `<div class="profile">
+            <div class="title-box">{{title}}<span class="close-btn" @click="closeUiMarker">X</span></div>
+            <div class="content-box">
+              <div class="content-group">
+                <div class="content-item" v-for="item in dataList" :key="item.id">
+                  <span>{{item}}</span>
+                </div>
+              </div>
+            </div>
+            </div>`,
+        data: function () {
+          return {
+            title: titleName,
+            dataList: data,
+            markers: null,
+          };
+        },
+        methods: {
+          closeUiMarker() {
+            that.uiMarkerLayer.removeMarker(this.markers);
+          },
+        },
+      });
+      const profile = new Profile().$mount();
+      this.markers = new maptalks.ui.UIMarker(coordinate, {
+        containerClass: "UIMarker", //css类名
+        single: true, //false为全局单个标记
+        content: profile.$el,
+        verticalAlignment: "top",
+        eventsPropagation: false, //是否停止所有事件的传播（事件冒泡）
+      });
+      this.uiMarkerLayer.addMarker(this.markers);
     },
   },
 };
