@@ -1,0 +1,758 @@
+.maptalks-msgBox{
+  background-color: transparent !important;
+  background-image: url('../../assets/smartStreet/bg.png') !important;
+  background-size: 100% 100% !important;
+  border-radius: 2px;
+  border-width: 0;
+  em.maptalks-ico:after{
+    border-top: 9px solid rgba(1,23,44,1);
+  }
+  h2{
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+    height: 40px;
+    line-height: 40px;
+    text-shadow: 0px 1px 1px #1281E3;
+    text-align: left;
+    font-style: normal;
+    text-transform: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+    background-image: url('../../assets/smartStreet/title_bg.png');
+    background-size: 100% 100%;
+  }
+  a.maptalks-close {
+    display: block;
+    width: 25px;
+    height: 40px;
+    text-decoration: none;
+    font-size: 24px;
+    color: rgba(255,255,255,0.84);
+    font-weight: 500;
+    position: absolute;
+    top: 0;
+    right: 10px;
+  }
+  .maptalks-msgContent{
+    padding: 10px;
+    color: #fff;
+    .info-content-type1{
+      height: 370px;
+      width: 390px;
+      .text-content{
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        padding:0 0 10px 0;
+        .content-item{
+          width: 50%;
+          height: 30px;
+          display: flex;
+          flex-flow: row wrap;
+          .item-title{
+            font-weight: 400;
+            font-size: 12px;
+            color: #BFDFFF;
+            line-height: 30px;
+            text-align: left;
+            white-space:nowrap;
+            padding-left: 10px;
+          }
+          .item-text{
+            font-weight: 400;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 30px;
+            text-align: left;
+            white-space:nowrap;
+          }
+        }
+        .content-item:nth-child(odd){
+          .item-title{
+            width: 55%;
+          }
+          .item-text{
+            width: 45%;
+          }
+        }
+        .content-item:nth-child(even){
+          .item-title{
+            width: 36%;
+          }
+          .item-text{
+            width: 64%;
+          }
+        }
+        .content-item:nth-child(4n+1),.content-item:nth-child(4n+2){
+          background: rgba(0,179,255,0.1);
+        }
+        .content-item:nth-child(4n+3),.content-item:nth-child(4n){
+          background: rgba(0,179,255,0.05);
+        }
+      }
+      .image-content{
+        position: relative;
+        img{
+          width: 390px;
+          height: 210px;
+        }
+        	/* 自定义音频播放器的样式 */
+        audio {
+          width: 270px; /* 设置音频播放器的宽度 */
+          height: 30px; /* 设置音频播放器的高度 */
+          overflow: hidden; /* 隐藏超出部分的内容 */
+          position: absolute;
+          bottom: 10px;
+          right: 55px;
+        }
+      }
+    }
+    .info-content-type2{
+      height: auto;
+      width: 370px;
+      .text-content{
+        width: 100%;
+        padding: 0 0 10px 0;
+        .content-item{
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          .item-title{
+            width: 20%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #BFDFFF;
+            line-height: 25px;
+            text-align: left;
+            white-space:nowrap;
+            padding:3px 0 3px 10px;
+          }
+          .item-text{
+            width: 80%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 25px;
+            text-align: left;
+            padding:3px 0 3px 0;
+          }
+        }
+        .content-item:nth-child(odd){
+          background: rgba(0,179,255,0.1);
+        }
+        .content-item:nth-child(even){
+          background: rgba(0,179,255,0.05);
+        }
+      }
+      .analysis-content{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-bottom: 10px;
+        .analysis-item{
+          .analysis-img{
+            position:relative;
+            width:70px;
+            height:50px;
+            img{
+              position:absolute;
+              top:50%;
+              left:50%;
+              transform:translate(-50%,-50%);
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .analysis-number{
+            font-weight: 500;
+            font-size: 15px;
+            color: #FFFFFF;
+            line-height: 20px;
+            text-align: center;
+            padding: 2px 0 5px 0;
+          }
+          .analysis-title{
+            font-weight: 400;
+            font-size: 12px;
+            color: #C6D1DB;
+            line-height: 20px;
+            text-align: center;
+            background-image: url('../../assets/smartStreet/analysis_bg.png');
+            padding: 2px 5px;
+          }
+        }
+      }
+      .image-content{
+        width: 370px;
+        height: 180px;
+        position: relative;
+        .picture{
+          width: 100%;
+          height: 100%;
+        }
+        .btn-img{
+          position: absolute;
+          top:50%;
+          left:50%;
+          transform:translate(-50%,-50%);
+        }
+      }
+    }
+    .info-content-type3{
+      height: auto;
+      width: 300px;
+      .text-content{
+        width: 100%;
+        .content-item{
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          .item-title{
+            width: 35%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #BFDFFF;
+            line-height: 25px;
+            text-align: left;
+            white-space:nowrap;
+            padding:3px 0 3px 10px;
+          }
+          .item-text{
+            width: 65%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 25px;
+            text-align: left;
+            padding:3px 0 3px 0;
+          }
+        }
+        .content-item:nth-child(odd){
+          background: rgba(0,179,255,0.1);
+        }
+        .content-item:nth-child(even){
+          background: rgba(0,179,255,0.05);
+        }
+      }
+      .media-content{
+        padding: 10px 10px 0 10px;
+        audio {
+          width: 280px; /* 设置音频播放器的宽度 */
+          height: 30px; /* 设置音频播放器的高度 */
+        }
+      }
+    }
+    .info-content-type4{
+      height: auto;
+      width: 310px;
+      .text-content{
+        width: 100%;
+        padding: 0 0 10px 0;
+        .content-item{
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          .item-title{
+            width: 25%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #BFDFFF;
+            line-height: 25px;
+            text-align: left;
+            white-space:nowrap;
+            padding:3px 0 3px 10px;
+          }
+          .item-text{
+            width: 75%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 25px;
+            text-align: left;
+            padding:3px 0 3px 0;
+          }
+        }
+        .content-item:nth-child(odd){
+          background: rgba(0,179,255,0.1);
+        }
+        .content-item:nth-child(even){
+          background: rgba(0,179,255,0.05);
+        }
+      }
+      .image-content{
+        width: 310px;
+        position: relative;
+        .picture{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .info-content-type5{
+      height: auto;
+      width: 310px;
+      .image-content{
+        position: relative;
+        img{
+          width: 310px;
+        }
+        	/* 自定义音频播放器的样式 */
+        audio {
+          width: 270px; /* 设置音频播放器的宽度 */
+          height: 30px; /* 设置音频播放器的高度 */
+          overflow: hidden; /* 隐藏超出部分的内容 */
+          position: absolute;
+          bottom: 5px;
+          left: 20px;
+        }
+      }
+    }
+    .info-content-type6{
+      height: auto;
+      width: 550px;
+      display: flex;
+      .image-content{
+        width: 450px;
+        height: 195px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .text-content{
+        width: 100%;
+        margin-left: 10px;
+        .content-item{
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          .item-title{
+            width: 35%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #BFDFFF;
+            line-height: 25px;
+            text-align: left;
+            white-space:nowrap;
+            padding:3px 0 3px 10px;
+          }
+          .item-text{
+            width: 65%;
+            font-weight: 400;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 25px;
+            text-align: left;
+            padding:3px 0 3px 0;
+          }
+        }
+        .content-item:nth-child(odd){
+          background: rgba(0,179,255,0.1);
+        }
+        .content-item:nth-child(even){
+          background: rgba(0,179,255,0.05);
+        }
+        .explain{
+          padding: 5px;
+          height: 30px;
+          font-size: 12px;
+          text-align: center;
+          border: 1px solid #0c61af;
+          margin-top: 10px;
+        }
+      }
+    }
+    //普通infoWindow弹窗样式
+    .info-content {
+      height: 230px;
+      width: 400px;
+    }
+    //中鼎大厦infoWindow弹窗样式
+    .build-info-content{
+      min-width: 380px;
+      height: 175px;
+      .major-content{
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px dashed #2C459D;
+        padding-bottom: 10px;
+        .major-content-li{
+          width: 33.3%;
+          .major-content-title{
+            background: #1D2A57;
+            font-size: 15px;
+            color: #FFFFFF;
+            line-height: 32px;
+            text-align: left;
+            font-style: normal;
+            height: 32px;
+            position:relative;
+            img{
+              position:absolute;
+              top:50%;
+              left:16px;
+              transform:translateY(-50%);
+            }
+            span{
+              margin-left: 39px;
+            }
+          }
+          .major-content-text{
+            font-weight: 500;
+            font-size: 22px;
+            color: #36E9EB;
+            line-height: 28px;
+            text-align: center;
+            font-style: normal;
+            margin-top: 10px;
+            .suffix{
+              font-weight: 400;
+              font-size: 14px;
+              color: #FFFFFF;
+              line-height: 22px;
+              text-align: center;
+              font-style: normal;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+      .minor-content{
+        display: flex;
+        flex-direction: row;
+        padding-top: 15px;
+        .minor-content-li{
+          width: 33.3%;
+          .minor-content-title{
+            font-size: 12px;
+            color: #FFFFFF;
+            font-weight: 600;
+            text-align: left;
+            border-right: 2px solid rgba(0,146,255,0.4);
+            padding: 10px 0;
+            position:relative;
+            img{
+              position:absolute;
+              top:50%;
+              left:26px;
+              transform:translateY(-50%);
+            }
+            span{
+              margin-left: 50px;
+            }
+          }
+          .minor-content-text{
+            font-size: 22px;
+            color: #36E9EB;
+            font-weight: 600;
+            border-right: 2px solid #0FD200;
+            text-align: center;
+            .suffix{
+              font-weight: 400;
+              font-size: 14px;
+              color: #FFFFFF;
+              line-height: 22px;
+              text-align: center;
+              font-style: normal;
+              margin-left: 5px;
+            }
+          }
+        }
+        .minor-content-li:nth-child(3){
+          .minor-content-title,.minor-content-text{
+            border-right: unset;
+          }
+        }
+      }
+    }
+  }
+}
+
+.ButtonGroupUIMarker{
+  width:140px;
+  background-color: transparent;
+  .btn-group{
+    .btn-item{
+      width: 135px;
+      height: 35px;
+      background-image: url('../../assets/smartStreet/btn_bg.png');
+      font-weight: 500;
+      font-size: 16px;
+      color: #FFFFFF;
+      line-height: 35px;
+      text-shadow: 0px 0px 16px rgba(60,152,255,0.27);
+      text-align: center;
+      margin: 8px 0;
+    }
+  }
+}
+
+.ContentUIMarker{
+  background-color: none !important;
+  background-image: url('../../assets/smartStreet/bg.png') !important;
+  background-size: 100% 100% !important;
+  border-radius: 2px;
+  border-width: 0;
+  .title-box{
+    font-size: 16px;
+    color: #FFFFFF;
+    height:40px;
+    line-height: 40px;
+    text-shadow: 0px 1px 1px #1281E3;
+    text-align: left;
+    font-style: normal;
+    text-transform: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+    background-image: url('../../assets/smartStreet/title_bg.png');
+    background-size: 100% 100% ;
+    .close-btn{
+      display: block;
+      width: 30px;
+      height: 40px;
+      text-decoration: none;
+      font-size: 17px;
+      color: rgba(255, 255, 255, 0.84);
+      font-weight: 500;
+      position: absolute;
+      top: 0px;
+      right: 20px;
+      text-align: right;
+    }
+  }
+  .profile-type1{
+    margin: 0 10px 10px 10px;
+    width: 320px;
+    height: auto;
+    .text-box{
+      width: 100%;
+      font-weight: 400;
+      font-size: 12px;
+      color: #BFDFFF;
+      line-height: 25px;
+      text-align: left;
+      margin: 10px 0;
+    }
+    .image-box{
+      width: 320px;
+      height: 270px;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }  
+  }
+  .profile-type2{
+    margin: 0 10px 10px 10px;
+    width: 320px;
+    height: auto;
+    .text-box{
+      width: 100%;
+      padding: 10px 0;
+      .content-item{
+        width: 100%;
+        height: 26px;
+        display: flex;
+        flex-flow: row wrap;
+        .item-title{
+          width: 50%;
+          font-weight: 400;
+          font-size: 12px;
+          color: #BFDFFF;
+          line-height: 26px;
+          text-align: left;
+          white-space:nowrap;
+          padding-left: 10px;
+        }
+        .item-text{
+          width: 50%;
+          font-weight: 400;
+          font-size: 12px;
+          color: #FFFFFF;
+          line-height: 26px;
+          text-align: left;
+          white-space:nowrap;
+        }
+      }
+      .content-item:nth-child(odd){
+        background: rgba(0,179,255,0.1);
+      }
+      .content-item:nth-child(even){
+        background: rgba(0,179,255,0.05);
+      }
+    }
+    .image-box{
+      width: 320px;
+      height: 180px;
+      position: relative;
+      .picture{
+        width: 100%;
+        height: 100%;
+      }
+      .btn-img{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+      }
+    }  
+  }
+  .profile-type3{
+    margin: 0 10px 10px 10px;
+    width: 330px;
+    height: auto;
+    .analysis-box{
+      display: flex;
+      flex-direction: row;
+      margin: 10px;
+      justify-content: space-between;
+      .analysis-item{
+        .analysis-img{
+          position:relative;
+          width:70px;
+          height:60px;
+          img{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .analysis-number{
+          font-weight: 500;
+          font-size: 16px;
+          color: #FFFFFF;
+          line-height: 20px;
+          text-align: center;
+          padding: 2px 0 5px 0;
+        }
+        .analysis-title{
+          font-weight: 400;
+          font-size: 12px;
+          color: #C6D1DB;
+          line-height: 20px;
+          text-align: center;
+          background-image: url('../../assets/smartStreet/analysis_bg.png');
+          padding: 3px 5px;
+        }
+      }
+    }
+    .chart-title{
+      height: 40px;
+      line-height: 40px;
+      font-weight: 400;
+      font-size: 14px;
+      color: #FFFFFF;
+      text-align: left;
+      background-image: url('../../assets/smartStreet/chart_title_bg.png');
+      background-size: 100% 100% ;
+      margin: 0;
+      padding: 0 0 0 20px;
+    }
+    .chart-box{
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+      .circle-box{
+        width: 160px;
+        height: 160px;
+        background-image: url('../../assets/smartStreet/circle_bg.png');
+        background-size: 100% 100% ;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .circle-outside{
+          width: 130px;
+          height: 130px;
+          background-image: url('../../assets/smartStreet/circle1.png');
+          background-size: 100% 100% ;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .circle-inside{
+            width: 100px;
+            height: 100px;
+            background-image: url('../../assets/smartStreet/circle2.png');
+            background-size: 100% 100% ;
+            text-align: center;
+            padding: 28px 0;
+            .text{
+              font-weight: 500;
+              font-size: 18px;
+              color: #FFFFFF;
+            }
+            .title{
+              font-weight: 400;
+              font-size: 12px;
+              color: #FFFFFF;
+            }
+          }
+        }
+      }
+      .statistic-box{
+        width: 140px;
+        height: 160px;
+        .statistic-item{
+          width: 100%;
+          height: 30px;
+          border: 1px solid rgba(8, 60, 108, 1);
+          border-radius: 8px;
+          position:relative;
+          display: flex;
+          justify-content: space-between;
+          margin: 8px 0;
+          .item-pt{
+            position:absolute;
+            top:50%;
+            left:12px;
+            transform:translate(-50%,-50%);
+          }
+          .item-title{
+            font-weight: 400;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 30px;
+            text-align: left;
+            margin-left: 20px;
+          }
+          .item-text{
+            font-weight: 400;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 30px;
+            text-align: right;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  .profile-type4{
+    width: 330px;
+    height: 330px;
+    margin: 10px;
+  }
+}
+.UIMarker3{
+  border-radius: 2px;
+  border-width: 0;
+  .profile-picture{
+    position: relative;
+    width: 360px;
+    height: auto;
+    .close-div{
+      width: 100%;
+      height: 46px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .picture{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

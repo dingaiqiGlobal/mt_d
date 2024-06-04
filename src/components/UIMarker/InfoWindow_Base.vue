@@ -1,3 +1,14 @@
+//maptalks里UI里的dom容器是maptalks自动生成的, 所以要想关闭UI,
+//请调用UI的hide或者remove方法, 用户传入的dom只是UI的内容而已,
+//内容作为dom容器的子节点了,
+//所以仅仅对你传入的dom节点进行隐藏等是不能关闭UI元素的
+//point.closeInfoWindow();
+//or point.removeInfoWindow();
+//or point.getInfoWindow().hide();
+//or infowindow.hide();
+
+//point.setInfoWindow  point.openInfoWindow();
+
 <template>
   <div>
     <div id="map" class="container"></div>
@@ -131,7 +142,7 @@ export default {
       const target = identifyData && identifyData.data;
       if (target) {
         const feature = target.feature;
-        this._uiMarker(e.coordinate, "测试", feature.properties);
+        
       }
     });
   },
@@ -147,44 +158,7 @@ export default {
       });
       this.groupLayer.addLayer(GeoJSONLayer);
     },
-    _uiMarker(coordinate, title, data) {
-      let that = this;
-      let titleName = title || "";
-      if (!data && !data.length) return;
-      let Profile = Vue.extend({
-        template: `<div class="profile">
-            <div class="title-box">{{title}}<span class="close-btn" @click="closeUiMarker">X</span></div>
-            <div class="content-box">
-              <div class="content-group">
-                <div class="content-item" v-for="item in dataList" :key="item.id">
-                  <span>{{item}}</span>
-                </div>
-              </div>
-            </div>
-            </div>`,
-        data: function () {
-          return {
-            title: titleName,
-            dataList: data,
-            markers: null,
-          };
-        },
-        methods: {
-          closeUiMarker() {
-            that.uiMarkerLayer.removeMarker(this.markers);
-          },
-        },
-      });
-      const profile = new Profile().$mount();
-      this.markers = new maptalks.ui.UIMarker(coordinate, {
-        containerClass: "UIMarker", //css类名
-        single: true, //false为全局单个标记
-        content: profile.$el,
-        verticalAlignment: "top",
-        eventsPropagation: false, //是否停止所有事件的传播（事件冒泡）
-      });
-      this.uiMarkerLayer.addMarker(this.markers);
-    },
+
   },
 };
 </script>
