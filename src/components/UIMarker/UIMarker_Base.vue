@@ -138,6 +138,7 @@ export default {
 
   methods: {
     //GeojsonVT的方式
+    //只能添加UIMarker
     loadData(url) {
       let id = Util.generateUUID();
       let GeoJSONLayer = new GeoJSONVectorTileLayer(id, {

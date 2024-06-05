@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/UIMarker/InfoWindow_Base.jpg",
+          text: "InfoWindow基础",
+          path: "/InfoWindow_Base",
+        },
+        {
+          id: 1,
           img: "/images/nav/UIMarker/UIMarker_Base.jpg",
           text: "UIMarker基础",
           path: "/UIMarker_Base",

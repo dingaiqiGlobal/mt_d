@@ -1,13 +1,9 @@
 //maptalks里UI里的dom容器是maptalks自动生成的, 所以要想关闭UI,
 //请调用UI的hide或者remove方法, 用户传入的dom只是UI的内容而已,
-//内容作为dom容器的子节点了,
-//所以仅仅对你传入的dom节点进行隐藏等是不能关闭UI元素的
-//point.closeInfoWindow();
-//or point.removeInfoWindow();
-//or point.getInfoWindow().hide();
-//or infowindow.hide();
-
-//point.setInfoWindow  point.openInfoWindow();
+//内容作为dom容器的子节点了, //所以仅仅对你传入的dom节点进行隐藏等是不能关闭UI元素的
+//point.closeInfoWindow(); //or point.removeInfoWindow(); //or
+point.getInfoWindow().hide(); //or infowindow.hide(); //point.setInfoWindow
+point.openInfoWindow();
 
 <template>
   <div>
@@ -20,10 +16,8 @@
 import Vue from "vue";
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
-import { GroupGLLayer, GeoJSONVectorTileLayer } from "@maptalks/gl-layers";
-
+import { GroupGLLayer, GeoJSONVectorTileLayer,PointLayer } from "@maptalks/gl-layers";
 import Util from "@/utils/Util";
-import UIMarkerLayer from "./UIMarkerLayer";
 
 export default {
   components: {},
@@ -32,7 +26,6 @@ export default {
     return {
       map: null,
       groupLayer: null,
-      uIMarkerLayer: null,
     };
   },
 
@@ -119,12 +112,7 @@ export default {
     this.groupLayer.addTo(this.map);
 
     //添加数据
-    this.loadData("data/json/data_MiYun_Point_lit.json");
-
-    /**
-     * uiMarkerLayer
-     */
-    this.uiMarkerLayer = new UIMarkerLayer().addTo(this.map);
+    this.add_GroupGL_PointLayer();
 
     /**
      * 单击事件
@@ -141,24 +129,50 @@ export default {
           })[0];
       const target = identifyData && identifyData.data;
       if (target) {
-        const feature = target.feature;
-        
+        console.log(target);
+        //target.removeInfoWindow();
+        // let infoWindowObj = this._infoWindow();
+        // target.setInfoWindow({
+        //   title: "救护车",
+        //   content: infoWindowObj,
+        // });
+        // target.openInfoWindow();
+
       }
     });
   },
 
   methods: {
-    //GeojsonVT的方式
-    loadData(url) {
-      let id = Util.generateUUID();
-      let GeoJSONLayer = new GeoJSONVectorTileLayer(id, {
-        data: url,
-        minZoom: 1,
-        maxZoom: 22,
-      });
-      this.groupLayer.addLayer(GeoJSONLayer);
+    add_GroupGL_PointLayer() {
+      const pointLayer = new PointLayer("GroupGL_Point");
+      const marker = new maptalks.Marker([116.952210,40.511710], {
+        cursor: "pointer",
+        symbol: {
+          markerFile: "images/icon/icon_Red.png",
+          markerOpacity: 1,
+          markerWidth: 28,
+          markerHeight: 40,
+          textName: "GroupGL矢量点",
+        },
+      }).addTo(pointLayer);
+      this.groupLayer.addLayer(pointLayer);
     },
-
+    _infoWindow() {
+      let Profile = Vue.extend({
+        template: `<div class="profile">  <el-button size="mini">默认按钮</el-button>
+                            <el-button size="mini" type="danger">危险按钮</el-button>
+                            <el-checkbox v-model="checked">备选项</el-checkbox>
+                            <p>{{firstName}} {{lastName}}</p></div>`,
+        data: function () {
+          return {
+            firstName: "Walter",
+            lastName: "White",
+          };
+        },
+      });
+      const profile = new Profile().$mount();
+      return profile.$el;
+    },
   },
 };
 </script>
