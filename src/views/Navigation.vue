@@ -53,6 +53,12 @@ export default {
           text: "map参数",
           path: "/map_options",
         },
+                {
+          id: 1,
+          img: "/images/nav/control/control_collection.jpg",
+          text: "控件自定义",
+          path: "/control_custom",
+        },
         {
           id: 1,
           img: "/images/nav/control/control_collection.jpg",

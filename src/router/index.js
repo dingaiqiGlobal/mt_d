@@ -40,6 +40,11 @@ const routes = [
     component: () => import("../components/map/map_options.vue")
   },
   {
+    path: '/control_custom',
+    name: 'control_custom',
+    component: () => import("../components/control/control_custom.vue")
+  },
+  {
     path: '/control_collection',
     name: 'control_collection',
     component: () => import("../components/control/control_collection.vue")
