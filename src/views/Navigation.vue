@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/tools/tools_collection.jpg",
+          text: "工具集合",
+          path: "/tools_collection",
+        },
+        {
+          id: 1,
           img: "/images/nav/UIMarker/InfoWindow_Base.jpg",
           text: "InfoWindow基础",
           path: "/InfoWindow_Base",
@@ -53,7 +59,7 @@ export default {
           text: "map参数",
           path: "/map_options",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/control/control_collection.jpg",
           text: "控件自定义",

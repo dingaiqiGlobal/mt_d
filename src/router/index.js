@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/tools_collection',
+    name: 'tools_collection',
+    component: () => import("../components/tools/tools_collection.vue")
+  },
+  {
     path: '/InfoWindow_Base',
     name: 'InfoWindow_Base',
     component: () => import("../components/UIMarker/InfoWindow_Base.vue")
