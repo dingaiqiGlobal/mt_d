@@ -2,9 +2,9 @@ import * as maptalks from 'maptalks';
 class MeasureDistance {
     constructor(map) {
         this.map = map;
-        this.init()
+        this._init()
     }
-    init() {
+    _init() {
         this.distanceTool = new maptalks.DistanceTool({
             symbol: {
                 lineColor: "#34495e",

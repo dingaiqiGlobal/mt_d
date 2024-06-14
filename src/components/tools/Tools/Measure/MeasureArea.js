@@ -2,9 +2,9 @@ import * as maptalks from 'maptalks';
 class MeasureArea {
     constructor(map) {
         this.map = map;
-        this.init();
+        this._init();
     }
-    init() {
+    _init() {
         this.areaTool = new maptalks.AreaTool({
             symbol: {
                 lineColor: "#1bbc9b",

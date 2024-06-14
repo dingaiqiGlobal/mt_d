@@ -10,6 +10,28 @@
       <button @click="plotLineString">标绘线</button>
       <button @click="plotPolygon">标绘面</button>
       <button @click="plotClear">清空数据</button>
+      <br />
+      <el-form>
+        <el-form-item label="坐标格式">
+          <el-radio-group v-model="coordinateFormat">
+            <el-radio label="decimal">十进制</el-radio>
+            <el-radio label="dms">度分秒</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="经度">
+          <el-input v-model="longitude"></el-input>
+        </el-form-item>
+        <el-form-item label="纬度">
+          <el-input v-model="latitude"></el-input>
+        </el-form-item>
+        <el-form-item label="高度">
+          <el-input v-model="altitude"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handlePickOnMap">图上拾取</el-button>
+          <el-button type="primary" @click="handleLocateCoordinates">坐标定位</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -18,6 +40,7 @@
 import { Map, TileLayer } from "maptalks";
 import Measure from "./Tools/Measure/Measure";
 import Plot from "./Tools/Plot/Plot";
+import CoordPosition from "./Tools/CoordPosition/CoordPosition";
 export default {
   components: {},
 
@@ -25,6 +48,11 @@ export default {
     return {
       map: null,
       measure: null,
+      //UI
+      coordinateFormat: "decimal", // 默认选择十进制
+      longitude: 116,
+      latitude: 39,
+      altitude: 0,
     };
   },
 
@@ -50,9 +78,13 @@ export default {
 
     this.measure = new Measure(this.map);
     this.plot = new Plot(this.map);
+    this.coordPosition = new CoordPosition(this.map);
   },
 
   methods: {
+    /**
+     * 测量
+     */
     measureDistance() {
       this.measure.measureEnable("spatialDistance");
     },
@@ -62,6 +94,9 @@ export default {
     measureClear() {
       this.measure.measureClear();
     },
+    /**
+     *标绘
+     */
     plotPoint() {
       this.plot.plotEnable("Point");
     },
@@ -73,6 +108,24 @@ export default {
     },
     plotClear() {
       this.plot.clear();
+    },
+    /**
+     * 坐标
+     */
+    handlePickOnMap() {
+      this.coordPosition.pick(this.setCoordValue);
+    },
+    handleLocateCoordinates() {
+      let coord = {
+        longitude: this.longitude,
+        latitude: this.latitude,
+      };
+      this.coordPosition.flyTo(coord);
+    },
+    setCoordValue(position) {
+      this.longitude = position.x;
+      this.latitude = position.y;
+      this.altitude = 0;
     },
   },
 };

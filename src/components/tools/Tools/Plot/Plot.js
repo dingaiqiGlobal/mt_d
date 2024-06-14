@@ -3,9 +3,9 @@ class Plot {
     constructor(map) {
         this.map = map;
         this.plotLayer = null;
-        this.init();
+        this._init();
     }
-    init() {
+    _init() {
         this.plotLayer = new maptalks.VectorLayer("plotLayer").addTo(this.map);
         this.drawTool = new maptalks.DrawTool({
             mode: "Point",
