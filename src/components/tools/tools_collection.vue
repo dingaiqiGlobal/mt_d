@@ -5,8 +5,11 @@
       <button @click="measureDistance">测量距离</button>
       <button @click="measureArea">测量面</button>
       <button @click="measureClear">清除测量</button>
-      <br>
-
+      <br />
+      <button @click="plotPoint">标绘点</button>
+      <button @click="plotLineString">标绘线</button>
+      <button @click="plotPolygon">标绘面</button>
+      <button @click="plotClear">清空数据</button>
     </div>
   </div>
 </template>
@@ -14,6 +17,7 @@
 <script>
 import { Map, TileLayer } from "maptalks";
 import Measure from "./Tools/Measure/Measure";
+import Plot from "./Tools/Plot/Plot";
 export default {
   components: {},
 
@@ -45,6 +49,7 @@ export default {
     });
 
     this.measure = new Measure(this.map);
+    this.plot = new Plot(this.map);
   },
 
   methods: {
@@ -56,6 +61,18 @@ export default {
     },
     measureClear() {
       this.measure.measureClear();
+    },
+    plotPoint() {
+      this.plot.plotEnable("Point");
+    },
+    plotLineString() {
+      this.plot.plotEnable("LineString");
+    },
+    plotPolygon() {
+      this.plot.plotEnable("Polygon");
+    },
+    plotClear() {
+      this.plot.clear();
     },
   },
 };
