@@ -57,6 +57,7 @@ class MeasureArea {
             ],
             language: "",
             metric: true,
+            once:true,
         }).addTo(this.map);
         this.disable()
     }
@@ -65,9 +66,10 @@ class MeasureArea {
     }
     enable() {
         this.areaTool.enable()
-        this.areaTool.on('drawend', () => {
-            this.disable()
-        })
+        //等价于once:true,
+        // this.areaTool.on('drawend', () => {
+        //     this.disable()
+        // })
     }
     clear() {
         this.disable()

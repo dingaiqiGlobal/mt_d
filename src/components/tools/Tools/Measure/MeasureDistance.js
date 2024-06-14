@@ -56,6 +56,7 @@ class MeasureDistance {
             },],
             language: "en-US",
             metric: true,
+            once: true,
         }).addTo(this.map);
         this.disable()
     }
@@ -64,9 +65,10 @@ class MeasureDistance {
     }
     enable() {
         this.distanceTool.enable()
-        this.distanceTool.on('drawend', () => {
-            this.disable()
-        })
+        //等价于once:true,
+        // this.distanceTool.on('drawend', () => {
+        //     this.disable()
+        // })
     }
     clear() {
         this.disable()
