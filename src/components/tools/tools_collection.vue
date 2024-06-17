@@ -11,6 +11,9 @@
       <button @click="plotPolygon">标绘面</button>
       <button @click="plotClear">清空数据</button>
       <br />
+      <button @click="roamScene">场景漫游</button>
+      <button @click="roamClear">漫游清除</button>
+      <br />
       <el-form>
         <el-form-item label="坐标格式">
           <el-radio-group v-model="coordinateFormat">
@@ -41,6 +44,7 @@ import { Map, TileLayer } from "maptalks";
 import Measure from "./Tools/Measure/Measure";
 import Plot from "./Tools/Plot/Plot";
 import CoordPosition from "./Tools/CoordPosition/CoordPosition";
+import Roam from "./Tools/Roam/Roam";
 export default {
   components: {},
 
@@ -62,8 +66,6 @@ export default {
     this.map = new Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
-      pitch: 60,
-      bearing: -25,
       spatialReference: {
         projection: "EPSG:3857",
       },
@@ -79,6 +81,7 @@ export default {
     this.measure = new Measure(this.map);
     this.plot = new Plot(this.map);
     this.coordPosition = new CoordPosition(this.map);
+    this.roam = new Roam(this.map);
   },
 
   methods: {
@@ -108,6 +111,15 @@ export default {
     },
     plotClear() {
       this.plot.clear();
+    },
+    /**
+     * 场景漫游
+     */
+    roamScene() {
+      this.roam.init();
+    },
+    roamClear() {
+      this.roam.clear();
     },
     /**
      * 坐标

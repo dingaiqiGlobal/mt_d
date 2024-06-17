@@ -15,7 +15,7 @@
     "core-js": "^3.8.3",
     "dat.gui": "^0.7.9",
     "element-ui": "^2.15.14",
-    "maptalks": "^1.0.0-rc.30",
+    "maptalks": "^1.0.0-rc.33",
     "maptalks.heatmap": "^0.6.2",
     "maptalks.markercluster": "^0.8.8",
     "maptalks.modelcontrol": "^0.8.0",
