@@ -217,7 +217,6 @@ export default {
       this.coordPosition.pick(this.setCoordValue);
     },
     location() {
-      //将坐标值从“度分秒”格式转换为十进制
       if (this.optionValue != "decimalSystem") this.formatConversion(2);
       let val = this.coordValueGroup.group1;
       if (val.longitude && val.latitude) {
@@ -234,7 +233,7 @@ export default {
       this.coordValueGroup.group1.longitude = position.x;
       this.coordValueGroup.group1.latitude = position.y;
       this.coordValueGroup.group1.altitude = 0;
-      this.formatConversion(1);//转换
+      this.formatConversion(1);
     },
     formatConversion(flag) {
       if (flag == 1) {
