@@ -55,7 +55,7 @@ class MeasureArea {
                 markerDx: 22,
             },
             ],
-            language: "",
+            language: "en-US",
             metric: true,
             once:true,
         }).addTo(this.map);
