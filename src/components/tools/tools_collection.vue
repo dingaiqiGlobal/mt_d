@@ -15,24 +15,89 @@
       <button @click="roamClear">漫游清除</button>
       <br />
       <el-form>
-        <el-form-item label="坐标格式">
-          <el-radio-group v-model="coordinateFormat">
-            <el-radio label="decimal">十进制</el-radio>
-            <el-radio label="dms">度分秒</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="经度">
-          <el-input v-model="longitude"></el-input>
-        </el-form-item>
-        <el-form-item label="纬度">
-          <el-input v-model="latitude"></el-input>
-        </el-form-item>
-        <el-form-item label="高度">
-          <el-input v-model="altitude"></el-input>
-        </el-form-item>
+        <el-radio-group v-model="optionValue" @change="onChange">
+          <el-radio
+            v-for="item in plainOptions"
+            :key="item.value"
+            :label="item.value"
+            :label-class="item.labelClass"
+            :disabled="item.disabled"
+          >
+            {{ item.label }}
+          </el-radio>
+        </el-radio-group>
+
+        <div v-if="optionValue === 'decimalSystem'">
+          <el-form-item label="经度">
+            <el-input v-model="coordValueGroup.group1.longitude"></el-input>
+          </el-form-item>
+          <el-form-item label="纬度">
+            <el-input v-model="coordValueGroup.group1.latitude"></el-input>
+          </el-form-item>
+          <el-form-item label="高度">
+            <el-input v-model="coordValueGroup.group1.altitude"></el-input>
+          </el-form-item>
+        </div>
+        <div v-if="optionValue === 'MinutesSeconds'">
+          <el-row :gutter="24" style="margin: 0">
+            <el-form-item label="经度">
+              <el-col :span="7">
+                <el-input
+                  v-model="coordValueGroup.group2.longitude.degree"
+                  style="width: 80px"
+                />
+                <span>度</span>
+              </el-col>
+              <el-col :span="7">
+                <el-input
+                  v-model="coordValueGroup.group2.longitude.minute"
+                  style="width: 80px"
+                />
+                <span>分</span>
+              </el-col>
+              <el-col :span="7">
+                <el-input
+                  v-model="coordValueGroup.group2.longitude.second"
+                  style="width: 80px"
+                />
+                <span>秒</span>
+              </el-col>
+            </el-form-item>
+          </el-row>
+          <el-row :gutter="24" style="margin: 0">
+            <el-form-item label="纬度">
+              <el-col :span="7">
+                <el-input
+                  v-model="coordValueGroup.group2.latitude.degree"
+                  style="width: 80px"
+                />
+                <span>度</span>
+              </el-col>
+              <el-col :span="7">
+                <el-input
+                  v-model="coordValueGroup.group2.latitude.minute"
+                  style="width: 80px"
+                />
+                <span>分</span>
+              </el-col>
+              <el-col :span="7">
+                <el-input
+                  v-model="coordValueGroup.group2.latitude.second"
+                  style="width: 80px"
+                />
+                <span>秒</span>
+              </el-col>
+            </el-form-item>
+          </el-row>
+          <el-row :gutter="24" style="margin: 0px 20px 0 3px">
+            <el-form-item label="高程">
+              <el-input v-model="coordValueGroup.group2.altitude" />
+            </el-form-item>
+          </el-row>
+        </div>
         <el-form-item>
-          <el-button type="primary" @click="handlePickOnMap">图上拾取</el-button>
-          <el-button type="primary" @click="handleLocateCoordinates">坐标定位</el-button>
+          <el-button type="primary" @click="pickup">图上拾取</el-button>
+          <el-button type="primary" @click="location">坐标定位</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -53,10 +118,31 @@ export default {
       map: null,
       measure: null,
       //UI
-      coordinateFormat: "decimal", // 默认选择十进制
-      longitude: 116,
-      latitude: 39,
-      altitude: 0,
+      optionValue: "decimalSystem",
+      plainOptions: [
+        { label: "十进制", value: "decimalSystem" },
+        { label: "度分秒", value: "MinutesSeconds" },
+      ],
+      coordValueGroup: {
+        group1: {
+          longitude: 116.400175,
+          latitude: 39.914497,
+          altitude: 0,
+        },
+        group2: {
+          longitude: {
+            degree: "",
+            minute: "",
+            second: "",
+          },
+          latitude: {
+            degree: "",
+            minute: "",
+            second: "",
+          },
+          altitude: "",
+        },
+      },
     };
   },
 
@@ -124,20 +210,70 @@ export default {
     /**
      * 坐标
      */
-    handlePickOnMap() {
+    onChange(e) {
+      this.optionValue = e;
+    },
+    pickup() {
       this.coordPosition.pick(this.setCoordValue);
     },
-    handleLocateCoordinates() {
-      let coord = {
-        longitude: this.longitude,
-        latitude: this.latitude,
-      };
-      this.coordPosition.flyTo(coord);
+    location() {
+      //将坐标值从“度分秒”格式转换为十进制
+      if (this.optionValue != "decimalSystem") this.formatConversion(2);
+      let val = this.coordValueGroup.group1;
+      if (val.longitude && val.latitude) {
+        let coord = {
+          longitude: this.coordValueGroup.group1.longitude,
+          latitude: this.coordValueGroup.group1.latitude,
+        };
+        this.coordPosition.flyTo(coord);
+      } else {
+        this.$message.error("坐标值无效，无法定位");
+      }
     },
     setCoordValue(position) {
-      this.longitude = position.x;
-      this.latitude = position.y;
-      this.altitude = 0;
+      this.coordValueGroup.group1.longitude = position.x;
+      this.coordValueGroup.group1.latitude = position.y;
+      this.coordValueGroup.group1.altitude = 0;
+      this.formatConversion(1);//转换
+    },
+    formatConversion(flag) {
+      if (flag == 1) {
+        let coordValueGroup1 = this.coordValueGroup.group1;
+        let lon = this.coordPosition.DDDToDMS(coordValueGroup1.longitude);
+        let lat = this.coordPosition.DDDToDMS(coordValueGroup1.latitude);
+        let alt = coordValueGroup1.altitude;
+        this.coordValueGroup.group2 = {
+          longitude: {
+            degree: lon[0],
+            minute: lon[1],
+            second: lon[2],
+          },
+          latitude: {
+            degree: lat[0],
+            minute: lat[1], 
+            second: lat[2],
+          },
+          altitude: alt,
+        };
+      } else if (flag == 2) {
+        let coordValueGroup2 = this.coordValueGroup.group2;
+        let lon = this.coordPosition.DMSToDDD([
+          coordValueGroup2.longitude.degree,
+          coordValueGroup2.longitude.minute,
+          coordValueGroup2.longitude.second,
+        ]);
+        let lat = this.coordPosition.DMSToDDD([
+          coordValueGroup2.latitude.degree,
+          coordValueGroup2.latitude.minute,
+          coordValueGroup2.latitude.second,
+        ]);
+        let alt = coordValueGroup2.altitude;
+        this.coordValueGroup.group1 = {
+          longitude: lon,
+          latitude: lat,
+          altitude: alt,
+        };
+      }
     },
   },
 };
