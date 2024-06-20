@@ -3,6 +3,20 @@
     <div id="map" class="container"></div>
     <div class="control"></div>
     <div id="json"></div>
+    <div class="locationSearch">
+      <div class="inputBox">
+        <a-input placeholder="请输入地点名称" :value="inputValue" />
+        <span
+          style="width: 19px; height: 17px"
+          class="eliminateinput"
+          v-show="inputValue != ''"
+          >X</span
+        >
+        <a-button class="searchBtn" type="primary">
+          <img src="images/icon/fdj.png" style="width: 20px; height: 20px" />
+        </a-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,6 +31,8 @@ export default {
   data() {
     return {
       map: null,
+      //搜索
+      inputValue: "",
     };
   },
 
@@ -46,7 +62,7 @@ export default {
         zoomLevel: false,
       }, // add zoom control
       //scaleControl: true, // add scale control
-      overviewControl: true, // add overview control
+      //overviewControl: true, // add overview control
     });
 
     /**
@@ -64,14 +80,14 @@ export default {
     /**
      * 图层控制
      */
-    let layerSwitcher = new control.LayerSwitcher({
-      position: "top-right",
-      baseTitle: "底图图层集合",
-      overlayTitle: "其他图层集合",
-      excludeLayers: [], //排除图层
-      containerClass: "maptalks-layer-switcher", //css样式
-    });
-    this.map.addControl(layerSwitcher);
+    // let layerSwitcher = new control.LayerSwitcher({
+    //   position: "top-right",
+    //   baseTitle: "底图图层集合",
+    //   overlayTitle: "其他图层集合",
+    //   excludeLayers: [], //排除图层
+    //   containerClass: "maptalks-layer-switcher", //css样式
+    // });
+    // this.map.addControl(layerSwitcher);
 
     /**
      * 添加图层
@@ -121,19 +137,126 @@ export default {
       document.getElementById("json").innerHTML = JSON.stringify(mapJSON);
     },
 
+    //添加比例尺控件
     add_Scale() {
-      // const x = options.position.top || 230;
-      // const y = options.position.left || 10;
       let scale = new control.Scale({
-        position: { top: "500", left: "50" },
+        position: "top-right",
         containerClass: "scaleCss",
       });
       this.map.addControl(scale);
     },
+
+    //搜索控件
+    add_Search() {},
+    //图例控件
+    add_legend() {},
   },
 };
 </script>
 <style>
+.locationSearch {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  z-index: 9;
+  display: flex;
+  .inputBox {
+    width: 316px;
+    height: 40px;
+    display: flex;
+    background: rgba(9, 28, 55, 0.7);
+    box-shadow: inset 0px 1px 12px 0px #4389ff;
+    border-radius: 4px;
+    input {
+      width: 269px;
+      height: 40px;
+      border: none;
+    }
+    .ant-input {
+      background-color: transparent;
+      color: #ffffff;
+    }
+    .eliminateinput {
+      position: absolute;
+      top: 10px;
+      right: 40px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+    .searchBtn {
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      right: 0;
+      padding: 0;
+      border-radius: 0 4px 4px 0;
+      background-color: transparent;
+    }
+  }
+  .conbox {
+    width: 316px;
+    max-height: 374px;
+    background: rgba(9, 28, 55, 0.7);
+    box-shadow: inset 0px 1px 12px 0px #4389ff;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    overflow-y: auto;
+    .zwsj {
+      margin-top: 50px;
+      text-align: center;
+      padding-bottom: 50px;
+      span {
+        display: block;
+        margin-top: 15px;
+        color: #ffffff;
+      }
+    }
+    ul {
+      padding-left: 0px;
+      li {
+        display: flex;
+        padding: 5px 10px;
+        cursor: pointer;
+        p {
+          font-size: 14px;
+          font-weight: 400;
+          color: #ffffff;
+          width: 210px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        span {
+          margin-left: 10px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #ffffff;
+          text-align: left;
+        }
+      }
+    }
+  }
+  .conbox::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+    border-radius: 6px;
+  }
+  .conbox::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 4px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(23, 133, 255, 1);
+  }
+  .conbox::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    height: 90%;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background: rgba(235, 235, 235, 1);
+  }
+}
 .scaleCss {
   border: 2px solid #000000;
   border-top: none;
@@ -146,7 +269,7 @@ export default {
   overflow: hidden;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  background-image: url('../../../public/images/icon/icon_Red.png'); /* 设置图片路径 */
+  background-image: url("../../../public/images/icon/icon_Red.png"); /* 设置图片路径 */
   background-size: cover; /* 背景图片覆盖整个元素 */
   background-repeat: no-repeat; /* 背景图片不重复 */
   background-position: center; /* 背景图片居中 */
