@@ -42,16 +42,16 @@ class Roam {
         this.keyEventListener = (e) => {
             const key = e.key.toLowerCase();
             switch (key) {
-                case 'arrowup':
+                case 'w':
                     this._moveForward()
                     break;
-                case 'arrowdown':
+                case 's':
                     this._moveBack();
                     break;
-                case 'arrowleft':
+                case 'a':
                     this._moveLeft();
                     break;
-                case 'arrowright':
+                case 'd':
                     this._moveRight();
                     break;
                 case 'q':
