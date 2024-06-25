@@ -45,9 +45,14 @@ const routes = [
     component: () => import("../components/map/map_options.vue")
   },
   {
-    path: '/control_custom',
-    name: 'control_custom',
-    component: () => import("../components/control/control_custom.vue")
+    path: '/control_custom_scene',
+    name: 'control_custom_scene',
+    component: () => import("../components/control/control_custom_scene.vue")
+  },
+  {
+    path: '/control_custom_save',
+    name: 'control_custom_save',
+    component: () => import("../components/control/control_custom_save.vue")
   },
   {
     path: '/control_collection',

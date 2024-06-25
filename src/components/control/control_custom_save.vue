@@ -15,7 +15,7 @@
 import "maptalks/dist/maptalks.css";
 import { Map, TileLayer, Marker, control } from "maptalks";
 import { GroupGLLayer, PointLayer } from "@maptalks/gl-layers";
-import ControlCustom from "./ControlCustom";
+import ControlCustomSave from "./ControlCustomSave";
 export default {
   components: {},
   data() {
@@ -52,7 +52,7 @@ export default {
       // },
     });
 
-    this.cl = new ControlCustom(this.map);
+    this.cl = new ControlCustomSave(this.map);
 
     /**
      * 添加到map上

@@ -1,4 +1,4 @@
-class ControlCustom {
+class ControlCustomSave {
     constructor(map) {
         this.map = map;
         this.controlList = [];
@@ -36,4 +36,4 @@ class ControlCustom {
     }
 }
 
-export default ControlCustom;
+export default ControlCustomSave;

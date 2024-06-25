@@ -61,9 +61,15 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/control/control_custom.jpg",
+          img: "/images/nav/control/control_custom_save.jpg",
+          text: "控件存储",
+          path: "/control_custom_save",
+        },
+        {
+          id: 1,
+          img: "/images/nav/control/control_custom_scene.jpg",
           text: "控件自定义",
-          path: "/control_custom",
+          path: "/control_custom_scene",
         },
         {
           id: 1,
