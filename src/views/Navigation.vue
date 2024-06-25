@@ -61,7 +61,7 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/control/control_collection.jpg",
+          img: "/images/nav/control/control_custom.jpg",
           text: "控件自定义",
           path: "/control_custom",
         },
