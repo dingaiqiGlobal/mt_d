@@ -15,7 +15,7 @@
 import "maptalks/dist/maptalks.css";
 import { Map, TileLayer, Marker, control } from "maptalks";
 import { GroupGLLayer, PointLayer } from "@maptalks/gl-layers";
-import ControlCustomSave from "./ControlCustomSave";
+import ControlCustomSave from "./js/ControlCustomSave";
 export default {
   components: {},
   data() {
