@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div id="scale" class="scale"></div>
+    <div id="scale" class="scale" @click="add_Scale"></div>
     <div class="legend">图例</div>
     <div class="locationSearch">
       <div class="inputBox">
@@ -126,7 +126,6 @@ export default {
       },
     }).addTo(pointLayer);
     this.groupLayer.addLayer(pointLayer);
-    this.add_Scale();
   },
 
   methods: {
@@ -142,8 +141,9 @@ export default {
      * 图例控件
      */
     add_legend(){
-
+      
     },
+
     /**
      * 搜索控件
      */

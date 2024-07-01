@@ -2,6 +2,8 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="addCloudArcLineMesh">添加云朵流光线</button>
+      <button type="" @click="remove_CloudArcLineMesh">移除云朵流光线</button>
       <button type="" @click="add_RippleWall">添加幕墙</button>
       <button type="" @click="remove_RippleWall">移除幕墙</button>
       <button type="" @click="add_ArcLineMesh">添加弧线</button>
@@ -14,7 +16,7 @@
 <script>
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
-import { GroupGLLayer } from "@maptalks/gl-layers";
+import { GroupGLLayer, PointLayer } from "@maptalks/gl-layers";
 import axios from "axios";
 
 //three
@@ -58,11 +60,13 @@ export default {
   data() {
     return {
       map: null,
+      groupLayer: null,
       threeLayer: null,
       menshGroup: null,
       //数据要求不一样
       rippleWallMesh: [],
       arcLineMesh: [],
+      cloudArcLineMesh: [],
     };
   },
 
@@ -78,13 +82,60 @@ export default {
         projection: "EPSG:3857",
       },
       baseLayer: new maptalks.TileLayer("tile", {
-        urlTemplate: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png", //dark_all
+        urlTemplate: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png", //dark_all
         subdomains: ["a", "b", "c", "d"],
         attribution:
           '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
       }),
       layers: [],
     });
+
+    this.groupLayer = new GroupGLLayer("group", [], {
+      sceneConfig: {
+        environment: {
+          enable: true,
+          mode: 1,
+          level: 0,
+          brightness: 0,
+        },
+        shadow: {
+          type: "esm",
+          enable: true,
+          quality: "high",
+          opacity: 0.11,
+          color: [0, 0, 0],
+          blurOffset: 1,
+        },
+        postProcess: {
+          enable: true,
+          antialias: {
+            enable: true,
+            taa: true,
+            jitterRatio: 0.25,
+          },
+          ssr: {
+            enable: true,
+          },
+          bloom: {
+            enable: true,
+            threshold: 0,
+            factor: 0.2,
+            radius: 0.105,
+          },
+          ssao: {
+            enable: true,
+            bias: 0.08,
+            radius: 0.08,
+            intensity: 1.5,
+          },
+          sharpen: {
+            enable: true,
+            factor: 0.2,
+          },
+        },
+      },
+    });
+    this.groupLayer.addTo(this.map);
 
     this.threeLayer = new ThreeLayer("effectBuilding", {
       forceRenderOnMoving: true,
@@ -112,6 +163,99 @@ export default {
         coordinates.push(features[i].geometry.coordinates);
       }
       return coordinates;
+    },
+    /**
+     * 云朵流光线
+     */
+
+    async buildCloudArcLineMesh(url, threeLayer) {
+      //整理数据
+      const path = [];
+      let data = await this.getJsonData(url);
+      //添加边缘矢量图层
+      const iconLayer = new PointLayer("iconLayer", {});
+      for (let i = 0; i < data.length; i++) {
+        const iconMarker = new maptalks.Marker(data[i], {
+          symbol: {
+            markerFile: require("@/assets/texture/building.png"),
+            markerOpacity: 1,
+            markerWidth: 35,
+            markerHeight: 35,
+          },
+        }).addTo(iconLayer);
+      }
+      this.groupLayer.addLayer(iconLayer);
+
+      //添加meshes
+      let origin = [116.32297, 39.99418];
+      let meshes = [];
+      for (let i = 0; i < data.length; i++) {
+        let linestring = new maptalks.LineString([origin, data[i]]);
+        //texture-贴图信息
+        const texture = new THREE.TextureLoader().load(
+          require("@/assets/texture/lineTexture_white.png")
+        );
+        texture.anisotropy = 16;
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        const camera = threeLayer.getCamera();
+        //THREE.MeshLine
+        const material = new MeshLineMaterial({
+          map: texture,
+          useMap: true,
+          lineWidth: 8,
+          color: "#20bd7c",
+          sizeAttenuation: false,
+          transparent: true,
+          near: camera.near,
+          far: camera.far,
+        });
+        //maptalks.three.object
+        meshes.push(
+          new arcLine(
+            linestring,
+            { altitude: 0, height: 200, speed: 1 / 5 },
+            material,
+            threeLayer
+          )
+        );
+      }
+      return meshes;
+    },
+    async addCloudArcLineMesh() {
+      if (!this.menshGroup.isMesh(this.cloudArcLineMesh)) {
+        this.cloudArcLineMesh = await this.buildCloudArcLineMesh(
+          "data/json/data_cloud_arcline_effect.json",
+          this.threeLayer
+        );
+        this.menshGroup.addMesh(this.cloudArcLineMesh);
+      }
+      this.addCloudPoint();
+    },
+    addCloudPoint() {
+      const cloudPointLayer = new PointLayer("cloudPoint", {});
+      const cloudPointMarker = new maptalks.Marker([116.32297, 39.99418], {
+        symbol: {
+          markerFile: require("@/assets/texture/cloud.png"),
+          markerOpacity: 1,
+          markerWidth: 100,
+          markerHeight: 100,
+          markerDy: 50,
+        },
+      }).addTo(cloudPointLayer);
+      this.groupLayer.addLayer(cloudPointLayer);
+    },
+
+    remove_CloudArcLineMesh() {
+      let iconLayer = this.groupLayer.getLayer("iconLayer");
+      let cloudPointLayer = this.groupLayer.getLayer("cloudPoint");
+      if (iconLayer) {
+        this.groupLayer.removeLayer(iconLayer);
+      }
+      if (cloudPointLayer) {
+        this.groupLayer.removeLayer(cloudPointLayer);
+      }
+      this.menshGroup.removeMesh(this.cloudArcLineMesh);
     },
     /**
      * 幕墙
