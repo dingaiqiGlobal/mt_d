@@ -52,6 +52,7 @@ import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
 import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
 //弧线
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
+import arcLine2 from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
 
 export default {
@@ -179,8 +180,8 @@ export default {
           symbol: {
             markerFile: require("@/assets/texture/building.png"),
             markerOpacity: 1,
-            markerWidth: 35,
-            markerHeight: 35,
+            markerWidth: 30,//60
+            markerHeight: 42,//84
           },
         }).addTo(iconLayer);
       }
@@ -204,17 +205,17 @@ export default {
           map: texture,
           useMap: true,
           lineWidth: 8,
-          color: "#20bd7c",
           sizeAttenuation: false,
           transparent: true,
           near: camera.near,
           far: camera.far,
+          color: "#20bd7c", // 线的颜色
         });
         //maptalks.three.object
         meshes.push(
-          new arcLine(
+          new arcLine2(
             linestring,
-            { altitude: 0, height: 200, speed: 1 / 5 },
+            { altitude: 0, height: 200, speed: 2 / 5 },
             material,
             threeLayer
           )
