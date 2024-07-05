@@ -1,0 +1,13 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.34016249753755,40.00332084368067]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":2230}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.34312203641365,40.00555322136827]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":4578}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.34473850188559,40.009219443586936]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":1541}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.34372964625703,40.01431374178508]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":1457}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32999479318603,40.01304085749205]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":214548}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33311003747899,40.016859052029304]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":1445}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33101303223033,40.00581548187803]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":152}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.336338587405,40.00275651060524]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":5775}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33716896227473,40.018023542599664]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":1488}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33364240240539,40.00357191558445]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":444585}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32956459758006,40.0094789195669]},"properties":{"name":"name","address":"address","remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","number":45}}
+]}

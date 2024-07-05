@@ -2,13 +2,19 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="addIconTween">添加标签跳动效果</button>
+      <button type="">移除标签跳动效果</button>
+      <br />
       <button type="" @click="addCloudArcLineMesh">添加云朵流光线</button>
       <button type="" @click="remove_CloudArcLineMesh">移除云朵流光线</button>
+      <br />
       <button type="" @click="add_RippleWall">添加幕墙</button>
       <button type="" @click="remove_RippleWall">移除幕墙</button>
+      <br />
       <button type="" @click="add_ArcLineMesh">添加弧线</button>
       <button type="" @click="remove_ArcLineMesh">移除弧线</button>
-      <button type="" @click="menshGroup.clear()">清空</button>
+      <br />
+      <button type="" @click="clear">清空</button>
     </div>
   </div>
 </template>
@@ -23,6 +29,8 @@ import axios from "axios";
 import * as THREE from "three";
 import { ThreeLayer } from "maptalks.three";
 import MenshGroup from "@/sceneEffect/MenshGroup";
+//安装npm install gsap --save
+import { gsap } from "gsap";
 
 /**
  * 场景特效
@@ -165,10 +173,35 @@ export default {
       }
       return coordinates;
     },
+
+    /**
+     * 标签弹跳效果
+     */
+    async buildIconTween(url) {
+      let data = await this.getJsonData(url);
+      //添加边缘矢量图层
+      const iconLayer = new PointLayer("iconTween", {});
+      for (let i = 0; i < data.length; i++) {
+        const iconMarker = new maptalks.Marker(data[i], {
+          symbol: {
+            markerFile: require("@/assets/texture/people.png"),
+            markerOpacity: 1,
+            markerWidth: 30, //60
+            markerHeight: 42, //84
+          },
+        }).addTo(iconLayer);
+      }
+      this.groupLayer.addLayer(iconLayer);
+    },
+    addIconTween() {
+      if (!this.groupLayer.getLayer("iconTween")) {
+        let url = "data/json/data_icon_tween.json";
+        this.buildIconTween(url);
+      }
+    },
     /**
      * 云朵流光线
      */
-
     async buildCloudArcLineMesh(url, threeLayer) {
       //整理数据
       const path = [];
@@ -180,8 +213,8 @@ export default {
           symbol: {
             markerFile: require("@/assets/texture/building.png"),
             markerOpacity: 1,
-            markerWidth: 30,//60
-            markerHeight: 42,//84
+            markerWidth: 30, //60
+            markerHeight: 42, //84
           },
         }).addTo(iconLayer);
       }
@@ -224,6 +257,7 @@ export default {
       return meshes;
     },
     async addCloudArcLineMesh() {
+      //飞线不存在添加
       if (!this.menshGroup.isMesh(this.cloudArcLineMesh)) {
         this.cloudArcLineMesh = await this.buildCloudArcLineMesh(
           "data/json/data_cloud_arcline_effect.json",
@@ -231,7 +265,11 @@ export default {
         );
         this.menshGroup.addMesh(this.cloudArcLineMesh);
       }
-      this.addCloudPoint();
+      //云朵点图层不存在添加
+      let cloudPointLayer = this.groupLayer.getLayer("cloudPoint");
+      if (!cloudPointLayer) {
+        this.addCloudPoint();
+      }
     },
     addCloudPoint() {
       const cloudPointLayer = new PointLayer("cloudPoint", {});
@@ -354,6 +392,13 @@ export default {
     },
     remove_ArcLineMesh() {
       this.menshGroup.removeMesh(this.arcLineMesh);
+    },
+    /**
+     * 清空
+     */
+    clear() {
+      this.menshGroup.clear(); //three组
+      this.remove_CloudArcLineMesh();
     },
   },
 };
