@@ -6,7 +6,7 @@ class AnimationBeat {
         this.map = map;
         this.layerId = layerId;
     }
-    add(url) {
+    add(url,clickEvent) {
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
@@ -26,6 +26,7 @@ class AnimationBeat {
                             textDx: 0,
                             textDy: 10,
                         });
+                        item.on('click', clickEvent);//单击事件
                     });
                     const iconLayer = new maptalks.VectorLayer(this.layerId, geos, {
                         enableAltitude: true,//必填

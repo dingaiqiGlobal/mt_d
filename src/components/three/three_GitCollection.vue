@@ -188,14 +188,21 @@ export default {
      */
     addBeat() {
       this.beat.remove();
-      this.beat.add("data/json/data_icon_tween.json");
+      this.beat.add("data/json/data_icon_tween.json",this.featureClickEvent);
     },
     removeBeat() {
       this.beat.remove();
     },
+    featureClickEvent(e){
+      let center=[e.coordinate.x,e.coordinate.y]
+      const uiMarker = new maptalks.ui.UIMarker(center, {
+        content: '11111111',
+      });
+      uiMarker.addTo(this.map);
+    },
 
     /**
-     * 云朵流光线
+     * 云朵连接线
      */
     addLinkLine() {
       this.linkLine.remove()
