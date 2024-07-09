@@ -1,0 +1,3 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32202182350083,39.99416208652671]},"properties":{"remarks":"","zh_name":"","zh_address":"","gid":0,"bgcode":"","createtime":"1899-11-30T00:00:00.000Z","updatetime":"1899-11-30T00:00:00.000Z","DNAME":"4558人"}}
+]}

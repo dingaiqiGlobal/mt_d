@@ -5,16 +5,15 @@
       <button type="" @click="addBeat">添加标签跳动效果</button>
       <button type="" @click="removeBeat">移除标签跳动效果</button>
       <br />
-      <button type="" @click="addCloudArcLineMesh">添加云朵流光线</button>
-      <button type="" @click="remove_CloudArcLineMesh">移除云朵流光线</button>
-      <br />
+      <button type="" @click="addLinkLine">添加云朵流光线</button>
+      <button type="" @click="removeLinkLine">移除云朵流光线</button>
+      <hr />
       <button type="" @click="add_RippleWall">添加幕墙</button>
       <button type="" @click="remove_RippleWall">移除幕墙</button>
       <br />
       <button type="" @click="add_ArcLineMesh">添加弧线</button>
       <button type="" @click="remove_ArcLineMesh">移除弧线</button>
       <br />
-      <button type="" @click="clear">清空</button>
     </div>
   </div>
 </template>
@@ -60,11 +59,11 @@ import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
 import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
 //弧线
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
-import arcLine2 from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
 
 //动画
 import AnimationBeat from "./AnimationBeat";
+import AnimationLinkLine from "./AnimationLinkLine";
 
 export default {
   components: {},
@@ -167,6 +166,10 @@ export default {
 
     //动画
     this.beat = new AnimationBeat(this.map);
+    this.linkLine = new AnimationLinkLine({
+      map:this.map,
+      menshGroup:this.menshGroup
+    });
   },
 
   methods: {
@@ -194,101 +197,18 @@ export default {
     /**
      * 云朵流光线
      */
-    async buildCloudArcLineMesh(url, threeLayer) {
-      //整理数据
-      const path = [];
-      let data = await this.getJsonData(url);
-      //添加边缘矢量图层
-      const iconLayer = new PointLayer("iconLayer", {});
-      for (let i = 0; i < data.length; i++) {
-        const iconMarker = new maptalks.Marker(data[i], {
-          symbol: {
-            markerFile: require("@/assets/texture/building.png"),
-            markerOpacity: 1,
-            markerWidth: 30, //60
-            markerHeight: 42, //84
-            markerDy: 20,
-          },
-        }).addTo(iconLayer);
-      }
-      this.groupLayer.addLayer(iconLayer);
-
-      //添加meshes
-      let origin = [116.32297, 39.99418];
-      let meshes = [];
-      for (let i = 0; i < data.length; i++) {
-        let linestring = new maptalks.LineString([origin, data[i]]);
-        //texture-贴图信息
-        const texture = new THREE.TextureLoader().load(
-          require("@/assets/texture/lineTexture_white.png")
-        );
-        texture.anisotropy = 16;
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        const camera = threeLayer.getCamera();
-        //THREE.MeshLine
-        const material = new MeshLineMaterial({
-          map: texture,
-          useMap: true,
-          lineWidth: 8,
-          sizeAttenuation: false,
-          transparent: true,
-          near: camera.near,
-          far: camera.far,
-          color: "#20bd7c", // 线的颜色
-        });
-        //maptalks.three.object
-        meshes.push(
-          new arcLine2(
-            linestring,
-            { altitude: 0, height: 200, speed: 2 / 5 },
-            material,
-            threeLayer
-          )
-        );
-      }
-      return meshes;
+    addLinkLine() {
+      this.linkLine.remove()
+      let urlCenter="data/json/data_cloud_arcline_center_effect.json";
+      let urlOther="data/json/data_cloud_arcline_effect.json";
+      this.linkLine.addCenterIcon(urlCenter);
+      this.linkLine.addOtherIcon(urlOther);
+      this.linkLine.addMesh(urlOther, this.threeLayer, urlCenter);
     },
-    async addCloudArcLineMesh() {
-      //飞线不存在添加
-      if (!this.menshGroup.isMesh(this.cloudArcLineMesh)) {
-        this.cloudArcLineMesh = await this.buildCloudArcLineMesh(
-          "data/json/data_cloud_arcline_effect.json",
-          this.threeLayer
-        );
-        this.menshGroup.addMesh(this.cloudArcLineMesh);
-      }
-      //云朵点图层不存在添加
-      let cloudPointLayer = this.groupLayer.getLayer("cloudPoint");
-      if (!cloudPointLayer) {
-        this.addCloudPoint();
-      }
-    },
-    addCloudPoint() {
-      const cloudPointLayer = new PointLayer("cloudPoint", {});
-      const cloudPointMarker = new maptalks.Marker([116.32297, 39.99418], {
-        symbol: {
-          markerFile: require("@/assets/texture/cloud.png"),
-          markerOpacity: 1,
-          markerWidth: 100,
-          markerHeight: 100,
-          markerDy: 50,
-        },
-      }).addTo(cloudPointLayer);
-      this.groupLayer.addLayer(cloudPointLayer);
+    removeLinkLine() {
+      this.linkLine.remove();
     },
 
-    remove_CloudArcLineMesh() {
-      let iconLayer = this.groupLayer.getLayer("iconLayer");
-      let cloudPointLayer = this.groupLayer.getLayer("cloudPoint");
-      if (iconLayer) {
-        this.groupLayer.removeLayer(iconLayer);
-      }
-      if (cloudPointLayer) {
-        this.groupLayer.removeLayer(cloudPointLayer);
-      }
-      this.menshGroup.removeMesh(this.cloudArcLineMesh);
-    },
     /**
      * 幕墙
      */
@@ -389,10 +309,9 @@ export default {
     /**
      * 清空
      */
-    clear() {
-      this.menshGroup.clear(); //three组
-      this.remove_CloudArcLineMesh();
-    },
+    // clear() {
+    //   this.menshGroup.clear(); //three组
+    // },
   },
 };
 </script>
