@@ -2,8 +2,8 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
-      <button type="" @click="addIconTween">添加标签跳动效果</button>
-      <button type="">移除标签跳动效果</button>
+      <button type="" @click="addBeat">添加标签跳动效果</button>
+      <button type="" @click="removeBeat">移除标签跳动效果</button>
       <br />
       <button type="" @click="addCloudArcLineMesh">添加云朵流光线</button>
       <button type="" @click="remove_CloudArcLineMesh">移除云朵流光线</button>
@@ -29,8 +29,8 @@ import axios from "axios";
 import * as THREE from "three";
 import { ThreeLayer } from "maptalks.three";
 import MenshGroup from "@/sceneEffect/MenshGroup";
-//安装npm install gsap --save
-import { gsap } from "gsap";
+// //安装npm install gsap --save
+// import { gsap } from "gsap";
 
 /**
  * 场景特效
@@ -62,6 +62,9 @@ import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
 import arcLine2 from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
+
+//动画
+import AnimationBeat from "./AnimationBeat";
 
 export default {
   components: {},
@@ -161,6 +164,9 @@ export default {
     };
     this.threeLayer.addTo(this.map);
     this.menshGroup = new MenshGroup(this.threeLayer);
+
+    //动画
+    this.beat = new AnimationBeat(this.map);
   },
 
   methods: {
@@ -177,28 +183,14 @@ export default {
     /**
      * 标签弹跳效果
      */
-    async buildIconTween(url) {
-      let data = await this.getJsonData(url);
-      //添加边缘矢量图层
-      const iconLayer = new PointLayer("iconTween", {});
-      for (let i = 0; i < data.length; i++) {
-        const iconMarker = new maptalks.Marker(data[i], {
-          symbol: {
-            markerFile: require("@/assets/texture/people.png"),
-            markerOpacity: 1,
-            markerWidth: 30, //60
-            markerHeight: 42, //84
-          },
-        }).addTo(iconLayer);
-      }
-      this.groupLayer.addLayer(iconLayer);
+    addBeat() {
+      this.beat.remove();
+      this.beat.add("data/json/data_icon_tween.json");
     },
-    addIconTween() {
-      if (!this.groupLayer.getLayer("iconTween")) {
-        let url = "data/json/data_icon_tween.json";
-        this.buildIconTween(url);
-      }
+    removeBeat() {
+      this.beat.remove();
     },
+
     /**
      * 云朵流光线
      */
@@ -215,6 +207,7 @@ export default {
             markerOpacity: 1,
             markerWidth: 30, //60
             markerHeight: 42, //84
+            markerDy: 20,
           },
         }).addTo(iconLayer);
       }
