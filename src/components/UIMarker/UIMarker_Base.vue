@@ -6,13 +6,14 @@
 </template>
 
 <script>
-import Vue from "vue";
+import Vue from "vue/dist/vue.esm.js"; //特殊引用
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer, GeoJSONVectorTileLayer } from "@maptalks/gl-layers";
 
 import Util from "@/utils/Util";
 import UIMarkerLayer from "./UIMarkerLayer";
+import "./UIMarkerLayer.css";
 
 export default {
   components: {},
@@ -21,7 +22,7 @@ export default {
     return {
       map: null,
       groupLayer: null,
-      uIMarkerLayer: null,
+      uiMarkerLayer: null,
     };
   },
 
@@ -131,7 +132,7 @@ export default {
       const target = identifyData && identifyData.data;
       if (target) {
         const feature = target.feature;
-        this._uiMarker(e.coordinate, "测试", feature.properties);
+        this._uiMarker(e.coordinate, "测试", feature);
       }
     });
   },
@@ -148,10 +149,10 @@ export default {
       });
       this.groupLayer.addLayer(GeoJSONLayer);
     },
-    _uiMarker(coordinate, title, data) {
+    //vue引入方式问题
+    _uiMarker(coordinate, title, feature) {
       let that = this;
-      let titleName = title || "";
-      if (!data && !data.length) return;
+      if (!feature) return;
       let Profile = Vue.extend({
         template: `<div class="profile">
             <div class="title-box">{{title}}<span class="close-btn" @click="closeUiMarker">X</span></div>
@@ -163,28 +164,33 @@ export default {
               </div>
             </div>
             </div>`,
-        data: function () {
+        data() {
           return {
-            title: titleName,
-            dataList: data,
-            markers: null,
+            title: title,
+            data: feature.properties,
           };
+        },
+        computed: {
+          dataList: function () {
+            return [...Object.values(this.data)];
+          },
         },
         methods: {
           closeUiMarker() {
-            that.uiMarkerLayer.removeMarker(this.markers);
+            //没有真正删除
+            that.uiMarkerLayer.hide();
           },
         },
       });
       const profile = new Profile().$mount();
-      this.markers = new maptalks.ui.UIMarker(coordinate, {
+      let markers = new maptalks.ui.UIMarker(coordinate, {
         containerClass: "UIMarker", //css类名
         single: true, //false为全局单个标记
         content: profile.$el,
         verticalAlignment: "top",
         eventsPropagation: false, //是否停止所有事件的传播（事件冒泡）
       });
-      this.uiMarkerLayer.addMarker(this.markers);
+      this.uiMarkerLayer.addMarker(markers);
     },
   },
 };
