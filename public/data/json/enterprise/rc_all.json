@@ -1,0 +1,8 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32709926259673,39.99671058432013]},"properties":{"id":1,"name":"9871人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32798584740176,39.986825163744065]},"properties":{"id":2,"name":"5789人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.34110730251618,39.990992112327696]},"properties":{"id":3,"name":"8761人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.31876536542947,39.98877565031513]},"properties":{"id":4,"name":"4531人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33951144986713,39.997153876722635]},"properties":{"id":5,"name":"5671人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33101131804891,39.99106968849813]},"properties":{"id":6,"name":"6789人"}}
+]}

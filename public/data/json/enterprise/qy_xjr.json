@@ -1,0 +1,6 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32759662277566,39.99232936239912]},"properties":{"id":"1","name":"小巨人企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33189270186799,39.99877393706678]},"properties":{"id":"2","name":"小巨人企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33380355942401,39.99071779499686]},"properties":{"id":"3","name":"小巨人企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32762003116709,39.986945155160804]},"properties":{"id":"4","name":"小巨人企业"}}
+]}

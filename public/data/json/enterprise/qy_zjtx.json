@@ -1,0 +1,6 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32730805325639,39.99208504434549]},"properties":{"id":"1","name":"专精特新企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32809143634334,39.98984385974084]},"properties":{"id":"2","name":"专精特新企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32741770236207,39.99572395860627]},"properties":{"id":"3","name":"专精特新企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.3246458585769,39.99348614687525]},"properties":{"id":"4","name":"专精特新企业"}}
+]}

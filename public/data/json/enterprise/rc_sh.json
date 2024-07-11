@@ -1,0 +1,9 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32732116166979,39.99285135573817]},"properties":{"id":"1","name":"5421人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32596918188165,39.99425365249725]},"properties":{"id":"2","name":"4326人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32753217320342,39.99576838505671]},"properties":{"id":"3","name":"7621人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32906465213837,39.990989137486224]},"properties":{"id":"4","name":"3216人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33308195065506,39.99079527227105]},"properties":{"id":"5","name":"3247人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32851517680848,39.987886707706764]},"properties":{"id":"6","name":"1389人"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.3276744468429,39.98588112431386]},"properties":{"id":"7","name":"4321人"}}
+]}

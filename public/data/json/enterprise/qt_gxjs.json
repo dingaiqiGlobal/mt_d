@@ -1,0 +1,6 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32750557018895,39.992447878993026]},"properties":{"id":"1","name":"高新技术企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.3274722735436,39.99696006387065]},"properties":{"id":"2","name":"高新技术企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.31925219545309,39.989717426360826]},"properties":{"id":"3","name":"高新技术企业"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.3390231699051,39.98860012695214]},"properties":{"id":"4","name":"高新技术企业"}}
+]}

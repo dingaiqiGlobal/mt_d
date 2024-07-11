@@ -21,7 +21,7 @@ class AnimationBeat {
                             markerDy: 0,
                             textFill: "#ccc",
                             textFaceName: "sans-serif",
-                            textName: "{DNAME}",
+                            textName: "{name}",
                             textSize: 11,
                             textDx: 0,
                             textDy: 10,

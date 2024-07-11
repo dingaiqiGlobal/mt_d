@@ -69,7 +69,7 @@ class AnimationLinkLine {
         );
         this.menshGroup.addMesh(this.mesh);
     }
-    addOtherIcon(url) {
+    addOtherIcon(url,clickEvent) {
         axios.get(url)
             .then((response) => {
                 maptalks.GeoJSON.toGeometryAsync(response.data).then((geos) => {
@@ -83,11 +83,12 @@ class AnimationLinkLine {
                             markerDy: 30,
                             textFill: "#ccc",
                             textFaceName: "sans-serif",
-                            textName: "{DNAME}",
+                            textName: "{name}",
                             textSize: 11,
                             textDx: 0,
                             textDy: 40,
                         });
+                        item.on('click', clickEvent);
                     });
                     const layer = new PointLayer(this.otherId, geos, {});
                     this.map.addLayer(layer);

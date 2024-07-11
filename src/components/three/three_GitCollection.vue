@@ -65,6 +65,11 @@ import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
 import AnimationBeat from "./AnimationBeat";
 import AnimationLinkLine from "./AnimationLinkLine";
 
+//uiMarker
+import Vue from "vue/dist/vue.esm.js"; //特殊引用
+import UIMarkerLayer from "../UIMarker/UIMarkerLayer";
+import "../UIMarker/UIMarkerLayer.css";
+
 export default {
   components: {},
 
@@ -74,6 +79,7 @@ export default {
       groupLayer: null,
       threeLayer: null,
       menshGroup: null,
+      uiMarkerLayer: null,
       //数据要求不一样
       rippleWallMesh: [],
       arcLineMesh: [],
@@ -167,8 +173,8 @@ export default {
     //动画
     this.beat = new AnimationBeat(this.map);
     this.linkLine = new AnimationLinkLine({
-      map:this.map,
-      menshGroup:this.menshGroup
+      map: this.map,
+      menshGroup: this.menshGroup,
     });
   },
 
@@ -188,32 +194,80 @@ export default {
      */
     addBeat() {
       this.beat.remove();
-      this.beat.add("data/json/data_icon_tween.json",this.featureClickEvent);
+      this.beat.add("data/json/enterprise/rc_all.json", this.featureClickEvent);
     },
     removeBeat() {
       this.beat.remove();
-    },
-    featureClickEvent(e){
-      let center=[e.coordinate.x,e.coordinate.y]
-      const uiMarker = new maptalks.ui.UIMarker(center, {
-        content: '11111111',
-      });
-      uiMarker.addTo(this.map);
+      if (this.uiMarkerLayer) {
+        this.uiMarkerLayer.remove();
+      }
     },
 
     /**
      * 云朵连接线
      */
     addLinkLine() {
-      this.linkLine.remove()
-      let urlCenter="data/json/data_cloud_arcline_center_effect.json";
-      let urlOther="data/json/data_cloud_arcline_effect.json";
+      this.linkLine.remove();
+      let urlCenter = "data/json/enterprise/cloud.json";
+      let urlOther = "data/json/enterprise/qy_all.json";
       this.linkLine.addCenterIcon(urlCenter);
-      this.linkLine.addOtherIcon(urlOther);
+      this.linkLine.addOtherIcon(urlOther, this.featureClickEvent);
       this.linkLine.addMesh(urlOther, this.threeLayer, urlCenter);
     },
     removeLinkLine() {
       this.linkLine.remove();
+      if (this.uiMarkerLayer) {
+        this.uiMarkerLayer.remove();
+      }
+    },
+
+    /**
+     * 弹框
+     */
+    featureClickEvent(e) {
+      let coordinate = [e.coordinate.x, e.coordinate.y];
+      let title = e.target.properties.id;
+      let data = "123";
+      this._uiMarker(coordinate, title, data);
+    },
+    _uiMarker(coordinate, title, data) {
+      let that = this;
+      if (!data) return;
+      let Profile = Vue.extend({
+        template: `<div class="profile">
+            <div class="title-box">{{title}}<span class="close-btn" @click="closeUiMarker">X</span></div>
+            <div class="content-box">
+              <div class="content-group">
+                <div class="content-item" >
+                  <span>{{data}}</span>
+                </div>
+              </div>
+            </div>
+            </div>`,
+        data() {
+          return {
+            title: title,
+            data: data,
+          };
+        },
+        methods: {
+          closeUiMarker() {
+            this.$destroy();
+            const element = this.$el;
+            element.parentNode.removeChild(element);
+          },
+        },
+      });
+      const profile = new Profile().$mount();
+      this.uiMarkerLayer = new UIMarkerLayer().addTo(this.map);
+      let uiMarker = new maptalks.ui.UIMarker(coordinate, {
+        containerClass: "UIMarkerLayer",
+        single: true,
+        content: profile.$el,
+        verticalAlignment: "top",
+        eventsPropagation: false,
+      });
+      this.uiMarkerLayer.addMarker(uiMarker);
     },
 
     /**
