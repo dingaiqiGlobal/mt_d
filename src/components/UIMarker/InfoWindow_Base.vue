@@ -1,9 +1,9 @@
 //maptalks里UI里的dom容器是maptalks自动生成的, 所以要想关闭UI,
 //请调用UI的hide或者remove方法, 用户传入的dom只是UI的内容而已,
 //内容作为dom容器的子节点了, //所以仅仅对你传入的dom节点进行隐藏等是不能关闭UI元素的
-//point.closeInfoWindow(); //or point.removeInfoWindow(); //or
-point.getInfoWindow().hide(); //or infowindow.hide(); //point.setInfoWindow
-point.openInfoWindow();
+//point.closeInfoWindow(); //or point.removeInfoWindow();
+//orpoint.getInfoWindow().hide(); //or infowindow.hide(); //point.setInfoWindow
+//point.openInfoWindow();
 
 <template>
   <div>
@@ -13,11 +13,12 @@ point.openInfoWindow();
 </template>
 
 <script>
-import Vue from "vue";
+import Vue from "vue/dist/vue.esm.js"; //特殊引用
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
-import { GroupGLLayer, GeoJSONVectorTileLayer,PointLayer } from "@maptalks/gl-layers";
+import { GroupGLLayer, GeoJSONVectorTileLayer, PointLayer } from "@maptalks/gl-layers";
 import Util from "@/utils/Util";
+import "./InfoWindow.css";
 
 export default {
   components: {},
@@ -116,6 +117,7 @@ export default {
 
     /**
      * 单击事件
+     * 矢量图层
      */
     this.map.on("click", (e) => {
       const identifyData = e.coordinate
@@ -127,17 +129,13 @@ export default {
             layers: [],
             orderByCamera: true,
           })[0];
-      const target = identifyData && identifyData.data;
-      if (target) {
-        console.log(target);
-        //target.removeInfoWindow();
-        // let infoWindowObj = this._infoWindow();
-        // target.setInfoWindow({
-        //   title: "救护车",
-        //   content: infoWindowObj,
-        // });
-        // target.openInfoWindow();
-
+      const target = identifyData;
+      if (target&&target?.geometry instanceof maptalks.Marker) {
+        let marker=target.geometry;
+        marker.setInfoWindow({
+          content: this._infoWindow(marker,"标题",["属性1","属性2"]).content,
+        });
+        marker.openInfoWindow();
       }
     });
   },
@@ -145,7 +143,7 @@ export default {
   methods: {
     add_GroupGL_PointLayer() {
       const pointLayer = new PointLayer("GroupGL_Point");
-      const marker = new maptalks.Marker([116.952210,40.511710], {
+      const marker = new maptalks.Marker([116.95221, 40.51171], {
         cursor: "pointer",
         symbol: {
           markerFile: "images/icon/icon_Red.png",
@@ -157,21 +155,35 @@ export default {
       }).addTo(pointLayer);
       this.groupLayer.addLayer(pointLayer);
     },
-    _infoWindow() {
+    _infoWindow(target, boxTitle, boxContent) {
       let Profile = Vue.extend({
-        template: `<div class="profile">  <el-button size="mini">默认按钮</el-button>
-                            <el-button size="mini" type="danger">危险按钮</el-button>
-                            <el-checkbox v-model="checked">备选项</el-checkbox>
-                            <p>{{firstName}} {{lastName}}</p></div>`,
-        data: function () {
+        template: `<div class="infoWindow">
+            <div class="title-box">{{title}}<span class="close-btn" @click="close">X</span></div>
+            <div class="content-box">
+              <div class="content-group">
+                <div class="content-item" v-for="item in dataList" :key="item.id">
+                  <span>{{item}}</span>
+                </div>
+              </div>
+            </div>
+            </div>`,
+        data() {
           return {
-            firstName: "Walter",
-            lastName: "White",
+            title: boxTitle,
+            dataList: boxContent,
           };
+        },
+        methods: {
+          close() {
+            if (!target) return;
+            target.closeInfoWindow();
+          },
         },
       });
       const profile = new Profile().$mount();
-      return profile.$el;
+      return {
+        content: profile.$el,
+      };
     },
   },
 };

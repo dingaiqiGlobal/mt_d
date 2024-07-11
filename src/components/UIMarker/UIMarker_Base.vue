@@ -110,12 +110,6 @@ export default {
 
     //添加数据
     this.loadData("data/json/data_MiYun_Point_lit.json");
-
-    /**
-     * uiMarkerLayer
-     */
-    this.uiMarkerLayer = new UIMarkerLayer().addTo(this.map);
-
     /**
      * 单击事件
      */
@@ -129,7 +123,7 @@ export default {
             layers: [],
             orderByCamera: true,
           })[0];
-      const target = identifyData && identifyData.data;
+      const target = identifyData && identifyData.data; //geojsonvt特殊可以获取到feature
       if (target) {
         const feature = target.feature;
         this._uiMarker(e.coordinate, "测试", feature);
@@ -138,8 +132,6 @@ export default {
   },
 
   methods: {
-    //GeojsonVT的方式
-    //只能添加UIMarker
     loadData(url) {
       let id = Util.generateUUID();
       let GeoJSONLayer = new GeoJSONVectorTileLayer(id, {
@@ -149,7 +141,6 @@ export default {
       });
       this.groupLayer.addLayer(GeoJSONLayer);
     },
-    //vue引入方式问题
     _uiMarker(coordinate, title, feature) {
       let that = this;
       if (!feature) return;
@@ -177,20 +168,24 @@ export default {
         },
         methods: {
           closeUiMarker() {
-            //没有真正删除
-            that.uiMarkerLayer.hide();
+            // 销毁当前组件实例
+            this.$destroy();
+            // 可选：从DOM中移除组件的挂载点
+            const element = this.$el;
+            element.parentNode.removeChild(element);
           },
         },
       });
       const profile = new Profile().$mount();
-      let markers = new maptalks.ui.UIMarker(coordinate, {
-        containerClass: "UIMarker", //css类名
+      this.uiMarkerLayer = new UIMarkerLayer().addTo(this.map);
+      let uiMarker = new maptalks.ui.UIMarker(coordinate, {
+        containerClass: "UIMarkerLayer", //css类名
         single: true, //false为全局单个标记
         content: profile.$el,
         verticalAlignment: "top",
         eventsPropagation: false, //是否停止所有事件的传播（事件冒泡）
       });
-      this.uiMarkerLayer.addMarker(markers);
+      this.uiMarkerLayer.addMarker(uiMarker);
     },
   },
 };
