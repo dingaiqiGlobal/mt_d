@@ -16,7 +16,14 @@
 import Vue from "vue/dist/vue.esm.js"; //特殊引用
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
-import { GroupGLLayer, GeoJSONVectorTileLayer, PointLayer } from "@maptalks/gl-layers";
+import {
+  GroupGLLayer,
+  GeoJSONVectorTileLayer,
+  PointLayer,
+  GLTFLayer,
+  GLTFMarker,
+  MultiGLTFMarker,
+} from "@maptalks/gl-layers";
 import Util from "@/utils/Util";
 import "./InfoWindow.css";
 
@@ -27,6 +34,7 @@ export default {
     return {
       map: null,
       groupLayer: null,
+      gltfLayer: null,
     };
   },
 
@@ -51,69 +59,12 @@ export default {
      * groupLayer
      */
     this.groupLayer = new GroupGLLayer("group", [], {
-      antialias: false, //是否开启WebGL原生抗锯齿
-      geometryEvents: true, //是否允许子图层上的Geometry响应事件
-      extensions: [], //必须开启的webgl扩展
-      optionalExtensions: [], //可以选择开启的webgl扩展
-      onlyWebGL1: false, //是否强制用WebGL 1渲染，用以解决少数webgl2环境存在问题的设备
-      attribution: null, //图层版权声明
-      minZoom: null,
-      maxZoom: null,
-      visible: true,
-      opacity: 1,
-      hitDetect: true, //是否开启图层绘制检测（动态鼠标样式），关闭可以提高性能
-      collisionScope: "layer", //碰撞检测索引的适用范围:map或者layer
-      //全局效果配置
-      sceneConfig: {
-        environment: {
-          enable: true, // 是否开启环境天空盒绘制
-          mode: 1, // 天空盒模式： 0: 氛围模式， 1: 实景模式
-          level: 0, // 实景模式下的模糊级别，0-3
-          brightness: 1, // 天空盒的明亮度，-1 - 1， 默认为0
-        },
-        shadow: {
-          type: "esm", // 阴影模式，固定为esm
-          enable: true, // 是否开启
-          quality: "high", // 阴影质量，可选的值：high, medium, low
-          opacity: 1, // 阴影的透明度，0 - 1
-          color: [0, 0, 0], // 阴影的颜色，归一化三位rgb颜色值
-          blurOffset: 1, // 阴影模糊偏移量，值越高阴影越模糊
-        },
-        postProcess: {
-          enable: true, // 是否开启后处理
-          antialias: {
-            enable: true, // 是否开启FXAA后处理
-            taa: true, // 是否开启taa后处理
-          },
-          ssr: {
-            enable: true, // 是否开启屏幕空间反射
-          },
-          ssao: {
-            enable: true, // 是否开启屏幕空间环境光遮蔽
-            bias: 0.03, // 阴影偏移值，越大，阴影就越清晰，0.05 - 1
-            radius: 0.08, // 遮蔽半径，越大，阴影就越清晰， 0.05 - 1
-            intensity: 1.5, // 强度因子， 0.1 - 5
-          },
-          sharpen: {
-            enable: false, // 是否开启锐化
-            factor: 0.2, // 强度因子，0 - 1
-          },
-          bloom: {
-            enable: true, // 是否开启泛光
-            factor: 1, // 强度因子 0.1 - 5
-            threshold: 0, // 最小阈值（亮度低于阈值的区域不发光） 0 - 1
-            radius: 1, // 泛光半径 0.1 - 4
-          },
-          outline: {
-            enable: true, // 是否开启高亮后处理
-          },
-        },
-      },
     });
     this.groupLayer.addTo(this.map);
 
     //添加数据
     this.add_GroupGL_PointLayer();
+    this.addGLTFLayer();
 
     /**
      * 单击事件
@@ -130,31 +81,26 @@ export default {
             orderByCamera: true,
           })[0];
       const target = identifyData;
-      if (target&&target?.geometry instanceof maptalks.Marker) {
-        let marker=target.geometry;
+      
+      if (target?.geometry instanceof maptalks.Marker) {
+        let marker = target.geometry;
         marker.setInfoWindow({
-          content: this._infoWindow(marker,"标题",["属性1","属性2"]).content,
+          content: this._infoWindow(marker, "标题", ["属性1", "属性2"]).content,
         });
         marker.openInfoWindow();
+      }
+      //gltf
+      if (target?.data instanceof GLTFMarker) {
+        let gltf=target.data
+        gltf.setInfoWindow({
+          content: this._infoWindow(gltf, "gltf", ["gltf属性1", "gltf属性2"]).content,
+        });
+        gltf.openInfoWindow();
       }
     });
   },
 
   methods: {
-    add_GroupGL_PointLayer() {
-      const pointLayer = new PointLayer("GroupGL_Point");
-      const marker = new maptalks.Marker([116.95221, 40.51171], {
-        cursor: "pointer",
-        symbol: {
-          markerFile: "images/icon/icon_Red.png",
-          markerOpacity: 1,
-          markerWidth: 28,
-          markerHeight: 40,
-          textName: "GroupGL矢量点",
-        },
-      }).addTo(pointLayer);
-      this.groupLayer.addLayer(pointLayer);
-    },
     _infoWindow(target, boxTitle, boxContent) {
       let Profile = Vue.extend({
         template: `<div class="infoWindow">
@@ -184,6 +130,131 @@ export default {
       return {
         content: profile.$el,
       };
+    },
+    add_GroupGL_PointLayer() {
+      const pointLayer = new PointLayer("GroupGL_Point");
+      const marker = new maptalks.Marker([116.95221, 40.51171], {
+        cursor: "pointer",
+        symbol: {
+          markerFile: "images/icon/icon_Red.png",
+          markerOpacity: 1,
+          markerWidth: 28,
+          markerHeight: 40,
+          textName: "GroupGL矢量点",
+        },
+      }).addTo(pointLayer);
+      this.groupLayer.addLayer(pointLayer);
+    },
+    addGLTFLayer() {
+      const symbol = {
+        //变种写法
+        // url: "data/model/Fox/Fox.gltf",
+        // modelHeight: 240, //模型高度
+        // scaleX: 1,
+        // scaleY: 1,
+        // scaleZ: 1,
+        // rotationZ: 180,
+
+        //标准写法
+        url: "data/model/Fox/Fox.gltf",
+        modelHeight: 500, //模型高度
+        visible: true, //模型是否可见
+        translation: [0, 0, 0], //模型在本地坐标系xyz轴上的偏移量
+        rotation: [0, 0, 0], //模型在本地坐标系xyz轴上的旋转角度，单位角度
+        scale: [1, 1, 24], //模型在本地坐标系xyz轴上的缩放倍数
+        animation: true, //是否开启动画
+        animationName: "Run", //动画序列名称
+        loop: true, //是否开启动画循环
+        speed: 1, //动画速度倍数
+        fixSizeOnZoom: -1, //在给定级别上固定模型大小，不再随地图缩放而改变，设置为-1时取消
+        anchorZ: "bottom", //模型在z轴上的锚点或对齐点，可选的值： top， bottom
+        shadow: true, //是否开启阴影
+        bloom: true, //是否开启泛光
+        shader: "pbr", //模型绘制的shader，可选值：pbr, phong, wireframe
+        uniforms: null, //选择的shader的材质参数Object。
+      };
+
+      this.gltfLayer = new GLTFLayer("gltf", {
+        attribution: null, //属性
+        minZoom: null,
+        maxZoom: null,
+        visible: true,
+        opacity: 1,
+        hitDetect: true, //是否开启图层绘制检测（动态鼠标样式），关闭可以提高性能
+        collisionScope: "layer", //碰撞检测索引的适用范围： map或者layer
+      });
+
+      /**
+       * gltfMarker
+       */
+      const gltfMarker = new GLTFMarker([116.915130,40.533630], {
+        fitSize: 100, //模型加到地图上的初始尺寸，单位像素
+        symbol,
+        id: null,
+        visible: true,
+        interactive: true, //是否能够交互
+        editable: true, //是否允许编辑
+        cursor: null, //鼠标样式
+        draggable: false, //是否允许拖拽
+        dragOnAxis: null, //是否沿x轴或者y轴拖拽，可选的值为"x"或者"y
+        zIndex: null,
+      });
+      this.gltfLayer.addGeometry(gltfMarker);
+
+      /**
+       * MultiGLTFMarker
+       */
+      const multiGLTFMarker = new MultiGLTFMarker(
+        //Marker数据，数组[](在数据中设置偏移，旋转，缩放也可在symbol中设置)
+        [
+          {
+            coordinates: [116.952210,40.475160  ], //经纬度
+            translation: [0, 0, 0], //模型本地坐标系的偏移量，三位数组
+            rotation: [0, 0, 0], //模型本地坐标系的旋转角度，单位度，三位数组
+            scale: [1, 1, 1], //模型本地坐标系的缩放系数，三位数组
+            color: [1, 0, 0, 1], //模型的基础色，四位归一化数组，颜色会与模型本身颜色相乘后绘制
+          },
+          {
+            coordinates: [116.954960,40.454260],
+            translation: [0, 2, 0],
+            rotation: [0, 0, 0],
+            scale: [1, 1, 1],
+            color: [1, 1, 0, 1],
+          },
+        ],
+        //options
+        {
+          fitSize: 100, //模型加到地图上的初始尺寸，单位像素
+          id: null,
+          visible: true,
+          interactive: true, //是否能够交互
+          editable: true, //是否允许编辑
+          cursor: null, //鼠标样式
+          draggable: false, //是否允许拖拽
+          dragOnAxis: null, //是否沿x轴或者y轴拖拽，可选的值为"x"或者"y"
+          zIndex: null,
+          symbol: {
+            url: "data/model/Fox/Fox.gltf",
+            modelHeight: 500, //模型高度
+            visible: true, //模型是否可见
+            translation: [0, 0, 0], //模型在本地坐标系xyz轴上的偏移量
+            rotation: [0, 0, 0], //模型在本地坐标系xyz轴上的旋转角度，单位角度
+            scale: [1, 1, 1], //模型在本地坐标系xyz轴上的缩放倍数
+            animation: true, //是否开启动画
+            animationName: "Survey", //动画序列名称
+            loop: true, //是否开启动画循环
+            speed: 1, //动画速度倍数
+            fixSizeOnZoom: -1, //在给定级别上固定模型大小，不再随地图缩放而改变，设置为-1时取消
+            anchorZ: "bottom", //模型在z轴上的锚点或对齐点，可选的值： top， bottom
+            shadow: true, //是否开启阴影
+            bloom: true, //是否开启泛光
+            shader: "pbr", //模型绘制的shader，可选值：pbr, phong, wireframe
+            uniforms: null, //选择的shader的材质参数Object。
+          },
+        }
+      ).addTo(this.gltfLayer);
+
+      this.groupLayer.addLayer(this.gltfLayer);
     },
   },
 };
