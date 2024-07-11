@@ -58,8 +58,7 @@ export default {
     /**
      * groupLayer
      */
-    this.groupLayer = new GroupGLLayer("group", [], {
-    });
+    this.groupLayer = new GroupGLLayer("group", [], {});
     this.groupLayer.addTo(this.map);
 
     //添加数据
@@ -81,7 +80,7 @@ export default {
             orderByCamera: true,
           })[0];
       const target = identifyData;
-      
+
       if (target?.geometry instanceof maptalks.Marker) {
         let marker = target.geometry;
         marker.setInfoWindow({
@@ -91,7 +90,7 @@ export default {
       }
       //gltf
       if (target?.data instanceof GLTFMarker) {
-        let gltf=target.data
+        let gltf = target.data;
         gltf.setInfoWindow({
           content: this._infoWindow(gltf, "gltf", ["gltf属性1", "gltf属性2"]).content,
         });
@@ -187,7 +186,7 @@ export default {
       /**
        * gltfMarker
        */
-      const gltfMarker = new GLTFMarker([116.915130,40.533630], {
+      const gltfMarker = new GLTFMarker([116.91513, 40.53363], {
         fitSize: 100, //模型加到地图上的初始尺寸，单位像素
         symbol,
         id: null,
@@ -203,19 +202,20 @@ export default {
 
       /**
        * MultiGLTFMarker
+       * ！！！infoWindow因为是MultiGLTFMarker所以marker弹框弹在两个中间
        */
       const multiGLTFMarker = new MultiGLTFMarker(
         //Marker数据，数组[](在数据中设置偏移，旋转，缩放也可在symbol中设置)
         [
           {
-            coordinates: [116.952210,40.475160  ], //经纬度
+            coordinates: [116.95221, 40.47516], //经纬度
             translation: [0, 0, 0], //模型本地坐标系的偏移量，三位数组
             rotation: [0, 0, 0], //模型本地坐标系的旋转角度，单位度，三位数组
             scale: [1, 1, 1], //模型本地坐标系的缩放系数，三位数组
             color: [1, 0, 0, 1], //模型的基础色，四位归一化数组，颜色会与模型本身颜色相乘后绘制
           },
           {
-            coordinates: [116.954960,40.454260],
+            coordinates: [116.993410,40.371660],
             translation: [0, 2, 0],
             rotation: [0, 0, 0],
             scale: [1, 1, 1],

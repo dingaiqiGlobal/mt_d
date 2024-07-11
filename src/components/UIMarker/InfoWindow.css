@@ -1,3 +1,26 @@
+/*去到原始csss*/
+.maptalks-msgBox{
+  background-color: transparent !important;
+  border-radius: 2px;
+  border-width: 0;
+}
+
+.maptalks-msgBox em.maptalks-ico{
+  border:0px;
+  bottom:0px;
+  display: none;
+  /* border-top: 0px solid rgba(9,28,55,1); */
+}
+.maptalks-msgBox> h2{
+  display:none;
+}
+.maptalks-msgBox>a.maptalks-close {
+  display:none;
+}
+.maptalks-msgBox>.maptalks-msgContent{
+  padding: 0;
+}
+/* 定义infoWindowcss */
 .infoWindow{
   background: rgba(9,28,55,0.7);
   box-shadow: inset 0px 1px 12px 0px #4389FF;
