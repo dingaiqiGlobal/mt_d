@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/animation/animation_beat_native.jpg",
+          text: "跳动-原生",
+          path: "/animation_beat_native",
+        },
+        {
+          id: 1,
           img: "/images/nav/tools/tools_collection.jpg",
           text: "工具集合",
           path: "/tools_collection",

@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/animation_beat_native',
+    name: 'animation_beat_native',
+    component: () => import("../components/animation/animation_beat_native.vue")
+  },
+  {
     path: '/tools_collection',
     name: 'tools_collection',
     component: () => import("../components/tools/tools_collection.vue")
