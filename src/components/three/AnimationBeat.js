@@ -44,7 +44,7 @@ class AnimationBeat {
             //时间线-飞入&弹跳动画
             let tl = gsap.timeline();
             tl.from(item.properties, {
-                altitude: -100,
+                altitude: -500,
                 duration: 1,
                 repeat: 0,
                 onUpdate: () => {
