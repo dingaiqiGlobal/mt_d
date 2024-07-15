@@ -60,6 +60,11 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_dynamicAddToGL',
+    name: 'layer_dynamicAddToGL',
+    component: () => import("../components/layer/layer_dynamicAddToGL.vue")
+  },
+  {
     path: '/layer_WMS',
     name: 'layer_WMS',
     component: () => import("../components/layer/layer_WMS.vue")
