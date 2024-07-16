@@ -2,6 +2,9 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="add_Radar">添加雷达</button>
+      <button type="" @click="remove_Radar">移除雷达</button>
+      <br />
       <button type="" @click="add_Ocean">添加海面</button>
       <button type="" @click="remove_Ocean">移除海面</button>
       <br />
@@ -56,6 +59,10 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * meshline使用离线版本，不适用npm包的形式
  * （cnpm i three.meshline@1.2.0 --save）
  */
+//雷达
+import RingEffect from "@/sceneEffect/maptalks.three.objects/ringEffect"; //ring环形
+import { getRadarMetarial, FlabellumScanMaterial } from "@/sceneEffect/shader/shader";
+
 //海面
 import Ocean from "@/sceneEffect/maptalks.three.objects/ocean"; //ocean大海
 //流光墙
@@ -75,7 +82,8 @@ export default {
       threeLayer: null,
       menshGroup: null,
       //数据要求不一样
-      oceanMesh:[],//海面
+      radarMesh: [],
+      oceanMesh: [], //海面
       rippleWallMesh: [], //幕墙
       arcLineMesh: [], //弧线
     };
@@ -167,6 +175,52 @@ export default {
 
   methods: {
     /**
+     * 雷达
+     */
+    getRadarMesh(coord, threeLayer) {
+      let object = new RingEffect(
+        coord,
+        { radius: 260, speed: 0.01 },
+        getRadarMetarial({ color: "#CC3366", type: 2 }),
+        threeLayer
+      );
+      return [object];
+    },
+    getScanRadarMesh(coord, threeLayer) {
+      let v = threeLayer.coordinateToVector3(coord);
+      const r = threeLayer.distanceToVector3(500, 500).x;
+      let object = new THREE.Mesh(
+        new THREE.PlaneBufferGeometry(r, r, 2),
+        FlabellumScanMaterial()
+      );
+      object.position.x = v.x;
+      object.position.y = v.y;
+      object.position.z = 0.1;
+      object.renderOrder = 3;
+      return [object];
+    },
+    async build_Radar_Menshs(url, threeLayer) {
+      let data = await this.getJsonData(url);
+      console.log(data);
+      let meshes = [];
+      for (let i = 0; i < data.length; i++) {
+        meshes.push(this.getRadarMesh(data[i], threeLayer));//转圈
+        meshes.push(this.getScanRadarMesh(data[i], threeLayer));//扫描
+      }
+      return meshes;
+    },
+    async add_Radar() {
+      this.radarMesh = await this.build_Radar_Menshs(
+        "data/json/data_effect_point1.json",
+        this.threeLayer
+      );
+      this.menshGroup.addMesh(this.radarMesh);
+    },
+    remove_Radar() {
+      this.menshGroup.removeMesh(this.radarMesh);
+    },
+
+    /**
      * 海面
      */
     async getWaterMesh(url, threeLayer) {
@@ -192,11 +246,14 @@ export default {
       return waters;
     },
     async add_Ocean() {
-      this.oceanMesh=await this.getWaterMesh("data/json/data_effect_water.json",this.threeLayer);  
-      this.menshGroup.addMesh(this.oceanMesh)//效果不如maptalks
+      this.oceanMesh = await this.getWaterMesh(
+        "data/json/data_effect_water.json",
+        this.threeLayer
+      );
+      this.menshGroup.addMesh(this.oceanMesh); //效果不如maptalks
     },
-    remove_Ocean(){
-      this.menshGroup.removeMesh(this.oceanMesh)
+    remove_Ocean() {
+      this.menshGroup.removeMesh(this.oceanMesh);
     },
     /**
      * 坐标Function

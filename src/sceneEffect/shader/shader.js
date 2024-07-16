@@ -2,7 +2,111 @@ const Qg = require("@/sceneEffect/shader/glsl/Qg.glsl").default;
 const Gg = require("@/sceneEffect/shader/glsl/Gg.glsl").default;
 const Ky = require("@/sceneEffect/shader/glsl/Ky.glsl").default;
 import * as THREE from "three";
-
+//雷达扫描-getRadarMetarial-转圈材质&FlabellumScanMaterial-扫描材质
+export function getRadarMetarial(opts = {}) {
+        const RadarShield = {
+                uniforms: {
+                        time: {
+                                type: "f",
+                                value: 0,
+                        },
+                        type: {
+                                type: "f",
+                                value: opts.type || 1, // 0 大扇形 1小扇形 2 环绕
+                        },
+                        color: {
+                                type: "c",
+                                value: new THREE.Color(opts.color || 0x00ffff),
+                        },
+                },
+                vertexShaderSource: require("@/sceneEffect/shader/vert/Radar_vertex.vert").default,
+                fragmentShaderSource: require("@/sceneEffect/shader/frag/Radar_fragment.frag").default,
+        };
+        const meshMaterial = new THREE.ShaderMaterial({
+                uniforms: RadarShield.uniforms,
+                defaultAttributeValues: {},
+                vertexShader: RadarShield.vertexShaderSource,
+                fragmentShader: RadarShield.fragmentShaderSource,
+                // blending: THREE.NoBlending,
+                blending: THREE.AdditiveBlending,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                transparent: !1,
+                fog: !0,
+        });
+        return meshMaterial;
+};
+export function FlabellumScanMaterial(opts = {}) {
+        //new THREE.PlaneBufferGeometry(this.radius,this.radius,2)
+        var ScanShield = {
+                //雷达
+                uniforms: {
+                        time: {
+                                type: "f",
+                                value: 0,
+                        },
+                        color: {
+                                type: "c",
+                                value: new THREE.Color(opts.color || "#ff0000"),
+                        },
+                        opacity: {
+                                type: "f",
+                                value: opts.color || 1,
+                        },
+                },
+                vertexShaderSource: `
+                    varying vec2 vUv;
+                    void main(){
+                            vUv = uv;
+                            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }`,
+                fragmentShaderSource: `
+                    precision lowp float;
+                    precision lowp int;
+                    varying vec2 vUv;
+                    uniform float time;
+                    uniform vec3 color;
+                    uniform float opacity;
+          
+                    #define pi 3.1415926535
+                    #define PI2RAD 0.01745329252
+                    #define TWO_PI (2. * PI)
+                    
+                    void main() {
+                      vec2 pos = vUv - 0.5;
+                      float r = length(pos);
+                      if (r > 0.5) {
+                        discard;
+                      }
+                      float t = atan(pos.y, pos.x) - time*2.5;
+                      float a = (atan(sin(t), cos(t)) + pi)/(2.0*pi);
+                      float ta = 0.5;
+                      float v = smoothstep(ta-0.05,ta+0.05,a) * smoothstep(ta+0.05,ta-0.05,a);
+                      vec3 col = vec3(0, v, 0);
+                      float blink = pow(sin(time*1.5)*0.5+0.5, 0.8);
+                      gl_FragColor = vec4(color, opacity * pow(a, 8.0*(.2+blink))*(sin(r*300.0)*.5+.5)*pow(r, 0.4));
+                    }
+                  `,
+        };
+        let material = new THREE.ShaderMaterial({
+                uniforms: ScanShield.uniforms,
+                vertexShader: ScanShield.vertexShaderSource,
+                fragmentShader: ScanShield.fragmentShaderSource,
+                blending: THREE.AdditiveBlending,
+                transparent: !0,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+        });
+        animate();
+        function animate() {
+                ScanShield.uniforms.time.value += opts.speed || 0.015;
+                requestAnimationFrame(animate);
+        }
+        return material;
+};
+//蓝色幕墙
 export function getRippleWall(opts = {}) {
         let uniforms = {
                 // time+=0.025
@@ -41,6 +145,7 @@ export function getRippleWall(opts = {}) {
         });
         return meshMaterial;
 };
+//黄色幕墙（流星）
 export function getMeteorMaterial(opts = {}) {
         let uniforms = {
                 time: {
@@ -87,3 +192,4 @@ export function getMeteorMaterial(opts = {}) {
         // }
         return material;
 };
+

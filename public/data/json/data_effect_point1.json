@@ -1,0 +1,5 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.31660971345299,40.01146295923248]},"properties":{"Id":0,"NAME":"名称1"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.3200361373014,40.01146295923248]},"properties":{"Id":1,"NAME":"名称2"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.32365291803026,40.0115105484526]},"properties":{"Id":2,"NAME":"名称3"}}
+]}
