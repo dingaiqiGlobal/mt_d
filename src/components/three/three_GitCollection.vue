@@ -50,6 +50,9 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * meshline使用离线版本，不适用npm包的形式
  * （cnpm i three.meshline@1.2.0 --save）
  */
+//水面
+import Ocean from "@/sceneEffect/maptalks.three.objects/ocean";//ocean大海
+
 //流光墙
 import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
 import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
@@ -67,11 +70,9 @@ export default {
       groupLayer: null,
       threeLayer: null,
       menshGroup: null,
-      uiMarkerLayer: null,
       //数据要求不一样
-      rippleWallMesh: [],
-      arcLineMesh: [],
-      cloudArcLineMesh: [],
+      rippleWallMesh: [],//幕墙
+      arcLineMesh: [],//弧线
     };
   },
 
@@ -187,7 +188,7 @@ export default {
     async add_RippleWall() {
       if (!this.menshGroup.isMesh(this.rippleWallMesh)) {
         this.rippleWallMesh = await this.build_RippleWall_Menshs(
-          "data/json/data_building_effect.json",
+          "data/json/data_effect_building.json",
           this.threeLayer
         );
         this.menshGroup.addMesh(this.rippleWallMesh);
@@ -257,7 +258,7 @@ export default {
     async add_ArcLineMesh() {
       if (!this.menshGroup.isMesh(this.arcLineMesh)) {
         this.arcLineMesh = await this.buildArcLineMesh(
-          "data/json/data_arcline_effect.json",
+          "data/json/data_effect_arcline.json",
           this.threeLayer
         );
         this.menshGroup.addMesh(this.arcLineMesh);
