@@ -19,8 +19,14 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/animation/animation_GSAP.jpg",
+          text: "动画-GSAP",
+          path: "/animation_GSAP",
+        },
+        {
+          id: 1,
           img: "/images/nav/animation/animation_beat_native.jpg",
-          text: "跳动-原生",
+          text: "动画-原生",
           path: "/animation_beat_native",
         },
         {

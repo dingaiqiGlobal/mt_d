@@ -2,18 +2,14 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
-      <button type="" @click="addBeat">添加标签跳动效果</button>
-      <button type="" @click="removeBeat">移除标签跳动效果</button>
-      <br />
-      <button type="" @click="addLinkLine">添加云朵流光线</button>
-      <button type="" @click="removeLinkLine">移除云朵流光线</button>
-      <hr />
       <button type="" @click="add_RippleWall">添加幕墙</button>
       <button type="" @click="remove_RippleWall">移除幕墙</button>
       <br />
       <button type="" @click="add_ArcLineMesh">添加弧线</button>
       <button type="" @click="remove_ArcLineMesh">移除弧线</button>
       <br />
+      <hr>
+      <button type="" @click="clear">清空</button>
     </div>
   </div>
 </template>
@@ -61,14 +57,6 @@ import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
 
-//动画
-import AnimationBeat from "./AnimationBeat";
-import AnimationLinkLine from "./AnimationLinkLine";
-
-//uiMarker
-import Vue from "vue/dist/vue.esm.js"; //特殊引用
-import UIMarkerLayer from "../UIMarker/UIMarkerLayer";
-import "../UIMarker/UIMarkerLayer.css";
 
 export default {
   components: {},
@@ -169,13 +157,6 @@ export default {
     };
     this.threeLayer.addTo(this.map);
     this.menshGroup = new MenshGroup(this.threeLayer);
-
-    //动画
-    this.beat = new AnimationBeat(this.map);
-    this.linkLine = new AnimationLinkLine({
-      map: this.map,
-      menshGroup: this.menshGroup,
-    });
   },
 
   methods: {
@@ -188,88 +169,6 @@ export default {
       }
       return coordinates;
     },
-
-    /**
-     * 标签弹跳效果
-     */
-    addBeat() {
-      this.beat.remove();
-      this.beat.add("data/json/enterprise/rc_all.json", this.featureClickEvent);
-    },
-    removeBeat() {
-      this.beat.remove();
-      if (this.uiMarkerLayer) {
-        this.uiMarkerLayer.remove();
-      }
-    },
-
-    /**
-     * 云朵连接线
-     */
-    addLinkLine() {
-      this.linkLine.remove();
-      let urlCenter = "data/json/enterprise/cloud.json";
-      let urlOther = "data/json/enterprise/qy_all.json";
-      this.linkLine.addCenterIcon(urlCenter);
-      this.linkLine.addOtherIcon(urlOther, this.featureClickEvent);
-      this.linkLine.addMesh(urlOther, this.threeLayer, urlCenter);
-    },
-    removeLinkLine() {
-      this.linkLine.remove();
-      if (this.uiMarkerLayer) {
-        this.uiMarkerLayer.remove();
-      }
-    },
-
-    /**
-     * 弹框
-     */
-    featureClickEvent(e) {
-      let coordinate = [e.coordinate.x, e.coordinate.y];
-      let title = e.target.properties.id;
-      let data = "123";
-      this._uiMarker(coordinate, title, data);
-    },
-    _uiMarker(coordinate, title, data) {
-      let that = this;
-      if (!data) return;
-      let Profile = Vue.extend({
-        template: `<div class="profile">
-            <div class="title-box">{{title}}<span class="close-btn" @click="closeUiMarker">X</span></div>
-            <div class="content-box">
-              <div class="content-group">
-                <div class="content-item" >
-                  <span>{{data}}</span>
-                </div>
-              </div>
-            </div>
-            </div>`,
-        data() {
-          return {
-            title: title,
-            data: data,
-          };
-        },
-        methods: {
-          closeUiMarker() {
-            this.$destroy();
-            const element = this.$el;
-            element.parentNode.removeChild(element);
-          },
-        },
-      });
-      const profile = new Profile().$mount();
-      this.uiMarkerLayer = new UIMarkerLayer().addTo(this.map);
-      let uiMarker = new maptalks.ui.UIMarker(coordinate, {
-        containerClass: "UIMarkerLayer",
-        single: true,
-        content: profile.$el,
-        verticalAlignment: "top",
-        eventsPropagation: false,
-      });
-      this.uiMarkerLayer.addMarker(uiMarker);
-    },
-
     /**
      * 幕墙
      */
@@ -370,9 +269,9 @@ export default {
     /**
      * 清空
      */
-    // clear() {
-    //   this.menshGroup.clear(); //three组
-    // },
+    clear() {
+      this.menshGroup.clear(); //three组
+    },
   },
 };
 </script>
