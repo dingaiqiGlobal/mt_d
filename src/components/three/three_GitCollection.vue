@@ -2,13 +2,19 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="add_Ocean">添加海面</button>
+      <button type="" @click="remove_Ocean">移除海面</button>
+      <br />
       <button type="" @click="add_RippleWall">添加幕墙</button>
       <button type="" @click="remove_RippleWall">移除幕墙</button>
       <br />
       <button type="" @click="add_ArcLineMesh">添加弧线</button>
       <button type="" @click="remove_ArcLineMesh">移除弧线</button>
       <br />
-      <hr>
+      <!-- <button type="" @click="">添加</button>
+      <button type="" @click="">移除</button>
+      <br /> -->
+      <hr />
       <button type="" @click="clear">清空</button>
     </div>
   </div>
@@ -50,16 +56,14 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * meshline使用离线版本，不适用npm包的形式
  * （cnpm i three.meshline@1.2.0 --save）
  */
-//水面
-import Ocean from "@/sceneEffect/maptalks.three.objects/ocean";//ocean大海
-
+//海面
+import Ocean from "@/sceneEffect/maptalks.three.objects/ocean"; //ocean大海
 //流光墙
 import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
 import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
 //弧线
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
-
 
 export default {
   components: {},
@@ -71,8 +75,9 @@ export default {
       threeLayer: null,
       menshGroup: null,
       //数据要求不一样
-      rippleWallMesh: [],//幕墙
-      arcLineMesh: [],//弧线
+      oceanMesh:[],//海面
+      rippleWallMesh: [], //幕墙
+      arcLineMesh: [], //弧线
     };
   },
 
@@ -161,6 +166,41 @@ export default {
   },
 
   methods: {
+    /**
+     * 海面
+     */
+    async getWaterMesh(url, threeLayer) {
+      const result = await axios.get(url);
+      let features = result.data.features;
+      let waters = [];
+      features.forEach((g) => {
+        if (g.geometry.type == "Polygon") {
+          let mesh = new Ocean(
+            maptalks.GeoJSON.toGeometry(g),
+            {
+              speed: 1 / 500,
+              //sunColor: "#f00",
+              waterColor: "#3399FF",
+              alpha: 1,
+              waterNormals: require("@/assets/effect/lineTexture.png"),
+            },
+            threeLayer
+          );
+          waters.push(mesh);
+        }
+      });
+      return waters;
+    },
+    async add_Ocean() {
+      this.oceanMesh=await this.getWaterMesh("data/json/data_effect_water.json",this.threeLayer);  
+      this.menshGroup.addMesh(this.oceanMesh)//效果不如maptalks
+    },
+    remove_Ocean(){
+      this.menshGroup.removeMesh(this.oceanMesh)
+    },
+    /**
+     * 坐标Function
+     */
     async getJsonData(url) {
       const result = await axios.get(url);
       let features = result.data.features;
@@ -227,7 +267,7 @@ export default {
         let linestring = new maptalks.LineString(path[i]);
         //texture-贴图信息
         const texture = new THREE.TextureLoader().load(
-          require("@/assets/texture/lineTexture.png")
+          require("@/assets/effect/lineTexture.png")
         );
         texture.anisotropy = 16;
         texture.wrapS = THREE.RepeatWrapping;
