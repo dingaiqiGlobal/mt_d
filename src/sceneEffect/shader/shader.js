@@ -2,6 +2,54 @@ const Qg = require("@/sceneEffect/shader/glsl/Qg.glsl").default;
 const Gg = require("@/sceneEffect/shader/glsl/Gg.glsl").default;
 const Ky = require("@/sceneEffect/shader/glsl/Ky.glsl").default;
 import * as THREE from "three";
+//扩散圆柱（贴图围墙）
+export function getWallTextureMaterial(opts = {}) {
+        let uniforms = {
+                map: {
+                        type: "t",
+                        value: new THREE.TextureLoader().load(opts.image),
+                },
+                color: {
+                        type: "c",
+                        value: new THREE.Color(opts.color || "#9999FF"),
+                },
+                opacity: {
+                        type: "f",
+                        value: opts.opacity || 0.7,
+                },
+        };
+        var vertexShaderSource = "\n  precision lowp float;\n  precision lowp int;\n  "
+                .concat(
+                        THREE.ShaderChunk.fog_pars_vertex,
+                        "\n  varying vec2 vUv;\n  void main() {\n    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n    vUv = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n    "
+                )
+                .concat(THREE.ShaderChunk.fog_vertex, "\n  }\n");
+        var fragmentShaderSource = `
+                  precision lowp float;
+                  precision lowp int;
+                  uniform vec3 color;
+                  uniform sampler2D map;
+                  uniform float opacity;
+                  varying vec2 vUv;
+                  void main()
+                  {
+                    vec4 tex = texture2D(map, vUv);
+                    gl_FragColor = vec4(tex.rgb * color, tex.a * opacity);
+                  }`;
+        let meshMaterial = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                defaultAttributeValues: {},
+                vertexShader: vertexShaderSource,
+                fragmentShader: fragmentShaderSource,
+                blending: THREE.AdditiveBlending,
+                transparent: !0,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                // fog: !0
+        });
+        return meshMaterial;
+};
 //雷达扫描-getRadarMetarial-转圈材质&FlabellumScanMaterial-扫描材质
 export function getRadarMetarial(opts = {}) {
         const RadarShield = {

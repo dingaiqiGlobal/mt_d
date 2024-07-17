@@ -2,6 +2,9 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="addRingBuildMesh">添加扩散圆柱</button>
+      <button type="" @click="removeRingBuildMesh">移除扩散圆柱</button>
+      <br />
       <button type="" @click="add_Radar">添加雷达</button>
       <button type="" @click="remove_Radar">移除雷达</button>
       <br />
@@ -59,6 +62,10 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * meshline使用离线版本，不适用npm包的形式
  * （cnpm i three.meshline@1.2.0 --save）
  */
+//扩散圆柱
+//import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";//共用
+import { getWallTextureMaterial } from "@/sceneEffect/shader/shader";
+
 //雷达
 import RingEffect from "@/sceneEffect/maptalks.three.objects/ringEffect"; //ring环形
 import { getRadarMetarial, FlabellumScanMaterial } from "@/sceneEffect/shader/shader";
@@ -82,7 +89,8 @@ export default {
       threeLayer: null,
       menshGroup: null,
       //数据要求不一样
-      radarMesh: [],
+      ringBuildMesh: [], //扩散圆柱
+      radarMesh: [], //雷达
       oceanMesh: [], //海面
       rippleWallMesh: [], //幕墙
       arcLineMesh: [], //弧线
@@ -175,6 +183,66 @@ export default {
 
   methods: {
     /**
+     * 扩散圆柱
+     */
+
+    getringBuildMesh(coord, threeLayer) {
+      let ringCircle = new maptalks.Circle(coord, 100);
+      let material = getWallTextureMaterial({
+        image: require("@/assets/effect/linear.png"),
+        color: "#f00",
+        opacity: 0.6,
+      });
+      //material二
+      //let material = getRippleWall();
+
+      //mesh添加方式一
+      // let mesh = threeLayer.toExtrudePolygon(
+      //   ringCircle,
+      //   {
+      //     height: 150,
+      //     //topColor: "#fff",
+      //     addTopBottom: false,
+      //   },
+      //   material
+      // );
+      //mesh添加方式二
+      let mesh = new rippleWall(
+        coord,
+        { height: 250, isCircle: 1, radius: 100 },
+        material,
+        threeLayer
+      );
+      //动画
+      let num = 0;
+      animate();
+      function animate() {
+        num += 0.01;
+        if (num > 4) num = 0;
+        mesh.getObject3d().scale.set(num, num, 1);
+        requestAnimationFrame(animate);
+      }
+      return [mesh];
+    },
+    async build_RingBuild_Menshs(url, threeLayer) {
+      let data = await this.getJsonData(url);
+      let meshes = [];
+      for (let i = 0; i < data.length; i++) {
+        meshes.push(this.getringBuildMesh(data[i], threeLayer));
+      }
+      return meshes;
+    },
+    async addRingBuildMesh() {
+      this.ringBuildMesh = await this.build_RingBuild_Menshs(
+        "data/json/data_effect_point2.json",
+        this.threeLayer
+      );
+      this.menshGroup.addMesh(this.ringBuildMesh);
+    },
+    removeRingBuildMesh() {
+       this.menshGroup.removeMesh(this.ringBuildMesh);
+    },
+    /**
      * 雷达
      */
     getRadarMesh(coord, threeLayer) {
@@ -201,11 +269,10 @@ export default {
     },
     async build_Radar_Menshs(url, threeLayer) {
       let data = await this.getJsonData(url);
-      console.log(data);
       let meshes = [];
       for (let i = 0; i < data.length; i++) {
-        meshes.push(this.getRadarMesh(data[i], threeLayer));//转圈
-        meshes.push(this.getScanRadarMesh(data[i], threeLayer));//扫描
+        meshes.push(this.getRadarMesh(data[i], threeLayer)); //转圈
+        meshes.push(this.getScanRadarMesh(data[i], threeLayer)); //扫描
       }
       return meshes;
     },
