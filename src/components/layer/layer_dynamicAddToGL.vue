@@ -1,7 +1,26 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div class="control"></div>
+    <div class="control">
+      <button type="" @click="addGLPolygon('polygon','data/json/xs.json')">添加面</button>
+      <button type="" @click="removeLayer('polygon')">移除面</button>
+      <br />
+      <button type="" @click="addGLLineString('m20', 'data/json/m20.json')">
+        添加m20
+      </button>
+      <button type="" @click="removeLayer('m20')">移除m20</button>
+      <br />
+      <button type="" @click="addGLLineString('m100', 'data/json/m100.json')">
+        添加m100
+      </button>
+      <button type="" @click="removeLayer('m100')">移除m100</button>
+      <br />
+      <button type="" @click="addGLLineString('m200', 'data/json/m200.json')">
+        添加m200
+      </button>
+      <button type="" @click="removeLayer('m200')">移除m200</button>
+      <br />
+    </div>
   </div>
 </template>
 
@@ -51,6 +70,7 @@ export default {
           '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
       }),
     ];
+    //map中必须有地形
     const terrain = {
       type: "mapbox",
       tileSize: 256,
@@ -60,22 +80,21 @@ export default {
 
     this.groupLayer = new GroupGLLayer("group", layers, { terrain });
     this.groupLayer.addTo(this.map);
-
-    //图层必须添加到groupLayer中才能贴地形
-    let url = "data/json/xs.json";
-    this.dynamicAddToGL(url);
+    /**
+     * 图层必须添加到groupLayer中才能贴地形
+     */
   },
 
   methods: {
-    dynamicAddToGL(url) {
-      let GeoJSONLayer = new GeoJSONVectorTileLayer("awareOfTerrain", {
+    addGLPolygon(id,url) {
+      let GeoJSONLayer = new GeoJSONVectorTileLayer(id, {
         data: url,
         minZoom: 1,
         maxZoom: 22,
         style: {
           style: [
             {
-              name: `awareOfTerrain_polygon_geo`,
+              name: `${id}_polygon_geo`,
               renderPlugin: {
                 type: "fill",
                 dataConfig: {
@@ -95,7 +114,7 @@ export default {
               },
             },
             {
-              name: `awareOfTerrain_polygon_line_geo`,
+              name: `${id}_polygon_line_geo`,
               renderPlugin: {
                 type: "line",
                 dataConfig: {
@@ -121,6 +140,48 @@ export default {
         },
       });
       this.groupLayer.addLayer(GeoJSONLayer);
+    },
+    addGLLineString(id, url) {
+      let GeoJSONLayer = new GeoJSONVectorTileLayer(id, {
+        data: url,
+        minZoom: 1,
+        maxZoom: 22,
+        style: {
+          style: [
+            {
+              name: `${id}_line_geo`,
+              renderPlugin: {
+                type: "line",
+                dataConfig: {
+                  type: "line",
+                  only2D: true,
+                  awareOfTerrain: true, //贴地形
+                },
+                sceneConfig: {
+                  depthFunc: "always",
+                  blendSrc: "one",
+                },
+              },
+              filter: true,
+              symbol: {
+                lineColor: "#fc2929",
+                lineWidth: 2,
+                lineOpacity: 1,
+                lineStrokeWidth: 0,
+                lineStrokeColor: "#fc2929",
+              },
+            },
+          ],
+        },
+      });
+      this.groupLayer.addLayer(GeoJSONLayer);
+    },
+    removeLayer(id) {
+      let layer = this.groupLayer.getLayer(id);
+      console.log(this.groupLayer);
+      if (layer) {
+        this.groupLayer.removeLayer(layer);
+      }
     },
   },
 };
