@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@mapbox/tilebelt": "^1.0.2",
     "@maptalks/gl-layers": "^0.32.0",
     "@maptalks/transcoders.crn": "^0.97.1",
     "@maptalks/transcoders.draco": "^0.97.1",

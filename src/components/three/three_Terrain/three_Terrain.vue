@@ -27,10 +27,11 @@ export default {
       groupLayer: null,
       lineLayer: null,
       menshGroup: null,
+      vectorLayer: null, //为了修改地形
       //数据
       lines: [],
-      terrains: [],
-      altitude: -90,
+      terrains: [], //为了gui改变颜色高度
+      altitude: -90, //为了不让低海拔的地形显示出来
       terrainColor: "#0a6142",
     };
   },
@@ -71,8 +72,11 @@ export default {
       let light = new THREE.DirectionalLight(0xffffff, 2);
       light.position.set(0, -10, 10);
       scene.add(light);
+      this.addDemLines();
+      this.addTerrainTile(); //必须放在这调用（其他可以）
+      this.animation(); //layer动画支持跳过帧-可选（感觉跟下一行用法一样）
       //this.threeLayer.config("animation", true);
-      this.animation(); //layer动画支持跳过帧
+      this.iniGui();
     };
 
     /**
@@ -90,6 +94,7 @@ export default {
         antialias: { enable: true }, //抗锯齿
       },
       ground: {
+        //为了突显山的效果
         enable: true,
         renderPlugin: {
           type: "lit",
@@ -111,25 +116,160 @@ export default {
     this.groupLayer.addTo(this.map);
 
     /**
-     * 添加
+     * VectorLayer-为了修改地形
      */
-    this.iniGui();
-    this.addDemLines();
+    this.vectorLayer = new maptalks.VectorLayer("test", {
+      enableAltitude: true,
+      altitude: this.altitude,
+    });
+    this.vectorLayer.addTo(this.map);
   },
 
   methods: {
     addTerrainTile() {
-      const minx = 6826,
-        maxx = 6830,
-        miny = 3372,
-        maxy = 3377;
+      //计算地址tile数组
+      const minx = 13471,
+        maxx = 13490,
+        miny = 6191,
+        maxy = 6210;
       const tiles = [];
       for (let col = minx; col <= maxx; col++) {
         for (let row = miny; row <= maxy; row++) {
-          tiles.push([col, row, 13]);
+          tiles.push([col, row, 14]);
         }
       }
-      const TILESIZE = 256;
+      //遍历
+      tiles.forEach((tile) => {
+        const [x, y, z] = tile;
+        const tilebelt = require("@mapbox/tilebelt"); //第三方，见REANME
+        const bbox = tilebelt.tileToBBOX(tile);
+        const texture = `data/terrain/tiles_img/${z}/${x}/${y}.jpg`;
+        const image = `data/terrain/tiles_dem/${z}/${x}/${y}.png`;
+        const terrain = this.threeLayer.toTerrain(
+          bbox,
+          {
+            flaserBoundary: false, //是否压扁地形裙边
+            bufferPixel: 0.2,
+            image: image,
+            texture: texture,
+            imageWidth: 256,
+            imageHeight: 256,
+            altitude: this.altitude,
+          },
+          new THREE.MeshPhongMaterial({ color: this.terrainColor })
+        );
+        //hide texture-隐藏贴图-可选
+        terrain.on("textureload", () => {
+          terrain._map = terrain.getObject3d().material.map;
+          terrain.getObject3d().material.map = null;
+          terrain.getObject3d().material.needsUpdate = true;
+        });
+        //update normal-改变法线-可选
+        terrain.on("dataload", () => {
+          const geometry = terrain.getObject3d().geometry;
+          const index = geometry.index.array;
+          const position = geometry.attributes.position.array;
+          const normal = this.generateNormal(index, position);
+          geometry.setAttribute("normal", new THREE.BufferAttribute(normal, 3));
+        });
+        this.menshGroup.addMesh(terrain);
+        this.terrains.push(terrain); //Gui控制
+      });
+    },
+    //改变法线-可选
+    generateNormal(indices, position) {
+      function v3Sub(out, v1, v2) {
+        out[0] = v1[0] - v2[0];
+        out[1] = v1[1] - v2[1];
+        out[2] = v1[2] - v2[2];
+        return out;
+      }
+
+      function v3Normalize(out, v) {
+        const x = v[0];
+        const y = v[1];
+        const z = v[2];
+        const d = Math.sqrt(x * x + y * y + z * z) || 1;
+        out[0] = x / d;
+        out[1] = y / d;
+        out[2] = z / d;
+        return out;
+      }
+
+      function v3Cross(out, v1, v2) {
+        const ax = v1[0],
+          ay = v1[1],
+          az = v1[2],
+          bx = v2[0],
+          by = v2[1],
+          bz = v2[2];
+
+        out[0] = ay * bz - az * by;
+        out[1] = az * bx - ax * bz;
+        out[2] = ax * by - ay * bx;
+        return out;
+      }
+
+      function v3Set(p, a, b, c) {
+        p[0] = a;
+        p[1] = b;
+        p[2] = c;
+      }
+
+      const p1 = [];
+      const p2 = [];
+      const p3 = [];
+
+      const v21 = [];
+      const v32 = [];
+
+      const n = [];
+
+      const len = indices.length;
+      const normals = new Float32Array(position.length);
+      let f = 0;
+      while (f < len) {
+        // const i1 = indices[f++] * 3;
+        // const i2 = indices[f++] * 3;
+        // const i3 = indices[f++] * 3;
+        // const i1 = indices[f];
+        // const i2 = indices[f + 1];
+        // const i3 = indices[f + 2];
+        const a = indices[f],
+          b = indices[f + 1],
+          c = indices[f + 2];
+        const i1 = a * 3,
+          i2 = b * 3,
+          i3 = c * 3;
+
+        v3Set(p1, position[i1], position[i1 + 1], position[i1 + 2]);
+        v3Set(p2, position[i2], position[i2 + 1], position[i2 + 2]);
+        v3Set(p3, position[i3], position[i3 + 1], position[i3 + 2]);
+
+        v3Sub(v32, p3, p2);
+        v3Sub(v21, p1, p2);
+        v3Cross(n, v32, v21);
+        // Already be weighted by the triangle area
+        for (let i = 0; i < 3; i++) {
+          normals[i1 + i] += n[i];
+          normals[i2 + i] += n[i];
+          normals[i3 + i] += n[i];
+        }
+        f += 3;
+      }
+
+      let i = 0;
+      const l = normals.length;
+      while (i < l) {
+        v3Set(n, normals[i], normals[i + 1], normals[i + 2]);
+        v3Normalize(n, n);
+        normals[i] = n[0] || 0;
+        normals[i + 1] = n[1] || 0;
+        normals[i + 2] = n[2] || 0;
+        i += 3;
+      }
+
+      return normals;
     },
     addDemLines() {
       const colors = [
@@ -139,7 +279,7 @@ export default {
         [300, "yellow"],
         [400, "red"],
       ];
-      const ci = new ColorIn(colors); //见REANME
+      const ci = new ColorIn(colors); //第三方，见REANME
       const lineMaterialMap = {};
       //Materila
       function getLineMaterila(height) {
@@ -168,11 +308,11 @@ export default {
             };
           });
           //添加线
-          let lines = evadata.map((element) => {
+          this.lines = evadata.map((element) => {
             let coordinates = element.coordinates;
             if (coordinates) {
               const elevation = element.CONTOUR;
-              const height = elevation + 45;
+              const height = elevation + 45; //预防贴地形
               coordinates.forEach((c) => {
                 c[2] = height;
               });
@@ -184,7 +324,7 @@ export default {
               return line;
             }
           });
-          this.menshGroup.addMesh(lines);
+          this.menshGroup.addMesh(this.lines);
         });
     },
     animation() {
@@ -213,9 +353,33 @@ export default {
             this.groupLayer.removeLayer(this.baseLayer);
           }
         });
-      gui.add(params, "altitude", -1000, 1000).name("海拔");
-      gui.addColor(params, "terrainColor").name("地形颜色");
-      gui.add(params, "texture").name("地形纹理");
+      gui
+        .add(params, "altitude", -1000, 1000)
+        .name("海拔")
+        .onChange(() => {
+          this.terrains.concat(this.lines).forEach((baseObject) => {
+            baseObject.setAltitude(params.altitude);
+          });
+          this.vectorLayer.options.altitude = params.altitude;
+        });
+      gui
+        .addColor(params, "terrainColor")
+        .name("地形颜色")
+        .onChange(() => {
+          this.terrains.forEach((terrain) => {
+            terrain.getObject3d().material.color.setStyle(params.terrainColor);
+          });
+        });
+      gui
+        .add(params, "texture")
+        .name("地形纹理")
+        .onChange(() => {
+          this.terrains.forEach((terrain) => {
+            const object3d = terrain.getObject3d();
+            object3d.material.map = params.texture ? terrain._map : null;
+            object3d.material.needsUpdate = true;
+          });
+        });
     },
   },
 };

@@ -294,3 +294,4 @@ var tilebelt = {
     bboxToTile: bboxToTile,
     pointToTileFraction: pointToTileFraction
 };
+export default tilebelt;

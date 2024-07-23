@@ -49,7 +49,7 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/three/three_GitCollection.jpg",
+          img: "/images/nav/three/three_Terrain.jpg",
           text: "地形沙盘",
           path: "/three_Terrain",
         },
