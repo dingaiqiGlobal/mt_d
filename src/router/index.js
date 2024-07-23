@@ -35,6 +35,11 @@ const routes = [
     component: () => import("../components/UIMarker/UIMarker_Base.vue")
   },
   {
+    path: '/three_Terrain',
+    name: 'three_Terrain',
+    component: () => import("../components/three/three_Terrain/three_Terrain.vue")
+  },
+  {
     path: '/three_GitCollection',
     name: 'three_GitCollection',
     component: () => import("../components/three/three_GitCollection.vue")

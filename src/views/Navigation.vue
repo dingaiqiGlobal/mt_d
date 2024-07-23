@@ -50,6 +50,12 @@ export default {
         {
           id: 1,
           img: "/images/nav/three/three_GitCollection.jpg",
+          text: "地形沙盘",
+          path: "/three_Terrain",
+        },
+        {
+          id: 1,
+          img: "/images/nav/three/three_GitCollection.jpg",
           text: "特效Git集合",
           path: "/three_GitCollection",
         },

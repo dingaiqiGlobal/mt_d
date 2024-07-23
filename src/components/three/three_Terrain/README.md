@@ -15,3 +15,19 @@
         方式1：dem2terrain -z 4-15 -e terrarium -i ./ZONE.tiff -o ./output -c 1 -g 3857  
         方式2：dem2terrain -f C:\Users\ZHJY\Desktop\terrain_build\dem2terrain-master\test\config.json
                 （json内容为{"zoom":"5-14","epsg":3857,"size":256,"encoding":"mapbox","input":"./data/hd/HD_DEM.tif","output":"./data/terrain","clean":true}）
+
+
+2.colorin  API
+    ①安装
+    cnpm i colorin --save
+    import {ColorIn} from 'colorin';
+    ②使用
+    构造
+    constructor(colors, [options])
+        const ci = new ColorIn(colors);
+        const [r, g, b, a] = ci.getColor(11);
+    方法
+    getColor(stop)-get color by stop
+        const [r, g, b, a] = ci.getColor(11);
+    getImageData()-get canvas image data
+        const imgData = ci.getImageData();
