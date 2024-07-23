@@ -25,7 +25,6 @@
     构造
     constructor(colors, [options])
         const ci = new ColorIn(colors);
-        const [r, g, b, a] = ci.getColor(11);
     方法
     getColor(stop)-get color by stop
         const [r, g, b, a] = ci.getColor(11);

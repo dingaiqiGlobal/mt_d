@@ -7,6 +7,9 @@
 
 <script>
 import * as dat from "dat.gui";
+import { ColorIn } from "colorin";
+import MenshGroup from "@/sceneEffect/MenshGroup";
+
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer, LineStringLayer } from "@maptalks/gl-layers";
@@ -23,6 +26,7 @@ export default {
       threeLayer: null,
       groupLayer: null,
       lineLayer: null,
+      menshGroup: null,
       //数据
       lines: [],
       terrains: [],
@@ -43,6 +47,7 @@ export default {
         projection: "EPSG:3857",
       },
     });
+
     /**
      *baseLayer
      */
@@ -52,6 +57,7 @@ export default {
         "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       subdomains: ["a", "b", "c", "d"], //子域
     });
+
     /**
      * threeLayer
      */
@@ -68,6 +74,12 @@ export default {
       //this.threeLayer.config("animation", true);
       this.animation(); //layer动画支持跳过帧
     };
+
+    /**
+     * menshGroup
+     */
+    this.menshGroup = new MenshGroup(this.threeLayer);
+
     /**
      * groupLayer
      */
@@ -97,20 +109,83 @@ export default {
       sceneConfig,
     });
     this.groupLayer.addTo(this.map);
+
     /**
      * 添加
      */
     this.iniGui();
+    this.addDemLines();
   },
 
   methods: {
+    addTerrainTile() {
+      const minx = 6826,
+        maxx = 6830,
+        miny = 3372,
+        maxy = 3377;
+      const tiles = [];
+      for (let col = minx; col <= maxx; col++) {
+        for (let row = miny; row <= maxy; row++) {
+          tiles.push([col, row, 13]);
+        }
+      }
+      const TILESIZE = 256;
+    },
     addDemLines() {
       const colors = [
         [0, "white"],
-        [100, "blue"],
+        [100, "green"],
+        [200, "blue"],
         [300, "yellow"],
         [400, "red"],
       ];
+      const ci = new ColorIn(colors); //见REANME
+      const lineMaterialMap = {};
+      //Materila
+      function getLineMaterila(height) {
+        //const [r, g, b, a] = ci.getColor(11);
+        const [r, g, b] = ci.getColor(height); //通过高度获取颜色
+        const color = `rgb(${r},${g},${b})`;
+        if (lineMaterialMap[color]) {
+          return lineMaterialMap[color];
+        }
+        lineMaterialMap[color] = new THREE.LineBasicMaterial({
+          linewidth: 1,
+          color,
+          opacity: 0.6,
+          transparent: true,
+        });
+        return lineMaterialMap[color];
+      }
+      fetch("data/terrain/hd_contour_line.json")
+        .then((response) => response.json())
+        .then((json) => {
+          let evadata = json.features.map((feature) => {
+            const { CONTOUR, ...otherProperties } = feature.properties;
+            return {
+              CONTOUR: CONTOUR,
+              coordinates: feature.geometry.coordinates,
+            };
+          });
+          //添加线
+          let lines = evadata.map((element) => {
+            let coordinates = element.coordinates;
+            if (coordinates) {
+              const elevation = element.CONTOUR;
+              const height = elevation + 45;
+              coordinates.forEach((c) => {
+                c[2] = height;
+              });
+              const line = this.threeLayer.toLine(
+                new maptalks.LineString(coordinates),
+                { altitude: this.altitude },
+                getLineMaterila(height)
+              );
+              return line;
+            }
+          });
+          this.menshGroup.addMesh(lines);
+        });
     },
     animation() {
       this.threeLayer._needsUpdate = !this.threeLayer._needsUpdate;
