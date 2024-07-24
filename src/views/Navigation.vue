@@ -259,8 +259,8 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/style/style_echarts_hk.jpg",
-          text: "echarts香港",
+          img: "/images/nav/style/style_hk_echarts.jpg",
+          text: "hk_echarts",
           path: "/style_echarts_hk",
         },
         {

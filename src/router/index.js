@@ -212,7 +212,7 @@ const routes = [
   {
     path: '/style_echarts_hk',
     name: 'style_echarts_hk',
-    component: () => import("../components/style/style_echarts_hk.vue")
+    component: () => import("../components/style/style_hk_echarts.vue")
   },
   {
     path: '/style_UniqueValue',
