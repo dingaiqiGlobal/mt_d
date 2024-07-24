@@ -72,6 +72,7 @@ export default {
       let light = new THREE.DirectionalLight(0xffffff, 2);
       light.position.set(0, -10, 10);
       scene.add(light);
+      
       this.addDemLines();
       this.addTerrainTile(); //必须放在这调用（其他可以）
       this.animation(); //layer动画支持跳过帧-可选（感觉跟下一行用法一样）

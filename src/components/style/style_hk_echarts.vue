@@ -97,7 +97,6 @@ export default {
     },
     mouseEventFunc(e) {
       const polygon = e.target;
-      console.log(polygon);
       if (e.type === "mouseover") {
         if (!polygon._oldSymbol) {//可以给polygon添加一个._oldSymbol
           polygon._oldSymbol = polygon.getSymbol();

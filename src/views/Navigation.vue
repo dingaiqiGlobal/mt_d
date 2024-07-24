@@ -259,6 +259,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_hk_three.jpg",
+          text: "hk_three",
+          path: "/style_echarts_three",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_hk_echarts.jpg",
           text: "hk_echarts",
           path: "/style_echarts_hk",
