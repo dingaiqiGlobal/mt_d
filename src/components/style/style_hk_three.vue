@@ -11,7 +11,6 @@ import * as maptalks from "maptalks";
 import { GroupGLLayer } from "@maptalks/gl-layers";
 import * as THREE from "three";
 import { ThreeLayer } from "maptalks.three";
-import MenshGroup from "@/sceneEffect/MenshGroup";
 
 import { ColorIn } from "colorin";
 
@@ -22,7 +21,6 @@ export default {
     return {
       map: null,
       threeLayer: null,
-      menshGroup: null,
       groupLayer: null,
       vectorLayer: null, //为了添加边线跟标注
     };
@@ -62,11 +60,6 @@ export default {
     };
 
     /**
-     * menshGroup
-     */
-    this.menshGroup = new MenshGroup(this.threeLayer);
-
-    /**
      * groupLayer
      */
     //GroupGLLayer能实现抗锯齿等后处理，也能加入其他三维图层，让子图层都融合到同一个三维空间中
@@ -80,7 +73,7 @@ export default {
     this.groupLayer.addTo(this.map);
 
     /**
-     * VectorLayer-为了修改地形
+     * VectorLayer-为了添加边线跟标注
      */
     this.vectorLayer = new maptalks.VectorLayer("vectorLayer", {
       geometryEvents: false, //几何事件

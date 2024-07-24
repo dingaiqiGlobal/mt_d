@@ -259,6 +259,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_bj_three.jpg",
+          text: "bj_three",
+          path: "/style_bj_three",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_hk_three.jpg",
           text: "hk_three",
           path: "/style_echarts_three",

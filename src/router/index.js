@@ -210,6 +210,11 @@ const routes = [
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.vue")
   },
   {
+    path: '/style_bj_three',
+    name: 'style_bj_three',
+    component: () => import("../components/style/style_bj_three.vue")
+  },
+  {
     path: '/style_echarts_three',
     name: 'style_echarts_three',
     component: () => import("../components/style/style_hk_three.vue")
