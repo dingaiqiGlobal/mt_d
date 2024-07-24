@@ -259,6 +259,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_echarts_hk.jpg",
+          text: "echarts香港",
+          path: "/style_echarts_hk",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_UniqueValue.jpg",
           text: "唯一值渲染",
           path: "/style_UniqueValue",
