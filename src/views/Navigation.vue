@@ -259,6 +259,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_bj_img.jpg",
+          text: "bj_img",
+          path: "/style_bj_img",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_bj_three.jpg",
           text: "bj_three",
           path: "/style_bj_three",
