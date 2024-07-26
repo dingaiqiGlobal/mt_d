@@ -109,6 +109,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_Mapbox.jpg",
+          text: "MapboxLayer",
+          path: "/layer_Mapbox",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_dynamicAddToGL.jpg",
           text: "矢量贴地形",
           path: "/layer_dynamicAddToGL",

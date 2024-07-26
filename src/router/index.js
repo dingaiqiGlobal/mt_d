@@ -85,6 +85,11 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_Mapbox',
+    name: 'layer_Mapbox',
+    component: () => import("../components/layer/layer_Mapbox.vue")
+  },
+  {
     path: '/layer_dynamicAddToGL',
     name: 'layer_dynamicAddToGL',
     component: () => import("../components/layer/layer_dynamicAddToGL.vue")
