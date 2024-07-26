@@ -1,0 +1,19 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.42901799948118,40.401102061910706]},"properties":{"OBJECTID_1":1,"NAME":"怀柔"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.15656319023913,40.536653550021356]},"properties":{"OBJECTID_1":2,"NAME":"延庆"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.71704037191569,40.1485517307778]},"properties":{"OBJECTID_1":3,"NAME":"顺义"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.72839689380169,39.8023924436564]},"properties":{"OBJECTID_1":4,"NAME":"通州"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.50789442988412,39.949464374881074]},"properties":{"OBJECTID_1":5,"NAME":"起始点"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.33754649997104,40.215760445088506]},"properties":{"OBJECTID_1":6,"NAME":"昌平"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[115.79366349987072,40.039648838423204]},"properties":{"OBJECTID_1":7,"NAME":"门头沟"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.1703094122496,39.931876750911385]},"properties":{"OBJECTID_1":8,"NAME":"石景山"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.22747530464164,40.02564961104076]},"properties":{"OBJECTID_1":9,"NAME":"海淀"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.15085824910898,39.827106405236464]},"properties":{"OBJECTID_1":10,"NAME":"丰台"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[115.84818608332114,39.71792576446251]},"properties":{"OBJECTID_1":11,"NAME":"房山"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.41332696206973,39.64545231816999]},"properties":{"OBJECTID_1":12,"NAME":"大兴"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.5880857086886,40.0723543789515]},"properties":{"OBJECTID_1":13,"NAME":"朝阳"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.98764343389746,40.52510703106469]},"properties":{"OBJECTID_1":14,"NAME":"密云"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[117.13790778031989,40.208573894269875]},"properties":{"OBJECTID_1":15,"NAME":"平谷"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.359239347418,39.910755217579265]},"properties":{"OBJECTID_1":16,"NAME":"西城"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[116.4103108877373,39.911578769045036]},"properties":{"OBJECTID_1":17,"NAME":"东城"}}
+]}

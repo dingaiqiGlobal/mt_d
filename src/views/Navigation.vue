@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/animation/animation_style.jpg",
+          text: "动画-style驱动",
+          path: "/animation_style",
+        },
+        {
+          id: 1,
           img: "/images/nav/animation/animation_GSAP.jpg",
           text: "动画-GSAP",
           path: "/animation_GSAP",

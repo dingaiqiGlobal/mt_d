@@ -12,8 +12,6 @@ import { GroupGLLayer } from "@maptalks/gl-layers";
 import * as THREE from "three";
 import { ThreeLayer } from "maptalks.three";
 
-import { ColorIn } from "colorin";
-
 export default {
   components: {},
 
