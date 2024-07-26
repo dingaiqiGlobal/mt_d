@@ -35,6 +35,11 @@ const routes = [
     component: () => import("../components/UIMarker/UIMarker_Base.vue")
   },
   {
+    path: '/three_TextureLoader_Road',
+    name: 'three_TextureLoader_Road',
+    component: () => import("../components/three/three_TextureLoader/three_TextureLoader_Road.vue")
+  },
+  {
     path: '/three_Terrain',
     name: 'three_Terrain',
     component: () => import("../components/three/three_Terrain/three_Terrain.vue")
