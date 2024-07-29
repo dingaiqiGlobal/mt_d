@@ -24,8 +24,8 @@ export default {
 
   mounted() {
     this.map = new maptalks.Map("map", {
-      center: [116.39259, 39.90473],
-      zoom: 12,
+      center: [116.414390,39.916710],
+      zoom: 15,
       pitch: 60,
       bearing: -25,
       spatialReference: {
@@ -41,23 +41,27 @@ export default {
      * groupLayer
      */
     const sceneConfig = {
-      postProcess: {
-        enable: true,
-        antialias: { enable: true },
-      },
+      // postProcess: {
+      //   enable: true,
+      //   antialias: { enable: true },
+      // },
     };
     this.groupLayer = new GroupGLLayer("group", [], {
       sceneConfig,
     });
     this.groupLayer.addTo(this.map);
-    this.addLayer()
+    this.addMapBoxLayer()
   },
 
   methods: {
-    addLayer() {
+    /**
+     * 矢量切片服务-tileserver
+     * 样式-MapTalks Designer制作（与mapbox不是一套）
+     */
+    addMapBoxLayer() {
       const vt = new VectorTileLayer("vt", {
-        urlTemplate: `https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1Ijoic2tiZXlvbmQiLCJhIjoiY2s5MmU1Y2RiMDR4aTNtcDh0MmgwaHQzcyJ9._tMktptrxVL-QNN5s2plzg`,
-        style: "data/json/mapbox-light/style.json",
+        urlTemplate:`http://192.168.201.166:8081/data/dongcheng/{z}/{x}/{y}.pbf`,
+        style: "data/json/mapbox-light/style_mapbox_dongcheng.json",
       });
       this.groupLayer.addLayer(vt)
     },
