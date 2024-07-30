@@ -225,6 +225,11 @@ const routes = [
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.vue")
   },
   {
+    path: '/style_building_floor',
+    name: 'style_building_floor',
+    component: () => import("../components/style/style_building_floor.vue")
+  },
+  {
     path: '/style_bj_img',
     name: 'style_bj_img',
     component: () => import("../components/style/style_bj_img.vue")

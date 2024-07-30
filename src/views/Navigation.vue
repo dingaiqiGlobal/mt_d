@@ -277,6 +277,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_building_floor.jpg",
+          text: "建筑物楼层",
+          path: "/style_building_floor",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_bj_img.jpg",
           text: "bj_img",
           path: "/style_bj_img",

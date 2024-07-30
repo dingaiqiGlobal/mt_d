@@ -1,0 +1,396 @@
+{
+	"type": "FeatureCollection",
+	"features": [{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,4]
+			},
+			"properties": {
+				"OBJECTID": 1,
+				"height": 4,
+				"bottomH": 0,
+				"floor": 1,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,8]
+			},
+			"properties": {
+				"OBJECTID": 2,
+				"height": 8,
+				"bottomH": 4,
+				"floor": 2,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,12]
+			},
+			"properties": {
+				"OBJECTID": 3,
+				"height": 12,
+				"bottomH": 8,
+				"floor": 3,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,16]
+			},
+			"properties": {
+				"OBJECTID": 4,
+				"height": 16,
+				"bottomH": 12,
+				"floor": 4,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,20]
+			},
+			"properties": {
+				"OBJECTID": 5,
+				"height": 20,
+				"bottomH": 16,
+				"floor": 5,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,24]
+			},
+			"properties": {
+				"OBJECTID": 6,
+				"height": 24,
+				"bottomH": 20,
+				"floor": 6,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,28]
+			},
+			"properties": {
+				"OBJECTID": 7,
+				"height": 28,
+				"bottomH": 24,
+				"floor": 7,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,32]
+			},
+			"properties": {
+				"OBJECTID": 8,
+				"height": 32,
+				"bottomH": 28,
+				"floor": 8,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,36]
+			},
+			"properties": {
+				"OBJECTID": 9,
+				"height": 36,
+				"bottomH": 32,
+				"floor": 9,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,40]
+			},
+			"properties": {
+				"OBJECTID": 10,
+				"height": 40,
+				"bottomH": 36,
+				"floor": 10,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,44]
+			},
+			"properties": {
+				"OBJECTID": 11,
+				"height": 44,
+				"bottomH": 40,
+				"floor": 11,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,48]
+			},
+			"properties": {
+				"OBJECTID": 12,
+				"height": 48,
+				"bottomH": 44,
+				"floor": 12,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,52]
+			},
+			"properties": {
+				"OBJECTID": 13,
+				"height": 52,
+				"bottomH": 48,
+				"floor": 13,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,56]
+			},
+			"properties": {
+				"OBJECTID": 14,
+				"height": 56,
+				"bottomH": 52,
+				"floor": 14,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,60]
+			},
+			"properties": {
+				"OBJECTID": 15,
+				"height": 60,
+				"bottomH": 56,
+				"floor": 15,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3160947670599, 39.95974042518054,64]
+			},
+			"properties": {
+				"OBJECTID": 16,
+				"height": 64,
+				"bottomH": 60,
+				"floor": 16,
+				"name": "海淀科技大厦"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,4]
+			},
+			"properties": {
+				"OBJECTID": 17,
+				"height": 4,
+				"bottomH": 0,
+				"floor": 1,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,8]
+			},
+			"properties": {
+				"OBJECTID": 18,
+				"height": 8,
+				"bottomH": 4,
+				"floor": 2,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,12]
+			},
+			"properties": {
+				"OBJECTID": 19,
+				"height": 12,
+				"bottomH": 8,
+				"floor": 3,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,20]
+			},
+			"properties": {
+				"OBJECTID": 20,
+				"height": 20,
+				"bottomH": 16,
+				"floor": 5,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,24]
+			},
+			"properties": {
+				"OBJECTID": 21,
+				"height": 24,
+				"bottomH": 20,
+				"floor": 6,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,28]
+			},
+			"properties": {
+				"OBJECTID": 22,
+				"height": 28,
+				"bottomH": 24,
+				"floor": 7,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,32]
+			},
+			"properties": {
+				"OBJECTID": 23,
+				"height": 32,
+				"bottomH": 28,
+				"floor": 8,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.3154027998994, 39.9589529311329,16]
+			},
+			"properties": {
+				"OBJECTID": 24,
+				"height": 16,
+				"bottomH": 12,
+				"floor": 4,
+				"name": "1号楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.31500844718221, 39.95986346142968,4]
+			},
+			"properties": {
+				"OBJECTID": 25,
+				"height": 4,
+				"bottomH": 0,
+				"floor": 1,
+				"name": "126楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.31500844718221, 39.95986346142968,8]
+			},
+			"properties": {
+				"OBJECTID": 26,
+				"height": 8,
+				"bottomH": 4,
+				"floor": 2,
+				"name": "126楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.31500844718221, 39.95986346142968,12]
+			},
+			"properties": {
+				"OBJECTID": 27,
+				"height": 12,
+				"bottomH": 8,
+				"floor": 3,
+				"name": "126楼"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [116.31500844718221, 39.95986346142968,16]
+			},
+			"properties": {
+				"OBJECTID": 28,
+				"height": 16,
+				"bottomH": 12,
+				"floor": 4,
+				"name": "126楼"
+			}
+		}
+	]
+}
