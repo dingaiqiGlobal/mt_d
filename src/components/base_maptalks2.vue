@@ -7,8 +7,8 @@
 
 <script>
 import "maptalks/dist/maptalks.css";
-import * as maptalks from 'maptalks';
-import { GroupGLLayer} from "@maptalks/gl-layers";
+import * as maptalks from "maptalks";
+import { GroupGLLayer } from "@maptalks/gl-layers";
 import * as THREE from "three";
 import { ThreeLayer } from 'maptalks.three';
 
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       map: null,
+      groupLayer:null,
     };
   },
 
@@ -33,10 +34,22 @@ export default {
         projection: "EPSG:3857",
       },
       baseLayer: new maptalks.TileLayer("tile", {
-        urlTemplate:"https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        urlTemplate:
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       }),
       layers: [],
     });
+    /**
+     * groupLayer
+     */
+    const sceneConfig = {
+      postProcess: {
+        enable: true,
+        antialias: { enable: true },
+      },
+    };
+    this.groupLayer = new GroupGLLayer("group", [], { sceneConfig });
+    this.groupLayer.addTo(this.map);
   },
 
   methods: {},

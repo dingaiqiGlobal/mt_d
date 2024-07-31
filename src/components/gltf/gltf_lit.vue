@@ -7,10 +7,10 @@
 
 <script>
 import "maptalks/dist/maptalks.css";
-import * as maptalks from 'maptalks';
-import { GroupGLLayer} from "@maptalks/gl-layers";
+import * as maptalks from "maptalks";
+import { GroupGLLayer, GeoJSONVectorTileLayer } from "@maptalks/gl-layers";
 import * as THREE from "three";
-import { ThreeLayer } from 'maptalks.three';
+import { ThreeLayer } from "maptalks.three";
 
 export default {
   components: {},
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       map: null,
+      groupLayer: null,
     };
   },
 
@@ -25,21 +26,73 @@ export default {
 
   mounted() {
     this.map = new maptalks.Map("map", {
-      center: [116.39259, 39.90473],
-      zoom: 12,
+      center: [120.59421765, 31.27427065],
+      zoom: 18,
       pitch: 60,
       bearing: -25,
       spatialReference: {
         projection: "EPSG:3857",
       },
       baseLayer: new maptalks.TileLayer("tile", {
-        urlTemplate:"https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        urlTemplate:
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       }),
       layers: [],
     });
+    /**
+     * groupLayer
+     */
+    const sceneConfig = {
+      postProcess: {
+        enable: true,
+        antialias: { enable: true },
+      },
+    };
+    this.groupLayer = new GroupGLLayer("group", [], { sceneConfig });
+    this.groupLayer.addTo(this.map);
+    this.addGlltfTree();
   },
 
-  methods: {},
+  methods: {
+    addGlltfTree() {
+      const style = {
+        style: [
+          {
+            filter: true,
+            renderPlugin: {
+              type: "gltf-lit",
+              dataConfig: {
+                type: "native-point",
+              },
+              sceneConfig: {
+                minZoom: 17,//控制缩放
+                gltfAnimation: {
+                  enable: true,
+                },
+              },
+            },
+            symbol: {
+              // markerFill: "#0f0",
+              // markerRotationAlignment: "line",
+              url: "data/model/tree/tree.gltf",
+              // markerPlacement: "vertex-last",
+              // rotationZ: 90,
+              // anchorZ: "middle",
+              // translationX: -120,
+              scaleX: 0.5,
+              scaleY: 0.5,
+              scaleZ: 0.6,
+            },
+          },
+        ],
+      };
+      const vt = new GeoJSONVectorTileLayer("vt", {
+        data: "data/json/trees.geojson",
+        style,
+      });
+      this.groupLayer.addLayer(vt);
+    },
+  },
 };
 </script>
 <style>
