@@ -181,9 +181,15 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/project/project_gltf.jpg",
-          text: "gltf方法",
-          path: "/project_gltf",
+          img: "/images/nav/gltf/gltf_drag.jpg",
+          text: "gltf拖拽",
+          path: "/gltf_drag",
+        },
+        {
+          id: 1,
+          img: "/images/nav/gltf/gltf_lit.jpg",
+          text: "gltf_lit批量",
+          path: "/gltf_lit",
         },
         {
           id: 1,

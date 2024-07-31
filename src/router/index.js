@@ -145,9 +145,14 @@ const routes = [
     component: () => import("../components/layer/layer_WebGL_Context.vue")
   },
   {
-    path: '/project_gltf',
-    name: 'project_gltf',
-    component: () => import("../components/project/project_gltf.vue")
+    path: '/gltf_drag',
+    name: 'gltf_drag',
+    component: () => import("../components/gltf/gltf_drag.vue")
+  },
+  {
+    path: '/gltf_lit',
+    name: 'gltf_lit',
+    component: () => import("../components/gltf/gltf_lit.vue")
   },
   {
     path: '/3dtiles_Add',
