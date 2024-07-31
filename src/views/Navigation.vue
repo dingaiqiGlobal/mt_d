@@ -277,6 +277,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_update_altitude_terrain.jpg",
+          text: "海拔跟随地形",
+          path: "/style_update_altitude_terrain",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_building_floor.jpg",
           text: "建筑物楼层",
           path: "/style_building_floor",

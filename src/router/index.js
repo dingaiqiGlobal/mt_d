@@ -225,6 +225,11 @@ const routes = [
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.vue")
   },
   {
+    path: '/style_update_altitude_terrain',
+    name: 'style_update_altitude_terrain',
+    component: () => import("../components/style/style_update_altitude_terrain.vue")
+  },
+  {
     path: '/style_building_floor',
     name: 'style_building_floor',
     component: () => import("../components/style/style_building_floor.vue")
