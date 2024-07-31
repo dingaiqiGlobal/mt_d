@@ -25,6 +25,11 @@ const routes = [
     component: () => import("../components/animation/animation_beat_native.vue")
   },
   {
+    path: '/tools_jsts_holes',
+    name: 'tools_jsts_holes',
+    component: () => import("../components/tools/tools_jsts_holes.vue")
+  },
+  {
     path: '/tools_collection',
     name: 'tools_collection',
     component: () => import("../components/tools/tools_collection.vue")

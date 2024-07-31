@@ -37,6 +37,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/tools/tools_jsts_holes.jpg",
+          text: "绘制孔洞",
+          path: "/tools_jsts_holes",
+        },
+        {
+          id: 1,
           img: "/images/nav/tools/tools_collection.jpg",
           text: "工具集合",
           path: "/tools_collection",
