@@ -5,7 +5,14 @@ class MeasureDistance {
         this._init()
     }
     _init() {
+        function formatLabelContent(value) {
+            let m = value;
+            m = Math.round(m * 100);
+            m = m / 100;
+            return m + '米'
+        }
         this.distanceTool = new maptalks.DistanceTool({
+            //formatLabelContent,//可以自定义单位
             symbol: {
                 lineColor: "#34495e",
                 lineWidth: 2,

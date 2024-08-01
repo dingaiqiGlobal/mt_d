@@ -5,7 +5,14 @@ class MeasureArea {
         this._init();
     }
     _init() {
+        function formatLabelContent(value) {
+            let m = value;
+            m = Math.round(m * 100);
+            m = m / 100;
+            return m + '平方米'
+        }
         this.areaTool = new maptalks.AreaTool({
+            //formatLabelContent,//可以自定义单位
             symbol: {
                 lineColor: "#1bbc9b",
                 lineWidth: 2,
@@ -61,6 +68,7 @@ class MeasureArea {
         }).addTo(this.map);
         this.disable()
     }
+
     disable() {
         this.areaTool.disable()
     }
