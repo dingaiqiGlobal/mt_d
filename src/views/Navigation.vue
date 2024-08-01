@@ -289,6 +289,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_routeplayer.jpg",
+          text: "路况&轨迹",
+          path: "/style_routeplayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_update_altitude_terrain.jpg",
           text: "海拔跟随地形",
           path: "/style_update_altitude_terrain",

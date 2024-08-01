@@ -1,0 +1,485 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.30974900000001,
+                        39.9909560000001
+                    ],
+                    [
+                        116.31158494877742,
+                        39.99102100289535
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 0,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419155
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31158494877742,
+                        39.99102100289535
+                    ],
+                    [
+                        116.31342089755483,
+                        39.9910860057906
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 1,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419156
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31342089755483,
+                        39.9910860057906
+                    ],
+                    [
+                        116.31525684633225,
+                        39.991151008685854
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 2,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419157
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31525684633225,
+                        39.991151008685854
+                    ],
+                    [
+                        116.31709279510967,
+                        39.9912160115811
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 3,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419159
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31709279510967,
+                        39.9912160115811
+                    ],
+                    [
+                        116.31892874388708,
+                        39.99128101447636
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 4,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419161
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31892874388708,
+                        39.99128101447636
+                    ],
+                    [
+                        116.3207646926645,
+                        39.991346017371605
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 5,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419163
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.3207646926645,
+                        39.991346017371605
+                    ],
+                    [
+                        116.32260064144191,
+                        39.99141102026686
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 6,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419165
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32260064144191,
+                        39.99141102026686
+                    ],
+                    [
+                        116.32443659021932,
+                        39.99147602316211
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 7,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419167
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32443659021932,
+                        39.99147602316211
+                    ],
+                    [
+                        116.32627253899673,
+                        39.99154102605736
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 8,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419169
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32627253899673,
+                        39.99154102605736
+                    ],
+                    [
+                        116.32652600000006,
+                        39.99155000000002
+                    ],
+                    [
+                        116.32652325090814,
+                        39.99313347694686
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 9,
+                "altitude": 0,
+                "status": "拥堵",
+                "color": "#ed442d",
+                "time": 1722419172
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32652325090814,
+                        39.99313347694686
+                    ],
+                    [
+                        116.32652200000007,
+                        39.993854000000056
+                    ],
+                    [
+                        116.32740019096875,
+                        39.99454357985712
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 10,
+                "altitude": 0,
+                "status": "拥堵",
+                "color": "#ed442d",
+                "time": 1722419175
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32740019096875,
+                        39.99454357985712
+                    ],
+                    [
+                        116.32884507721988,
+                        39.995678144536186
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 11,
+                "altitude": 0,
+                "status": "拥堵",
+                "color": "#ed442d",
+                "time": 1722419178
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32884507721988,
+                        39.995678144536186
+                    ],
+                    [
+                        116.32931100000019,
+                        39.9960440000001
+                    ],
+                    [
+                        116.3302705442156,
+                        39.99683681664557
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 12,
+                "altitude": 0,
+                "status": "拥堵",
+                "color": "#ed442d",
+                "time": 1722419181
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.3302705442156,
+                        39.99683681664557
+                    ],
+                    [
+                        116.33126200000004,
+                        39.99765600000006
+                    ],
+                    [
+                        116.33149185395837,
+                        39.99815676974386
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 13,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419183
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33149185395837,
+                        39.99815676974386
+                    ],
+                    [
+                        116.33225821148412,
+                        39.99982638929106
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 14,
+                "altitude": 0,
+                "status": "缓行",
+                "color": "#ffa404",
+                "time": 1722419185
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33225821148412,
+                        39.99982638929106
+                    ],
+                    [
+                        116.33302456900986,
+                        40.00149600883827
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 15,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419186
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33302456900986,
+                        40.00149600883827
+                    ],
+                    [
+                        116.33375300000012,
+                        40.003083000000004
+                    ],
+                    [
+                        116.33379508110576,
+                        40.003163591889965
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 16,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419187
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33379508110576,
+                        40.003163591889965
+                    ],
+                    [
+                        116.33464538740385,
+                        40.004792061259984
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 17,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419188
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33464538740385,
+                        40.004792061259984
+                    ],
+                    [
+                        116.33549569370196,
+                        40.00642053063001
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 18,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419189
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33549569370196,
+                        40.00642053063001
+                    ],
+                    [
+                        116.33634600000005,
+                        40.00804900000003
+                    ]
+                ]
+            },
+            "properties": {
+                "Id": 19,
+                "altitude": 0,
+                "status": "畅通",
+                "color": "#038400",
+                "time": 1722419190
+            }
+        }
+    ]
+}

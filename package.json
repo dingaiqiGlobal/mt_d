@@ -23,6 +23,7 @@
     "maptalks.heatmap": "^0.6.2",
     "maptalks.markercluster": "^0.8.8",
     "maptalks.modelcontrol": "^0.8.0",
+    "maptalks.routeplayer": "^1.0.0-rc.1",
     "maptalks.three": "^0.38.1",
     "raw-loader": "^4.0.2",
     "three": "^0.116.1",
