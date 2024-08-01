@@ -145,6 +145,11 @@ const routes = [
     component: () => import("../components/layer/layer_WebGL_Context.vue")
   },
   {
+    path: '/gltf_GLTFLineString',
+    name: 'gltf_GLTFLineString',
+    component: () => import("../components/gltf/gltf_GLTFLineString.vue")
+  },
+  {
     path: '/gltf_drag',
     name: 'gltf_drag',
     component: () => import("../components/gltf/gltf_drag.vue")

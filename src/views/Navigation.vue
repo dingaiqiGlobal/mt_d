@@ -181,6 +181,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/gltf/gltf_GLTFLineString.jpg",
+          text: "gltf线性添加（特）",
+          path: "/gltf_GLTFLineString",
+        },
+        {
+          id: 1,
           img: "/images/nav/gltf/gltf_drag.jpg",
           text: "gltf拖拽",
           path: "/gltf_drag",
