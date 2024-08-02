@@ -45,19 +45,23 @@ export default {
         cursor: "pointer", //图层的光标样式
         geometryEvents: true, //启用几何体事件
         defaultIconSize: [20, 20], //标记图标的默认大小
-        enableAltitude: true, //支持海拔(常用)
+        enableAltitude: true, //支持海拔----(常用)
         //altitudeProperty:,//几何体的高度属性名称，如果enableAltitude为true，则默认为“高度”
         drawAltitude: false, //绘制垂直线或者面，可以是对象
         sortByDistanceToCamera: false, //标记按相机距离排序
         roundPoint: false, //绘制前进行圆角以提高性能，但会导致动画中的几何体抖动
-        altitude: 0, //海拔
+        altitude: 0, //海拔-----(常用)
         collision: false, //启用碰撞
         collisionBufferSize: 2, //碰撞缓存大小
         collisionDelay: 250, //碰撞延迟
         collisionScope: "layer", //碰撞范围：layer或map
-        progressiveRende: false, //渐进渲染
+        /**
+         * 渐进渲染--------https://microget-1300406971.cos.ap-shanghai.myqcloud.com/maptalks-study/layer/layer-progressiverender.html
+         */
+        progressiveRende: false, //
         progressiveRenderCount: 1000, //渐进渲染页面大小
         progressiveRenderDebug: false,
+
         drawImmediate: false,
         geometryEventTolerance: 1, //几何图形事件的公差
         attribution: null, //指定其他属性
@@ -71,9 +75,14 @@ export default {
         globalCompositeOperation: null, //（仅适用于使用CanvasRenderer渲染的层）层的画布2d上下文的全局合成操作。
         debugOutline: "#0f0", //debug线颜色
         cssFilter: null, //css过滤器应用于canvas上下文的过滤器
-        forceRenderOnMoving: false, //贴图移动时渲染层的力
-        forceRenderOnZooming: false, //贴图缩放时渲染层的力
-        forceRenderOnRotating: false, //贴图旋转时渲染层的力
+        /**
+         * 为了性能考量，VectorLayer渲染是做了一些限制，当地图处于快速交互的过程中，
+         * 就没有一直渲染，如果你希望其一直渲染，
+         * 可以配置其配置参数使其一直渲染，主要有下面三项：
+         */
+        forceRenderOnMoving: false, //地图移动的过程中强制渲染
+        forceRenderOnZooming: false, //地图缩放的过程中强制渲染
+        forceRenderOnRotating: false, //地图旋转的过程中强制渲染
       }).addTo(this.map);
 
       /**
@@ -116,8 +125,12 @@ export default {
         arrowStyle: null, //箭头的样式，可以是预定义的值或数组[箭头宽度，箭头高度]（数组中的值是线宽的倍数），可能的预定义值：classic ([3, 4])
         arrowPlacement: "vertex-last", //箭头的位置：vertex-first, vertex-last, vertex-firstlast, point
         smoothness: 0, //通过四阶贝塞尔插值进行线条平滑，默认为0
+        /**
+         * maptalks内默认会对图形进行simplify，这个问题是由于图形节点被简化导致的
+         */
         enableSimplify: true, //启用简化
-        simplifyTolerance: 2, //简化公差
+        simplifyTolerance: 2, //简化阈值-simplifyTolerance的值越大,简化的越狠,性能也越好，根据自己的需要设置合适值即可，默认值2,
+
         enableClip: true,
         symbol: {
           //（常用）
