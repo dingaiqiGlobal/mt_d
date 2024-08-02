@@ -91,6 +91,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/map/map_options_spatialReference.jpg",
+          text: "map设置空间参考",
+          path: "/map_options_spatialReference",
+        },
+        {
+          id: 1,
           img: "/images/nav/map/map_options.jpg",
           text: "map参数",
           path: "/map_options",

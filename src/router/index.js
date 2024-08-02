@@ -70,6 +70,11 @@ const routes = [
     component: () => import("../components/map/map_ToJSON_FromJSON.vue")
   },
   {
+    path: '/map_options_spatialReference',
+    name: 'map_options_spatialReference',
+    component: () => import("../components/map/map_options_spatialReference.vue")
+  },
+  {
     path: '/map_options',
     name: 'map_options',
     component: () => import("../components/map/map_options.vue")
