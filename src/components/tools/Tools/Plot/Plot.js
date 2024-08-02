@@ -14,6 +14,7 @@ class Plot {
         this._disable();//初始化清空
         this.drawTool.on("drawend", (param) => {
             this.plotLayer.addGeometry(param.geometry);
+            this.map.resetCursor();//清除鼠标样式
         });
     }
     _enable() {
@@ -25,6 +26,7 @@ class Plot {
     plotEnable(type) {
         if (type == "Point") {
             this.drawTool.setMode(type);
+            this.map.setCursor("pointer");
             this.drawTool.setSymbol({
                 markerFile: "images/icon/icon_Red.png",
                 markerOpacity: 1,
@@ -34,6 +36,7 @@ class Plot {
             this._enable()
         } else if (type == "LineString") {
             this.drawTool.setMode(type);
+            this.map.setCursor("pointer");
             this.drawTool.setSymbol({
                 lineColor: "#327bfb",
                 lineWidth: 2,
@@ -42,6 +45,7 @@ class Plot {
             this._enable();
         } else if (type == "Polygon") {
             this.drawTool.setMode(type);
+            this.map.setCursor("pointer");
             this.drawTool.setSymbol({
                 lineColor: "#327bfb",
                 lineWidth: 2,
