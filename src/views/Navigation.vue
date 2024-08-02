@@ -127,6 +127,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_ExtrudePolygonLayer.jpg",
+          text: "挤出面-未API",
+          path: "/layer_ExtrudePolygonLayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_Mapbox.jpg",
           text: "MapboxLayer",
           path: "/layer_Mapbox",

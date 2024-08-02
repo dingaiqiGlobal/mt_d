@@ -100,6 +100,11 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_ExtrudePolygonLayer',
+    name: 'llayer_ExtrudePolygonLayer',
+    component: () => import("../components/layer/layer_ExtrudePolygonLayer.vue")
+  },
+  {
     path: '/layer_Mapbox',
     name: 'layer_Mapbox',
     component: () => import("../components/layer/layer_Mapbox.vue")
