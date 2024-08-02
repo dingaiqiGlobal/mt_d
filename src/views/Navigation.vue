@@ -125,6 +125,12 @@ export default {
           text: "控件",
           path: "/control_collection",
         },
+                {
+          id: 1,
+          img: "/images/nav/layer/layer_tilelayer_mask.jpg",
+          text: "切片蒙皮",
+          path: "/layer_tilelayer_mask",
+        },
         {
           id: 1,
           img: "/images/nav/layer/layer_ExtrudePolygonLayer.jpg",
