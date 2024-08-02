@@ -100,6 +100,11 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_tilelayer_filter',
+    name: 'layer_tilelayer_filter',
+    component: () => import("../components/layer/tileLayer/layer_tilelayer_filter.vue")
+  },
+  {
     path: '/layer_tilelayer_mask',
     name: 'layer_tilelayer_mask',
     component: () => import("../components/layer/tileLayer/layer_tilelayer_mask.vue")

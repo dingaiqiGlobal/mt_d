@@ -33,6 +33,7 @@ export default {
         //debug: true,
         urlTemplate:
           "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        maxAvailableZoom: 18,//最大可用缩放
       }),
       layers: [],
     });

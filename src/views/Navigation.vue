@@ -127,6 +127,12 @@ export default {
         },
                 {
           id: 1,
+          img: "/images/nav/layer/layer_tilelayer_filter.jpg",
+          text: "切片过滤变色",
+          path: "/layer_tilelayer_filter",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_tilelayer_mask.jpg",
           text: "切片蒙皮",
           path: "/layer_tilelayer_mask",
