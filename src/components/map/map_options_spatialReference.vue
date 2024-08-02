@@ -25,18 +25,28 @@ export default {
 
   mounted() {
     this.map = new maptalks.Map("map", {
-      center: [116.950150,40.556590],
+      center: [116.95015, 40.55659],
       zoom: 12,
+      spatialReference: {
+        projection: "EPSG:3857",
+      },
       baseLayer: new maptalks.TileLayer("tile", {
         urlTemplate:
           "https://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+          //TileLayer可以有自己独立的投影
+          /**
+           * 注意maptalks体系内图层是有自己的坐标投影配置信息的
+           * 图层的坐标系可以和地图不同
+           * 当图层不设置投影坐标信息的时候会自动的去拿地图的投影信息作为自己的坐标投影配置
+           * 所以代码层面最好为图层设置自己的坐标信息，尤其时当图层的投影信息和地图不同时，否则会导致一些未知错误，尤其是瓦片图层会导致瓦片加载错乱
+           */
         spatialReference: {
           //切换空间参考，这个参考必须写在底图图层中
           projection: "EPSG:3857",
         },
       }),
     });
-    this.add_GeoJSONVTLayer_LineString();//图层不跟着变
+    this.add_GeoJSONVTLayer_LineString(); //图层不跟着变
   },
 
   methods: {
