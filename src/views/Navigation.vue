@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/animation/animation_view.jpg",
+          text: "动画-视图-基础",
+          path: "/animation_view",
+        },
+        {
+          id: 1,
           img: "/images/nav/animation/animation_style.jpg",
           text: "动画-style驱动",
           path: "/animation_style",
