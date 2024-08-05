@@ -133,6 +133,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_tilelayer_gcoord_offset.jpg",
+          text: "切片_高德纠偏",
+          path: "/layer_tilelayer_gcoord_offset",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_tilelayer_extent.jpg",
           text: "切片范围",
           path: "/layer_tilelayer_extent",

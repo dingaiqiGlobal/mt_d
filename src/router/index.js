@@ -105,6 +105,11 @@ const routes = [
     component: () => import("../components/layer/tileLayer/layer_tilelayer_TDT.vue")
   },
   {
+    path: '/layer_tilelayer_gcoord_offset',
+    name: 'layer_tilelayer_gcoord_offset',
+    component: () => import("../components/layer/tileLayer/layer_tilelayer_gcoord_offset.vue")
+  },
+  {
     path: '/layer_tilelayer_extent',
     name: 'layer_tilelayer_extent',
     component: () => import("../components/layer/tileLayer/layer_tilelayer_extent.vue")

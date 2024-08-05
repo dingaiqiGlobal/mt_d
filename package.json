@@ -18,6 +18,7 @@
     "core-js": "^3.8.3",
     "dat.gui": "^0.7.9",
     "element-ui": "^2.15.14",
+    "gcoord": "^1.0.6",
     "gsap": "^3.12.5",
     "maptalks": "^1.0.0-rc.33",
     "maptalks.heatmap": "^0.6.2",
