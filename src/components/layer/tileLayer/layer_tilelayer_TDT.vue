@@ -8,9 +8,6 @@
 <script>
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
-import { GroupGLLayer } from "@maptalks/gl-layers";
-import * as THREE from "three";
-import { ThreeLayer } from 'maptalks.three';
 
 export default {
   components: {},
@@ -18,7 +15,7 @@ export default {
   data() {
     return {
       map: null,
-      groupLayer:null,
+      groupLayer: null,
     };
   },
 
@@ -28,28 +25,34 @@ export default {
     this.map = new maptalks.Map("map", {
       center: [116.39259, 39.90473],
       zoom: 12,
-      pitch: 60,
-      bearing: -25,
       spatialReference: {
         projection: "EPSG:3857",
       },
-      baseLayer: new maptalks.TileLayer("tile", {
-        urlTemplate:
-          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      }),
-      layers: [],
     });
     /**
-     * groupLayer
+     * 每一个TileLayer实例都会拥有一个webgl上下文,
+     * 浏览器里webgl的上下文数量是有限的,页面里创建了大量的 
+     * TileLayer导致超出浏览器的上限，所以才会导致这个错误,
+     * 解决方式时将 TileLayer放到GroupTileLayer里，
+     * 让所有的TileLayer公用一个webgl上下文
      */
-    const sceneConfig = {
-      postProcess: {
-        enable: true,
-        antialias: { enable: true },
-      },
-    };
-    this.groupLayer = new GroupGLLayer("group", [], { sceneConfig });
-    this.groupLayer.addTo(this.map);
+    const baseLayerGroup = new maptalks.GroupTileLayer("base", [
+      new maptalks.TileLayer("tile", {
+        // tileSystem: [1, -1, -180, 90],
+        urlTemplate:
+          "http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=21c1e34286caecc25fd94be94bfbe119",
+        spatialReference: {
+          projection: "EPSG:3857",
+        },
+      }),
+      new maptalks.TileLayer("boudaries", {
+        urlTemplate:
+          "http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=21c1e34286caecc25fd94be94bfbe119",
+        spatialReference: {
+          projection: "EPSG:3857",
+        },
+      }),
+    ]).addTo(this.map);
   },
 
   methods: {},
