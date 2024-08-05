@@ -23,6 +23,13 @@ export default {
   computed: {},
 
   mounted() {
+    /**
+     * 1.altitude: -1000,//设置TileLayer的整体海拔-一般设置为负的值。
+     * 注意把TileLayer的海拔高度设置为负的目的是不要抬高海平面，方便其他的业务图层数据加到地图，
+     * 否则会要求其他图层也要设置海拔数据，导致业务逻辑变复杂了，这个样子最简单和不容易出错
+     * 2.maxAvailableZoom: 18,//最大可用缩放
+     * 3.setMask()设置蒙皮;
+     */
     this.map = new maptalks.Map("map", {
       center: [116.39259, 39.90473],
       zoom: 9,
@@ -30,6 +37,7 @@ export default {
         projection: "EPSG:3857",
       },
       baseLayer: new maptalks.TileLayer("tile", {
+        altitude: -1000,//设置TileLayer的整体海拔
         //debug: true,
         urlTemplate:
           "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
