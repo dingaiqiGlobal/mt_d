@@ -127,6 +127,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_tilelayer_custom.jpg",
+          text: "切片_自定义切片",
+          path: "/layer_tilelayer_custom",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_tilelayer_TDT.jpg",
           text: "切片_天地图",
           path: "/layer_tilelayer_TDT",
