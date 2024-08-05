@@ -100,6 +100,16 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_tilelayer_TDT',
+    name: 'layer_tilelayer_TDT',
+    component: () => import("../components/layer/tileLayer/layer_tilelayer_TDT.vue")
+  },
+  {
+    path: '/layer_tilelayer_extent',
+    name: 'layer_tilelayer_extent',
+    component: () => import("../components/layer/tileLayer/layer_tilelayer_extent.vue")
+  },
+  {
     path: '/layer_tilelayer_filter',
     name: 'layer_tilelayer_filter',
     component: () => import("../components/layer/tileLayer/layer_tilelayer_filter.vue")

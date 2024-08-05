@@ -125,7 +125,19 @@ export default {
           text: "控件",
           path: "/control_collection",
         },
-                {
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_tilelayer_TDT.jpg",
+          text: "切片_天地图",
+          path: "/layer_tilelayer_TDT",
+        },
+        {
+          id: 1,
+          img: "/images/nav/layer/layer_tilelayer_extent.jpg",
+          text: "切片范围",
+          path: "/layer_tilelayer_extent",
+        },
+        {
           id: 1,
           img: "/images/nav/layer/layer_tilelayer_filter.jpg",
           text: "切片过滤变色",
@@ -134,7 +146,7 @@ export default {
         {
           id: 1,
           img: "/images/nav/layer/layer_tilelayer_mask.jpg",
-          text: "切片蒙皮",
+          text: "切片蒙皮mask",
           path: "/layer_tilelayer_mask",
         },
         {
