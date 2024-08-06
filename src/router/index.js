@@ -135,6 +135,11 @@ const routes = [
     component: () => import("../components/layer/layer_ExtrudePolygonLayer.vue")
   },
   {
+    path: '/layer_Mapbox_Plugin',
+    name: 'layer_Mapbox_Plugin',
+    component: () => import("../components/layer/layer_Mapbox_Plugin.vue")
+  },
+  {
     path: '/layer_Mapbox',
     name: 'layer_Mapbox',
     component: () => import("../components/layer/layer_Mapbox.vue")
