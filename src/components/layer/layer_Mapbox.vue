@@ -61,19 +61,33 @@ export default {
      * ②样式-MapTalks Designer制作（与mapbox不是一套）
      * ③MapTalks Designer设计的时候要添加style地址，因为里面包含pbf地址了-http://192.168.201.166:8080/style/dongcheng/default_blue/style.json
      */
+    
+    // addMapBoxLayer() {
+    //   const vt = new VectorTileLayer("mapbox_vt", {
+    //     urlTemplate: `http://192.168.201.166:8081/data/dongcheng/{z}/{x}/{y}.pbf`,
+    //     style: "data/json/mapbox-light/style_mapbox_dongcheng.json",
+    //   });
+    //   this.groupLayer.addLayer(vt);
+    //   //蒙皮-裁剪
+    //   fetch("data/json/bj/beijing_gugong.json")
+    //     .then((res) => res.json())
+    //     .then((geojson) => {
+    //       const polygons = maptalks.GeoJSON.toGeometry(geojson);
+    //       this.groupLayer.setMask(polygons[0]);
+    //     });
+    // },
     addMapBoxLayer() {
       const vt = new VectorTileLayer("mapbox_vt", {
         urlTemplate: `http://192.168.201.166:8081/data/dongcheng/{z}/{x}/{y}.pbf`,
         style: "data/json/mapbox-light/style_mapbox_dongcheng.json",
-      });
-      this.groupLayer.addLayer(vt);
+      }).addTo(this.map);
       //蒙皮-裁剪
-      // fetch("data/json/bj/beijing_gugong.json")
-      //   .then((res) => res.json())
-      //   .then((geojson) => {
-      //     const polygons = maptalks.GeoJSON.toGeometry(geojson);
-      //     this.groupLayer.setMask(polygons[0]);
-      //   });
+      fetch("data/json/bj/beijing_gugong.json")
+        .then((res) => res.json())
+        .then((geojson) => {
+          const polygons = maptalks.GeoJSON.toGeometry(geojson);
+          vt.setMask(polygons[0]);
+        });
     },
     /**
      *  ①矢量切片服务-geoserver
