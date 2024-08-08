@@ -100,6 +100,11 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_vtLayer_geoserver',
+    name: 'layer_vtLayer_geoserver',
+    component: () => import("../components/layer/vtLayer/layer_vtLayer_geoserver.vue")
+  },
+  {
     path: '/layer_tilelayer_geoserver',
     name: 'layer_tilelayer_geoserver',
     component: () => import("../components/layer/tileLayer/layer_tilelayer_geoserver.vue")
