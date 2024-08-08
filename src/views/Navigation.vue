@@ -169,6 +169,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_Mapbox_Colourful.jpg",
+          text: "layer_Mapbox_Colourful",
+          path: "/layer_Mapbox_Colourful",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_Mapbox_Plugin.jpg",
           text: "layer_Mapbox_Plugin",
           path: "/layer_Mapbox_Plugin",
