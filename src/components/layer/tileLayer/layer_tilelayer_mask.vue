@@ -29,6 +29,7 @@ export default {
      * 否则会要求其他图层也要设置海拔数据，导致业务逻辑变复杂了，这个样子最简单和不容易出错
      * 2.maxAvailableZoom: 18,//最大可用缩放
      * 3.setMask()设置蒙皮;
+     * 4.seamlessZoom: false,//关闭地图的无极缩放// //地图默认是开启无极缩放的(seamlessZoom),即地图的缩放层级可以到小数,比如10.4这样,这时加载的瓦片还是 10层级的瓦片，所以就会导致瓦片被缩放一定的倍数导致模糊
      */
     this.map = new maptalks.Map("map", {
       center: [116.39259, 39.90473],
@@ -36,9 +37,11 @@ export default {
       spatialReference: {
         projection: "EPSG:3857",
       },
+     
+      seamlessZoom: false,//关闭地图的无极缩放
       baseLayer: new maptalks.TileLayer("tile", {
+        bufferPixel: 0,//瓦片之间有缝隙
         altitude: -1000,//设置TileLayer的整体海拔
-        //debug: true,
         urlTemplate:
           "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         maxAvailableZoom: 18,//最大可用缩放

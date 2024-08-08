@@ -127,6 +127,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_tilelayer_geoserver.jpg",
+          text: "切片_GeoServer",
+          path: "/layer_tilelayer_geoserver",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_tilelayer_custom.jpg",
           text: "切片_自定义切片",
           path: "/layer_tilelayer_custom",
