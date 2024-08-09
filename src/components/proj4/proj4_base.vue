@@ -70,10 +70,7 @@ export default {
   methods: {
     add4528Layer() {
       //定义坐标
-      proj4.defs(
-        "EPSG:4528",
-        "+proj=tmerc +lat_0=0 +lon_0=120 +k=1 +x_0=40500000 +y_0=0 +ellps=GRS80 +units=m +no_defs +type=crs"
-      );
+      proj4.defs("EPSG:4528","+proj=tmerc +lat_0=0 +lon_0=120 +k=1 +x_0=40500000 +y_0=0 +ellps=GRS80 +units=m +no_defs +type=crs");
       proj4.defs("EPSG:4326", "+proj=longlat +datum=WGS84 +no_defs +type=crs");
       //定义样式
       const style = {
