@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/proj4_base',
+    name: 'proj4_base',
+    component: () => import("../components/proj4/proj4_base.vue")
+  },
+  {
     path: '/animation_view',
     name: 'animation_view',
     component: () => import("../components/animation/view/animation_view.vue")

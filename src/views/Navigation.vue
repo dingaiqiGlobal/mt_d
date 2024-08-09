@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/proj4/proj4_base.jpg",
+          text: "转换坐标",
+          path: "/proj4_base",
+        },
+        {
+          id: 1,
           img: "/images/nav/animation/animation_view.jpg",
           text: "动画-视图-基础",
           path: "/animation_view",
