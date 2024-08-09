@@ -355,6 +355,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/symbol/symbol_Cluster_tileclusterlayer.jpg",
+          text: "聚散图分类",
+          path: "/symbol_Cluster_tileclusterlayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/symbol/symbol_Cluster.jpg",
           text: "聚散图",
           path: "/symbol_Cluster",

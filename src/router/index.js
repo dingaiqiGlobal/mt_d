@@ -290,6 +290,11 @@ const routes = [
     component: () => import("../components/symbol/symbol_Heatmap.vue")
   },
   {
+    path: '/symbol_Cluster_tileclusterlayer',
+    name: 'symbol_Cluster_tileclusterlayer',
+    component: () => import("../components/symbol/symbol_Cluster_tileclusterlayer.vue")
+  },
+  {
     path: '/symbol_Cluster',
     name: 'symbol_Cluster',
     component: () => import("../components/symbol/symbol_Cluster.vue")
