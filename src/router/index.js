@@ -100,6 +100,11 @@ const routes = [
     component: () => import("../components/control/control_collection.vue")
   },
   {
+    path: '/layer_vtLayer_highlight_id',
+    name: 'layer_vtLayer_highlight_id',
+    component: () => import("../components/layer/vtLayer/layer_vtLayer_highlight_id.vue")
+  },
+  {
     path: '/layer_vtLayer_highlight_bytileload',
     name: 'layer_vtLayer_highlight_bytileload',
     component: () => import("../components/layer/vtLayer/layer_vtLayer_highlight_bytileload.vue")

@@ -127,6 +127,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_vtLayer_highlight_id.jpg",
+          text: "矢量切片ID高亮",
+          path: "/layer_vtLayer_highlight_id",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_vtLayer_highlight_bytileload.jpg",
           text: "矢量切片高亮",
           path: "/layer_vtLayer_highlight_bytileload",
