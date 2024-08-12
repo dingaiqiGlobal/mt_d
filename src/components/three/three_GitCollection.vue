@@ -2,6 +2,12 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="addRingEffectMesh">添加环形效果</button>
+      <button type="" @click="removeRingEffectMesh">移除环形效果</button>
+      <br />
+      <button type="" @click="addElectricShieldMesh">添加电子屏蔽</button>
+      <button type="" @click="removeElectricShieldMesh">移除电子屏蔽</button>
+      <br />
       <button type="" @click="addRingBuildMesh">添加扩散圆柱</button>
       <button type="" @click="removeRingBuildMesh">移除扩散圆柱</button>
       <br />
@@ -62,13 +68,22 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * meshline使用离线版本，不适用npm包的形式
  * （cnpm i three.meshline@1.2.0 --save）
  */
+//环形效果
+import { getRingEffectMaterial } from "@/sceneEffect/shader/shader"; //电子屏蔽材料
+
+//电子屏蔽
+import ElectricShield from "@/sceneEffect/maptalks.three.objects/electricShield"; //电子屏蔽
+import RingTextureEffect from "@/sceneEffect/maptalks.three.objects/ringTextureEffect"; //环形纹理
+import { getElectricShieldMaterial } from "@/sceneEffect/shader/shader"; //电子屏蔽材料
+import { getDiffusionShieldMaterial } from "@/sceneEffect/shader/shader"; //扩散屏蔽材料
 //扩散圆柱
 //import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";//共用
 import { getWallTextureMaterial } from "@/sceneEffect/shader/shader";
 
 //雷达
 import RingEffect from "@/sceneEffect/maptalks.three.objects/ringEffect"; //ring环形
-import { getRadarMetarial, FlabellumScanMaterial } from "@/sceneEffect/shader/shader";
+import { getRadarMetarial } from "@/sceneEffect/shader/shader"; //雷达
+import { FlabellumScanMaterial } from "@/sceneEffect/shader/shader"; //扫描
 
 //海面
 import Ocean from "@/sceneEffect/maptalks.three.objects/ocean"; //ocean大海
@@ -89,6 +104,8 @@ export default {
       threeLayer: null,
       menshGroup: null,
       //数据要求不一样
+      ringEffectMesh: [], //环形效果
+      electricShieldMesh: [], //电子屏蔽
       ringBuildMesh: [], //扩散圆柱
       radarMesh: [], //雷达
       oceanMesh: [], //海面
@@ -183,9 +200,121 @@ export default {
 
   methods: {
     /**
+     * 环形效果
+     */
+    getRingMesh(coord, threeLayer,color,type) {
+      let object = new RingEffect(
+        coord,
+        { radius: 50, speed: 0.0025 },
+        getRingEffectMaterial(color,type),
+        threeLayer
+      );
+      // let v = threeLayer.coordinateToVector3([c.x, c.y]);
+      // //内部半径 外部半径 圆环的分段数(值越大，圆环就越圆) 最小值为1，默认值为8  起始角度(默认值为0) 圆心角，默认值为Math.PI * 2
+      // let object = new THREE.Mesh(
+      //   new THREE.RingBufferGeometry(0.001, 0.1, 20, 5, 0, Math.PI * 2),
+      //   this.getRingEffectMaterial(c.color, c.type)
+      // );
+      // object.position.x = v.x;
+      // object.position.y = v.y;
+      // object.position.z = 0.1;
+      object.renderOrder = 4;
+      return object;
+    },
+    async build_RingEffect_Menshs(url, threeLayer) {
+      let data = await this.getJsonData(url);
+      let meshes = [];
+      for (let i = 0; i < data.length; i++) {
+        //两种效果
+        if (i % 2 == 0) {
+          meshes.push(this.getRingMesh(data[i], threeLayer,"#8ae20c",0));
+        } else {
+          meshes.push(this.getRingMesh(data[i], threeLayer,"#cc5dff",1));
+        }
+      }
+      return meshes;
+    },
+    async addRingEffectMesh() {
+      this.ringEffectMesh = await this.build_RingEffect_Menshs(
+        "data/json/data_effect_point4.json",
+        this.threeLayer
+      );
+      this.menshGroup.addMesh(this.ringEffectMesh);
+    },
+    removeRingEffectMesh(){
+      this.menshGroup.removeMesh(this.ringEffectMesh);
+    },
+
+    /**
+     * 电子屏蔽
+     */
+    getBallMesh(coord, threeLayer) {
+      //ball1---有点问题，不加也可以
+      // let ball1 = new ElectricShield(
+      //   coord,
+      //   { radius: 250 },
+      //   getElectricShieldMaterial({
+      //     color: "#32CD32",
+      //     opacity: 1,
+      //   }),
+      //   threeLayer
+      // );
+      //ball1.getObject3d().renderOrder = 6;
+
+      //ball2
+      let ball2 = new ElectricShield(
+        coord,
+        { radius: 250, speed: 0.015 },
+        getDiffusionShieldMaterial({
+          color: "#9999FF",
+          num: 3,
+          opacity: 1,
+        }),
+        threeLayer
+      );
+      ball2.getObject3d().renderOrder = 6;
+      //底面
+      const texture = new THREE.TextureLoader().load(require("@/assets/effect/ring.png"));
+      texture.needsUpdate = true; //使用贴图时进行更新
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(1, 1);
+      const material = new THREE.MeshPhongMaterial({
+        map: texture,
+        transparent: true,
+        color: "#fff",
+        side: THREE.DoubleSide,
+      });
+      let object = new RingTextureEffect(
+        coord,
+        { radius: 100, speed: 2 },
+        material,
+        threeLayer
+      );
+      //return [ball1, ball2, object];
+      return [ball2, object];
+    },
+    async build_ElectricShield_Menshs(url, threeLayer) {
+      let data = await this.getJsonData(url);
+      let meshes = [];
+      for (let i = 0; i < data.length; i++) {
+        meshes.push(this.getBallMesh(data[i], threeLayer));
+      }
+      return meshes;
+    },
+    async addElectricShieldMesh() {
+      this.electricShieldMesh = await this.build_ElectricShield_Menshs(
+        "data/json/data_effect_point3.json",
+        this.threeLayer
+      );
+      this.menshGroup.addMesh(this.electricShieldMesh);
+    },
+    removeElectricShieldMesh() {
+      this.menshGroup.removeMesh(this.electricShieldMesh);
+    },
+
+    /**
      * 扩散圆柱
      */
-
     getringBuildMesh(coord, threeLayer) {
       let ringCircle = new maptalks.Circle(coord, 100);
       let material = getWallTextureMaterial({
@@ -240,7 +369,7 @@ export default {
       this.menshGroup.addMesh(this.ringBuildMesh);
     },
     removeRingBuildMesh() {
-       this.menshGroup.removeMesh(this.ringBuildMesh);
+      this.menshGroup.removeMesh(this.ringBuildMesh);
     },
     /**
      * 雷达

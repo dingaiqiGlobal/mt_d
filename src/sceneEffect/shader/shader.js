@@ -2,6 +2,120 @@ const Qg = require("@/sceneEffect/shader/glsl/Qg.glsl").default;
 const Gg = require("@/sceneEffect/shader/glsl/Gg.glsl").default;
 const Ky = require("@/sceneEffect/shader/glsl/Ky.glsl").default;
 import * as THREE from "three";
+
+//环形效果材料（波纹圆）-type  0 1 两种类型
+export function getRingEffectMaterial(color, type) {
+        const ringShield = {
+                uniforms: {
+                        color: {
+                                type: "c",
+                                value: new THREE.Color(color || "#9999FF"),
+                        },
+                        time: {
+                                type: "f",
+                                value: -1.5,
+                        },
+                        type: {
+                                type: "f",
+                                value: type || 0,
+                        },
+                        num: {
+                                type: "f",
+                                value: 4,
+                        },
+                },
+                vertexShaderSource: require("@/sceneEffect/shader/vert/RingEffect_vertex.vert").default,
+                fragmentShaderSource: require("@/sceneEffect/shader/frag/RingEffect_fragment.frag").default,
+        };
+        const meshMaterial = new THREE.ShaderMaterial({
+                uniforms: ringShield.uniforms,
+                defaultAttributeValues: {},
+                vertexShader: ringShield.vertexShaderSource,
+                fragmentShader: ringShield.fragmentShaderSource,
+                // blending: THREE.NoBlending,
+                blending: THREE.AdditiveBlending,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                transparent: !0,
+                fog: !0,
+        });
+        return meshMaterial;
+};
+
+//电子屏蔽
+//电子屏蔽材料-ElectricShieldMaterial
+//扩散屏蔽材料-DiffusionShieldMaterial
+export function getElectricShieldMaterial(opts = {}) {
+        var ElectricShield = {
+                uniforms: {
+                        time: {
+                                // time+=0.012
+                                type: "f",
+                                value: 1,
+                        },
+                        color: {
+                                type: "c",
+                                value: new THREE.Color(opts.color || "#9999FF"),
+                        },
+                        opacity: {
+                                type: "f",
+                                value: opts.opacity || 1,
+                        },
+                },
+                vertexShaderSource: require("@/sceneEffect/shader/vert/ElectricShield_vertex.vert").default,
+                fragmentShaderSource: require("@/sceneEffect/shader/frag/ElectricShield_fragment.frag").default,
+        };
+        let meshMaterial = new THREE.ShaderMaterial({
+                uniforms: ElectricShield.uniforms,
+                defaultAttributeValues: {},
+                vertexShader: ElectricShield.vertexShaderSource,
+                fragmentShader: ElectricShield.fragmentShaderSource,
+                // blending: THREE.NoBlending,
+                // blending: THREE.AdditiveBlend ing,
+                blending: THREE.AdditiveBlending,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                transparent: !1,
+                fog: !0,
+        });
+        return meshMaterial;
+};
+export function getDiffusionShieldMaterial(opts = {}) {
+        let uniforms = {
+                time: {
+                        // time+=0.006
+                        type: "f",
+                        value: 0,
+                },
+                color: {
+                        type: "c",
+                        value: new THREE.Color(opts.color || "#99CCFF"),
+                },
+                opacity: {
+                        type: "f",
+                        value: opts.opacity || 0.7,
+                },
+                num: {
+                        type: "f",
+                        value: opts.num || 1,
+                },
+        };
+        let meshMaterial = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                defaultAttributeValues: {},
+                vertexShader: require("@/sceneEffect/shader/vert/DiffusionShield_vertex.vert").default,
+                fragmentShader: require("@/sceneEffect/shader/frag/DiffusionShield_fragment.frag").default,
+                blending: THREE.AdditiveBlending,
+                transparent: !0,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                fog: !0,
+        });
+        return meshMaterial;
+};
 //扩散圆柱（贴图围墙）
 export function getWallTextureMaterial(opts = {}) {
         let uniforms = {
@@ -50,7 +164,8 @@ export function getWallTextureMaterial(opts = {}) {
         });
         return meshMaterial;
 };
-//雷达扫描-getRadarMetarial-转圈材质&FlabellumScanMaterial-扫描材质
+//雷达扫描-getRadarMetarial-转圈材质
+//& FlabellumScanMaterial - 扫描材质
 export function getRadarMetarial(opts = {}) {
         const RadarShield = {
                 uniforms: {
@@ -193,7 +308,7 @@ export function getRippleWall(opts = {}) {
         });
         return meshMaterial;
 };
-//黄色幕墙（流星）
+//黄色幕墙
 export function getMeteorMaterial(opts = {}) {
         let uniforms = {
                 time: {
