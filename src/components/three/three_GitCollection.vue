@@ -89,7 +89,9 @@ import { FlabellumScanMaterial } from "@/sceneEffect/shader/shader"; //扫描
 import Ocean from "@/sceneEffect/maptalks.three.objects/ocean"; //ocean大海
 //流光墙
 import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
-import { getRippleWall, getMeteorMaterial } from "@/sceneEffect/shader/shader";
+import { getRippleWall } from "@/sceneEffect/shader/shader"; //蓝色幕墙
+import { getMeteorMaterial } from "@/sceneEffect/shader/shader"; //黄色幕墙
+import { getBreathWallMaterial } from "@/sceneEffect/shader/shader"; //333
 //弧线
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
@@ -202,11 +204,11 @@ export default {
     /**
      * 环形效果
      */
-    getRingMesh(coord, threeLayer,color,type) {
+    getRingMesh(coord, threeLayer, color, type) {
       let object = new RingEffect(
         coord,
         { radius: 50, speed: 0.0025 },
-        getRingEffectMaterial(color,type),
+        getRingEffectMaterial(color, type),
         threeLayer
       );
       // let v = threeLayer.coordinateToVector3([c.x, c.y]);
@@ -227,9 +229,9 @@ export default {
       for (let i = 0; i < data.length; i++) {
         //两种效果
         if (i % 2 == 0) {
-          meshes.push(this.getRingMesh(data[i], threeLayer,"#8ae20c",0));
+          meshes.push(this.getRingMesh(data[i], threeLayer, "#8ae20c", 0));
         } else {
-          meshes.push(this.getRingMesh(data[i], threeLayer,"#cc5dff",1));
+          meshes.push(this.getRingMesh(data[i], threeLayer, "#cc5dff", 1));
         }
       }
       return meshes;
@@ -241,7 +243,7 @@ export default {
       );
       this.menshGroup.addMesh(this.ringEffectMesh);
     },
-    removeRingEffectMesh(){
+    removeRingEffectMesh() {
       this.menshGroup.removeMesh(this.ringEffectMesh);
     },
 
@@ -470,10 +472,14 @@ export default {
       let data = await this.getJsonData(url);
       let meshes = [];
       for (let i = 0; i < data.length; i++) {
-        if (i % 2 === 0) {
+        if (i == 1||i == 2||i == 3) {
           meshes.push(this.getRippleWallMesh(data[i][0], threeLayer));
-        } else {
+        }
+        if (i == 4||i == 5||i == 6) {
           meshes.push(this.getMeteorMesh(data[i][0], threeLayer));
+        }
+        if (i == 7||i == 8||i == 9) {
+          meshes.push(this.getBreathWallMesh(data[i][0], threeLayer));
         }
       }
       return meshes;
@@ -498,7 +504,13 @@ export default {
     },
     getRippleWallMesh(coord, threeLayer) {
       let material = getRippleWall(); //shader  蓝色
-      let mesh = new rippleWall(coord, { height: 250 }, material, threeLayer); //maptalks.three
+      let mesh = new rippleWall(coord, { height: 250 }, material, threeLayer);
+      mesh.getObject3d().renderOrder = 11;
+      return [mesh];
+    },
+    getBreathWallMesh(coord, threeLayer) {
+      let material = getBreathWallMaterial();
+      let mesh = new rippleWall(coord, { height: 250 }, material, threeLayer);
       mesh.getObject3d().renderOrder = 11;
       return [mesh];
     },
