@@ -355,4 +355,63 @@ export function getMeteorMaterial(opts = {}) {
         // }
         return material;
 };
+//蓝色上下波动幕墙
+export function getBreathWallMaterial(opts = {}) {
+        let uniforms = {
+                // time+=0.025
+                time: {
+                        type: "f",
+                        value: 1,
+                },
+                color: {
+                        type: "c",
+                        value: new THREE.Color(opts.color || "#0099FF"),
+                },
+                opacity: {
+                        type: "f",
+                        value: opts.opacity || 0.7,
+                },
+        };
+        let vertexShaderSource = "\n  precision lowp float;\n  precision lowp int;\n  "
+                .concat(
+                        THREE.ShaderChunk.fog_pars_vertex,
+                        "\n  varying vec2 vUv;\n  void main() {\n    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n    vUv = uv;\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n    "
+                )
+                .concat(THREE.ShaderChunk.fog_vertex, "\n  }\n");
+        // let Qg =
+        //   "\n  #define pi 3.1415926535\n  #define PI2RAD 0.01745329252\n  #define TWO_PI (2. * PI)\n";
+        let fragmentShaderSource = `
+                  precision lowp float;
+                  precision lowp int;
+                  varying vec2 vUv;
+                  uniform vec3 color;
+                  uniform float time;
+                  uniform float opacity;
+                  void main() {
+                    vec2 uv = vUv;
+                    float scaleY = 0.7 + 0.3 * sin(time);
+                    vec4 gradient = mix(vec4(color, opacity),
+                      vec4(0., 0., 0., 0.0), min(1.0, uv.y / scaleY));
+                    gl_FragColor = mix( mix(vec4(vec3(0.), 1), gradient, gradient.a), vec4(vec3(0.), 1), smoothstep(scaleY-0.00001, scaleY, uv.y));
+                  }`;
+        let meshMaterial = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                defaultAttributeValues: {},
+                vertexShader: vertexShaderSource,
+                fragmentShader: fragmentShaderSource,
+                blending: THREE.AdditiveBlending,
+                transparent: !0,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                fog: !0,
+        });
+
+        animate();
+        function animate() {
+                uniforms.time.value += 0.25;
+                requestAnimationFrame(animate);
+        }
+        return meshMaterial;
+};
 
