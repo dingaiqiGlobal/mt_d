@@ -5,8 +5,8 @@
       <button type="" @click="addRingEffectMesh">添加环形效果</button>
       <button type="" @click="removeRingEffectMesh">移除环形效果</button>
       <br />
-      <button type="" @click="addElectricShieldMesh">添加电子屏蔽</button>
-      <button type="" @click="removeElectricShieldMesh">移除电子屏蔽</button>
+      <button type="" @click="addDiffusionShieldMesh">添加扩散罩</button>
+      <button type="" @click="removeDiffusionShieldMesh">移除扩散罩</button>
       <br />
       <button type="" @click="addRingBuildMesh">添加扩散圆柱</button>
       <button type="" @click="removeRingBuildMesh">移除扩散圆柱</button>
@@ -68,14 +68,15 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * meshline使用离线版本，不适用npm包的形式
  * （cnpm i three.meshline@1.2.0 --save）
  */
-//环形效果
-import { getRingEffectMaterial } from "@/sceneEffect/shader/shader"; //电子屏蔽材料
 
-//电子屏蔽
-import ElectricShield from "@/sceneEffect/maptalks.three.objects/electricShield"; //电子屏蔽
-import RingTextureEffect from "@/sceneEffect/maptalks.three.objects/ringTextureEffect"; //环形纹理
-import { getElectricShieldMaterial } from "@/sceneEffect/shader/shader"; //电子屏蔽材料
-import { getDiffusionShieldMaterial } from "@/sceneEffect/shader/shader"; //扩散屏蔽材料
+//环形效果
+//import RingEffect from "@/sceneEffect/maptalks.three.objects/ringEffect"; //共用
+import { getRingEffectMaterial } from "@/sceneEffect/shader/shader";
+
+//扩散罩
+import ElectricShield from "@/sceneEffect/maptalks.three.objects/electricShield"; //半圆-共用
+import RingTextureEffect from "@/sceneEffect/maptalks.three.objects/ringTextureEffect"; //底面
+import { getDiffusionShieldMaterial } from "@/sceneEffect/shader/shader"; //扩散
 //扩散圆柱
 //import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";//共用
 import { getWallTextureMaterial } from "@/sceneEffect/shader/shader";
@@ -89,9 +90,9 @@ import { FlabellumScanMaterial } from "@/sceneEffect/shader/shader"; //扫描
 import Ocean from "@/sceneEffect/maptalks.three.objects/ocean"; //ocean大海
 //流光墙
 import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
-import { getRippleWall } from "@/sceneEffect/shader/shader"; //蓝色幕墙
-import { getMeteorMaterial } from "@/sceneEffect/shader/shader"; //黄色幕墙
-import { getBreathWallMaterial } from "@/sceneEffect/shader/shader"; //333
+import { getRippleWall } from "@/sceneEffect/shader/shader"; //蓝色
+import { getMeteorMaterial } from "@/sceneEffect/shader/shader"; //黄色
+import { getBreathWallMaterial } from "@/sceneEffect/shader/shader"; //心跳
 //弧线
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
@@ -107,7 +108,7 @@ export default {
       menshGroup: null,
       //数据要求不一样
       ringEffectMesh: [], //环形效果
-      electricShieldMesh: [], //电子屏蔽
+      diffusionShieldMesh: [],//扩散罩
       ringBuildMesh: [], //扩散圆柱
       radarMesh: [], //雷达
       oceanMesh: [], //海面
@@ -248,23 +249,10 @@ export default {
     },
 
     /**
-     * 电子屏蔽
+     * 扩散罩
      */
-    getBallMesh(coord, threeLayer) {
-      //ball1---有点问题，不加也可以
-      // let ball1 = new ElectricShield(
-      //   coord,
-      //   { radius: 250 },
-      //   getElectricShieldMaterial({
-      //     color: "#32CD32",
-      //     opacity: 1,
-      //   }),
-      //   threeLayer
-      // );
-      //ball1.getObject3d().renderOrder = 6;
-
-      //ball2
-      let ball2 = new ElectricShield(
+    getdiffusionShielMesh(coord, threeLayer) {
+      let ball = new ElectricShield(
         coord,
         { radius: 250, speed: 0.015 },
         getDiffusionShieldMaterial({
@@ -274,7 +262,7 @@ export default {
         }),
         threeLayer
       );
-      ball2.getObject3d().renderOrder = 6;
+      ball.getObject3d().renderOrder = 6;
       //底面
       const texture = new THREE.TextureLoader().load(require("@/assets/effect/ring.png"));
       texture.needsUpdate = true; //使用贴图时进行更新
@@ -292,26 +280,25 @@ export default {
         material,
         threeLayer
       );
-      //return [ball1, ball2, object];
-      return [ball2, object];
+      return [ball, object];
     },
     async build_ElectricShield_Menshs(url, threeLayer) {
       let data = await this.getJsonData(url);
       let meshes = [];
       for (let i = 0; i < data.length; i++) {
-        meshes.push(this.getBallMesh(data[i], threeLayer));
+        meshes.push(this.getdiffusionShielMesh(data[i], threeLayer));
       }
       return meshes;
     },
-    async addElectricShieldMesh() {
-      this.electricShieldMesh = await this.build_ElectricShield_Menshs(
+    async addDiffusionShieldMesh() {
+      this.diffusionShieldMesh = await this.build_ElectricShield_Menshs(
         "data/json/data_effect_point3.json",
         this.threeLayer
       );
-      this.menshGroup.addMesh(this.electricShieldMesh);
+      this.menshGroup.addMesh(this.diffusionShieldMesh);
     },
-    removeElectricShieldMesh() {
-      this.menshGroup.removeMesh(this.electricShieldMesh);
+    removeDiffusionShieldMesh() {
+      this.menshGroup.removeMesh(this.diffusionShieldMesh);
     },
 
     /**
@@ -472,13 +459,13 @@ export default {
       let data = await this.getJsonData(url);
       let meshes = [];
       for (let i = 0; i < data.length; i++) {
-        if (i == 1||i == 2||i == 3) {
+        if (i == 1 || i == 2 || i == 3) {
           meshes.push(this.getRippleWallMesh(data[i][0], threeLayer));
         }
-        if (i == 4||i == 5||i == 6) {
+        if (i == 4 || i == 5 || i == 6) {
           meshes.push(this.getMeteorMesh(data[i][0], threeLayer));
         }
-        if (i == 7||i == 8||i == 9) {
+        if (i == 7 || i == 8 || i == 9) {
           meshes.push(this.getBreathWallMesh(data[i][0], threeLayer));
         }
       }
