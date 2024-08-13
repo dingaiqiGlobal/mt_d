@@ -23,6 +23,9 @@
       <button type="" @click="add_ArcLineMesh">添加弧线</button>
       <button type="" @click="remove_ArcLineMesh">移除弧线</button>
       <br />
+      <button type="" @click="add_BaseLineMesh">线样式4种-无用</button>
+      <button type="" @click="remove_BaseLineMesh">移除线样式</button>
+
       <!-- <button type="" @click="">添加</button>
       <button type="" @click="">移除</button>
       <br /> -->
@@ -93,9 +96,17 @@ import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";
 import { getRippleWall } from "@/sceneEffect/shader/shader"; //蓝色
 import { getMeteorMaterial } from "@/sceneEffect/shader/shader"; //黄色
 import { getBreathWallMaterial } from "@/sceneEffect/shader/shader"; //心跳
-//弧线
+//弧线-第三方插件
 import arcLine from "@/sceneEffect/maptalks.three.objects/arcLine";
 import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
+
+//其他线样式
+//threeLayer.toExtrudeLines
+import { getLightningLineMaterial } from "@/sceneEffect/shader/shader";//照明线条材质
+import { getflowTrailLineMaterial } from "@/sceneEffect/shader/shader"; //流动线材质
+import { getLightBeamMaterial } from "@/sceneEffect/shader/shader"; //光束线材质
+import { RiseLineMaterial } from "@/sceneEffect/shader/shader"; //上升线材质
+
 
 export default {
   components: {},
@@ -108,12 +119,13 @@ export default {
       menshGroup: null,
       //数据要求不一样
       ringEffectMesh: [], //环形效果
-      diffusionShieldMesh: [],//扩散罩
+      diffusionShieldMesh: [], //扩散罩
       ringBuildMesh: [], //扩散圆柱
       radarMesh: [], //雷达
       oceanMesh: [], //海面
       rippleWallMesh: [], //幕墙
       arcLineMesh: [], //弧线
+      baseLineMesh: [], //普通线
     };
   },
 
@@ -559,6 +571,46 @@ export default {
     remove_ArcLineMesh() {
       this.menshGroup.removeMesh(this.arcLineMesh);
     },
+    /**
+     * 线材质
+     */
+    async buildBaseLineMesh(url, threeLayer) {
+      let lineMeshs = [];
+      const result = await axios.get(url);
+      let features = result.data.features;
+      features.forEach((g) => {
+        if (
+          g.geometry &&
+          g.geometry.coordinates &&
+          g.geometry.type != "MultiLineString"
+        ) {
+          //three插件的挤出面才能添加特殊材质
+          let mesh = threeLayer.toExtrudeLine(
+            maptalks.GeoJSON.toGeometry(g),
+            { altitude: 0, width: 3, height: 0.1 },
+            //getLightningLineMaterial() //样式1
+            // getflowTrailLineMaterial()//样式2
+            // getLightBeamMaterial()//样式3
+            // RiseLineMaterial({
+            //   image: require("@/assets/effect/linear.png"),
+            // })//样式4
+          );
+          lineMeshs.push(mesh);
+        }
+      });
+      return lineMeshs;
+    },
+    async add_BaseLineMesh() {
+      this.baseLineMesh = await this.buildBaseLineMesh(
+        "data/json/data_effect_road1.json",
+        this.threeLayer
+      );
+      this.menshGroup.addMesh(this.baseLineMesh);
+    },
+    remove_BaseLineMesh() {
+      this.menshGroup.removeMesh(this.baseLineMesh);
+    },
+
     /**
      * 清空
      */

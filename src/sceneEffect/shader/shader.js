@@ -4,7 +4,9 @@ const Ky = require("@/sceneEffect/shader/glsl/Ky.glsl").default;
 import * as THREE from "three";
 
 
-
+/**
+ * 点效果 
+ */
 //环形效果材料（波纹效果）-type  0 1 两种类型
 export function getRingEffectMaterial(color, type) {
         const ringShield = {
@@ -231,6 +233,10 @@ export function FlabellumScanMaterial(opts = {}) {
         }
         return material;
 };
+
+/**
+ * 面效果
+ */
 //蓝色幕墙-涟漪效果
 export function getRippleWall(opts = {}) {
         let uniforms = {
@@ -377,7 +383,597 @@ export function getBreathWallMaterial(opts = {}) {
         return meshMaterial;
 };
 
+/**
+ * 线效果--结合arcline使用--用处不大
+ */
+//照明线条材质
+export function getLightningLineMaterial(opts = {}) {
+        var LightningLineShield = {
+                uniforms: THREE.UniformsUtils.merge([
+                        THREE.UniformsLib.fog,
+                        {
+                                map: {
+                                        type: "t",
+                                        value: null,
+                                },
+                                useMap: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                alphaMap: {
+                                        type: "f",
+                                        value: null,
+                                },
+                                useAlphaMap: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                resolution: {
+                                        type: "v2",
+                                        value: new THREE.Vector2(1920, 1808),
+                                        //   value: new THREE.Vector2(
+                                        //     this.viewer.box.clientWidth,
+                                        //     this.viewer.box.clientHeight
+                                        //   )
+                                },
+                                sizeAttenuation: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                near: {
+                                        type: "f",
+                                        value: 1,
+                                },
+                                far: {
+                                        type: "f",
+                                        value: 1,
+                                },
+                                dashArray: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                dashOffset: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                dashRatio: {
+                                        type: "f",
+                                        value: 0.5,
+                                },
+                                useDash: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                visibility: {
+                                        type: "f",
+                                        value: 1,
+                                },
+                                alphaTest: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                lineWidth: {
+                                        type: "f",
+                                        value: opts.lineWidth || 4,
+                                },
+                                color: {
+                                        type: "c",
+                                        value: new THREE.Color(opts.color || "#9999FF"),
+                                },
+                                opacity: {
+                                        type: "f",
+                                        value: opts.opacity || 1,
+                                },
+                                time: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                        },
+                ]),
+                vertexShaderSource: "\n  #extension GL_OES_standard_derivatives : enable\n  precision highp float;\n  "
+                        .concat(THREE.ShaderChunk.logdepthbuf_pars_vertex, "\n  ")
+                        .concat(
+                                THREE.ShaderChunk.fog_pars_vertex,
+                                "\n  attribute vec3 position;\n  attribute vec3 previous;\n  attribute vec3 next;\n  attribute float side;\n  attribute float width;\n  attribute vec2 uv;\n  attribute float counters;\n\n  uniform mat4 projectionMatrix;\n  uniform mat4 modelViewMatrix;\n  uniform vec2 resolution;\n  uniform float lineWidth;\n  uniform float near;\n  uniform float far;\n  uniform float sizeAttenuation;\n\n  varying vec2 vUv;\n  // varying float vCounters;\n\n  vec2 fix( vec4 i, float aspect ) {\n    vec2 res = i.xy / i.w;\n    res.x *= aspect;\n    // vCounters = counters;\n    return res;\n  }\n  void main() {\n    float aspect = resolution.x / resolution.y;\n    float pixelWidthRatio = 1. / (resolution.x * projectionMatrix[0][0]);\n    vUv = uv;\n\n    mat4 m = projectionMatrix * modelViewMatrix;\n    vec4 finalPosition = m * vec4( position, 1.0 );\n    vec4 prevPos = m * vec4( previous, 1.0 );\n    vec4 nextPos = m * vec4( next, 1.0 );\n\n    vec2 currentP = fix( finalPosition, aspect );\n    vec2 prevP = fix( prevPos, aspect );\n    vec2 nextP = fix( nextPos, aspect );\n\n    float pixelWidth = finalPosition.w * pixelWidthRatio;\n    float w = 1.8 * pixelWidth * lineWidth * width;\n\n    if( sizeAttenuation == 1. ) {\n      w = 1.8 * lineWidth * width;\n    }\n\n    vec2 dir;\n    if( nextP == currentP ) dir = normalize( currentP - prevP );\n    else if( prevP == currentP ) dir = normalize( nextP - currentP );\n    else {\n      vec2 dir1 = normalize( currentP - prevP );\n      vec2 dir2 = normalize( nextP - currentP );\n      dir = normalize( dir1 + dir2 );\n\n      vec2 perp = vec2( -dir1.y, dir1.x );\n      vec2 miter = vec2( -dir.y, dir.x );\n      //w = clamp( w / dot( miter, perp ), 0., 4. * lineWidth * width );\n    }\n\n    //vec2 normal = ( cross( vec3( dir, 0. ), vec3( 0., 0., 1. ) ) ).xy;\n    vec2 normal = vec2( -dir.y, dir.x );\n    normal.x /= aspect;\n    normal *= .5 * w;\n\n    vec4 offset = vec4( normal * side, 0.0, 1.0 );\n    finalPosition.xy += offset.xy;\n\n    gl_Position = finalPosition;\n    "
+                        )
+                        .concat(
+                                THREE.ShaderChunk.logdepthbuf_vertex,
+                                "\n    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n    "
+                        )
+                        .concat(THREE.ShaderChunk.fog_vertex, "\n  }\n"),
+                fragmentShaderSource: "\n  #extension GL_OES_standard_derivatives : enable\n  precision highp float;\n  uniform float time;\n  uniform vec2 resolution;\n  uniform vec3 color;\n  uniform float opacity;\n  "
+                        .concat(THREE.ShaderChunk.common, "\n  ")
+                        .concat(
+                                THREE.ShaderChunk.fog_pars_fragment,
+                                "\n  varying vec2 vUv;\n\n  "
+                        )
+                        .concat(
+                                Ky,
+                                "\n  /* skew constants for 3d simplex functions */\n  const float F3 =  0.3333333;\n  const float G3 =  0.1666667;\n\n  /* 3d simplex noise */\n  float simplex3d(vec3 p) {\n    /* 1. find current tetrahedron T and it's four vertices */\n    /* s, s+i1, s+i2, s+1.0 - absolute skewed (integer) coordinates of T vertices */\n    /* x, x1, x2, x3 - unskewed coordinates of p relative to each of T vertices*/\n\n    /* calculate s and x */\n    vec3 s = floor(p + dot(p, vec3(F3)));\n    vec3 x = p - s + dot(s, vec3(G3));\n\n    /* calculate i1 and i2 */\n    vec3 e = step(vec3(0.0), x - x.yzx);\n    vec3 i1 = e*(1.0 - e.zxy);\n    vec3 i2 = 1.0 - e.zxy*(1.0 - e);\n\n    /* x1, x2, x3 */\n    vec3 x1 = x - i1 + G3;\n    vec3 x2 = x - i2 + 2.0*G3;\n    vec3 x3 = x - 1.0 + 3.0*G3;\n\n    /* 2. find four surflets and store them in d */\n    vec4 w, d;\n\n    /* calculate surflet weights */\n    w.x = dot(x, x);\n    w.y = dot(x1, x1);\n    w.z = dot(x2, x2);\n    w.w = dot(x3, x3);\n\n    /* w fades from 0.6 at the center of the surflet to 0.0 at the margin */\n    w = max(0.6 - w, 0.0);\n\n    /* calculate surflet components */\n    d.x = dot(rands(s), x);\n    d.y = dot(rands(s + i1), x1);\n    d.z = dot(rands(s + i2), x2);\n    d.w = dot(rands(s + 1.0), x3);\n\n    /* multiply d by w^4 */\n    w *= w;\n    w *= w;\n    d *= w;\n\n    /* 3. return the sum of the four surflets */\n    return dot(d, vec4(52.0));\n  }\n\n  float noise(vec3 m) {\n      return   0.5333333*simplex3d(m)\n        +0.2666667*simplex3d(2.0*m)\n        +0.1333333*simplex3d(4.0*m)\n        +0.0666667*simplex3d(8.0*m);\n  }\n  void main(){\n    vec2 uv = vUv - 0.5;\n    vec2 p = gl_FragCoord.xy/resolution.x;\n    vec3 p3 = vec3(p, time*0.4);\n\n    float intensity = noise(vec3(p3*12.0+12.0));\n\n    float t = clamp((uv.x * -uv.x * 0.16) + 0.15, 0., 1.);\n    float y = abs(intensity * -t + uv.y * 0.5);\n\n    float g = pow(y, 0.2);\n\n    // vec3 col = vec3(1.70, 1.48, 1.78);\n    vec3 col = vec3(1.) * 1.7;\n    col = col * -g + col;\n    col = col * col;\n    col = col * col;\n\n    gl_FragColor = vec4(col * color, opacity);\n    "
+                        )
+                        .concat(THREE.ShaderChunk.fog_fragment, "\n  }\n"),
+        };
+        var r = new THREE.RawShaderMaterial({
+                uniforms: LightningLineShield.uniforms,
+                vertexShader: LightningLineShield.vertexShaderSource,
+                fragmentShader: LightningLineShield.fragmentShaderSource,
+                blending: THREE.AdditiveBlending,
+                transparent: !0,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                fog: !0,
+                defines: {
+                        USE_FOG: !0,
+                },
+        });
+        animate();
+        function animate() {
+                LightningLineShield.uniforms.time.value += 0.015;
+                requestAnimationFrame(animate);
+        }
+        return r;
+};
+//流动轨迹线材质
+export function getflowTrailLineMaterial(opts = {}) {
+        var LightningLineShield = {
+                uniforms: THREE.UniformsUtils.merge([
+                        THREE.UniformsLib.fog,
+                        {
+                                map: {
+                                        type: "t",
+                                        value: null,
+                                },
+                                useMap: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                alphaMap: {
+                                        type: "f",
+                                        value: null,
+                                },
+                                useAlphaMap: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                resolution: {
+                                        type: "v2",
+                                        value: new THREE.Vector2(1920, 1808),
+                                        //   value: new THREE.Vector2(
+                                        //     this.viewer.box.clientWidth,
+                                        //     this.viewer.box.clientHeight
+                                        //   )
+                                },
+                                sizeAttenuation: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                near: {
+                                        type: "f",
+                                        value: 1,
+                                },
+                                far: {
+                                        type: "f",
+                                        value: 1,
+                                },
+                                dashArray: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                dashOffset: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                dashRatio: {
+                                        type: "f",
+                                        value: 0.5,
+                                },
+                                useDash: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                visibility: {
+                                        type: "f",
+                                        value: 1,
+                                },
+                                alphaTest: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                                lineWidth: {
+                                        type: "f",
+                                        value: opts.lineWidth || 4,
+                                },
+                                color: {
+                                        type: "c",
+                                        value: new THREE.Color(opts.color || "#9999FF"),
+                                },
+                                opacity: {
+                                        type: "f",
+                                        value: opts.opacity || 1,
+                                },
+                                time: {
+                                        type: "f",
+                                        value: 0,
+                                },
+                        },
+                ]),
+                vertexShaderSource: "\n  #extension GL_OES_standard_derivatives : enable\n  precision highp float;\n  "
+                        .concat(THREE.ShaderChunk.logdepthbuf_pars_vertex, "\n  ")
+                        .concat(
+                                THREE.ShaderChunk.fog_pars_vertex,
+                                "\n  attribute vec3 position;\n  attribute vec3 previous;\n  attribute vec3 next;\n  attribute float side;\n  attribute float width;\n  attribute vec2 uv;\n  attribute float counters;\n\n  uniform mat4 projectionMatrix;\n  uniform mat4 modelViewMatrix;\n  uniform vec2 resolution;\n  uniform float lineWidth;\n  uniform float near;\n  uniform float far;\n  uniform float sizeAttenuation;\n\n  varying vec2 vUv;\n  // varying float vCounters;\n\n  vec2 fix( vec4 i, float aspect ) {\n    vec2 res = i.xy / i.w;\n    res.x *= aspect;\n    // vCounters = counters;\n    return res;\n  }\n  void main() {\n    float aspect = resolution.x / resolution.y;\n    float pixelWidthRatio = 1. / (resolution.x * projectionMatrix[0][0]);\n    vUv = uv;\n\n    mat4 m = projectionMatrix * modelViewMatrix;\n    vec4 finalPosition = m * vec4( position, 1.0 );\n    vec4 prevPos = m * vec4( previous, 1.0 );\n    vec4 nextPos = m * vec4( next, 1.0 );\n\n    vec2 currentP = fix( finalPosition, aspect );\n    vec2 prevP = fix( prevPos, aspect );\n    vec2 nextP = fix( nextPos, aspect );\n\n    float pixelWidth = finalPosition.w * pixelWidthRatio;\n    float w = 1.8 * pixelWidth * lineWidth * width;\n\n    if( sizeAttenuation == 1. ) {\n      w = 1.8 * lineWidth * width;\n    }\n\n    vec2 dir;\n    if( nextP == currentP ) dir = normalize( currentP - prevP );\n    else if( prevP == currentP ) dir = normalize( nextP - currentP );\n    else {\n      vec2 dir1 = normalize( currentP - prevP );\n      vec2 dir2 = normalize( nextP - currentP );\n      dir = normalize( dir1 + dir2 );\n\n      vec2 perp = vec2( -dir1.y, dir1.x );\n      vec2 miter = vec2( -dir.y, dir.x );\n      //w = clamp( w / dot( miter, perp ), 0., 4. * lineWidth * width );\n    }\n\n    //vec2 normal = ( cross( vec3( dir, 0. ), vec3( 0., 0., 1. ) ) ).xy;\n    vec2 normal = vec2( -dir.y, dir.x );\n    normal.x /= aspect;\n    normal *= .5 * w;\n\n    vec4 offset = vec4( normal * side, 0.0, 1.0 );\n    finalPosition.xy += offset.xy;\n\n    gl_Position = finalPosition;\n    "
+                        )
+                        .concat(
+                                THREE.ShaderChunk.logdepthbuf_vertex,
+                                "\n    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n    "
+                        )
+                        .concat(THREE.ShaderChunk.fog_vertex, "\n  }\n"),
+                fragmentShaderSource: "\n  #extension GL_OES_standard_derivatives : enable\n  precision highp float;\n  uniform float visibility;\n  uniform vec3 color;\n  uniform vec3 color_end;\n  uniform float lineWidth;\n  uniform float time;\n  uniform float trail_opacity;\n  uniform float num;\n  uniform float percent;\n\n  "
+                        .concat(THREE.ShaderChunk.common, "\n  ")
+                        .concat(
+                                THREE.ShaderChunk.fog_pars_fragment,
+                                "\n\n  varying vec2 vUv;\n  // varying float vCounters;\n\n  void main() {\n    vec2 uv = vUv;\n    vec2 uv2 = uv;\n    uv.x *= num;\n    uv.x = mod(uv.x - time, 1.);\n    uv.x = uv.x * percent - (percent - 1.);\n\n    float trailOpacity = trail_opacity;\n    gl_FragColor = vec4(mix(color, color_end, uv2.x), trailOpacity);\n    if (uv.x > trailOpacity) {\n      gl_FragColor = vec4(mix(vec3(1., 1., 1.), gl_FragColor.rgb, 1.-uv.x), uv.x);\n    }\n\n    // gl_FragColor.a *= step(vCounters, visibility);\n    "
+                        )
+                        .concat(THREE.ShaderChunk.fog_fragment, "\n  }\n"),
+        };
+        var r = new THREE.RawShaderMaterial({
+                uniforms: LightningLineShield.uniforms,
+                vertexShader: LightningLineShield.vertexShaderSource,
+                fragmentShader: LightningLineShield.fragmentShaderSource,
+                blending: THREE.AdditiveBlending,
+                transparent: !0,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                fog: !0,
+                defines: {
+                        USE_FOG: !0,
+                },
+        });
+        return r;
+};
+//光束材质
+export function getLightBeamMaterial() {
+        let shield = {
+                //
+                uniforms: {
+                        time: {
+                                type: "f",
+                                value: 0,
+                        },
+                        type: {
+                                type: "f",
+                                value: 2,
+                        },
+                        dir: {
+                                type: "f",
+                                value: 2,
+                        },
+                        color: {
+                                type: "c",
+                                value: new THREE.Color(9055202),
+                        },
+                        map: {
+                                type: "t",
+                                value: null,
+                        },
+                },
+                vertexShaderSource: `
+                uniform float time;
+                uniform float type;
+                varying vec2 vUv;
+                varying float progress;\n
+                void main(){
+                      vUv = uv;
+                      vec3 pos = position;
+                      if(type==4.0){
+                          progress = mod(time,20.0)/20.;
+                          pos.xz *= (progress + 0.2);
+                    }
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+              }`,
+                fragmentShaderSource: `
+                uniform float time;
+                uniform vec3 color;
+                uniform float type;
+                uniform float dir;
+                uniform sampler2D map;
+                varying vec2 vUv;
+                varying float progress;\n\n
+                float random (in vec2 _st) {
+                      return fract(sin(dot(_st.xy,vec2(12.9898,78.233)))*43758.5453123);
+                }
+                float noise (vec2 _st) {
+                      vec2 i = floor(_st);
+                      vec2 f = fract(_st);
+                      float a = random(i);
+                      float b = random(i + vec2(1.0, 0.0));
+                      float c = random(i + vec2(0.0, 1.0));
+                      float d = random(i + vec2(1.0, 1.0));
+                      vec2 u = f * f * (3.0 - 2.0 * f);
+                      return mix(a, b, u.x) +
+                              (c - a)* u.y * (1.0 - u.x) +
+                              (d - b) * u.x * u.y;
+                }
+                vec2 hash22( vec2 p ){
+                      p = vec2( dot(p,vec2(127.1,311.7)),
+                              dot(p,vec2(269.5,183.3)) );
+                      return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+                }
+                float hash21(vec2 p){
+                      return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+                      //vec3 p3  = fract(vec3(p.xyx) * .1931);
+                      //p3 += dot(p3, p3.yzx + 19.19);
+                      //return fract((p3.x + p3.y) * p3.z);
+                }
+                float perlinNoise(vec2 p) {
+                      vec2 pi = floor(p);
+                    vec2 pf = fract(p);
+                    vec2 w = pf * pf * (3.0 - 2.0 * pf);
+                    return mix(mix(dot(hash22(pi + vec2(0.0, 0.0)), pf - vec2(0.0, 0.0)),
+                                   dot(hash22(pi + vec2(1.0, 0.0)), pf - vec2(1.0, 0.0)), w.x),
+                               mix(dot(hash22(pi + vec2(0.0, 1.0)), pf - vec2(0.0, 1.0)),
+                                   dot(hash22(pi + vec2(1.0, 1.0)), pf - vec2(1.0, 1.0)), w.x),
+                               w.y);
+              }
+                #define NUM_OCTAVES 15
+                float fbm (vec2 _st) {
+                      float v = 0.0;
+                    float a = 0.5;
+                    vec2 shift = vec2(100.0);
+                    mat2 rot = mat2(cos(0.5), sin(0.5),
+                                    -sin(0.5), cos(0.50));
+                    for (int i = 0; i < NUM_OCTAVES; ++i) {
+                          v += a * noise(_st);
+                        _st = rot * _st * 2.0 + shift;
+                        a *= 0.5;
+                  }
+                    return v;
+              }
+          
+          
+                #define OCTAVES1 15
+                float fbm1 (in vec2 st) {
+                      float value = 0.0;
+                    float amplitude = .5;
+                    float frequency = 0.;
+                    for (int i = 0; i < OCTAVES1; i++) {
+                          value += amplitude * noise(st);
+                        st *= 2.;
+                        amplitude *= .5;
+                  }
+                    return value;
+              }\n
+                const mat2 mtx = mat2( 0.80,  0.60, -0.60,  0.80 );
+                float fbm6( vec2 p ) {
+                      float f = 0.0;
+                    f += 0.500000*perlinNoise( p ); p = mtx*p*2.02;
+                    f += 0.250000*perlinNoise( p ); p = mtx*p*2.03;
+                    f += 0.125000*perlinNoise( p ); p = mtx*p*2.01;
+                    f += 0.062500*perlinNoise( p ); p = mtx*p*2.04;
+                    f += 0.031250*perlinNoise( p ); p = mtx*p*2.01;
+                    f += 0.015625*perlinNoise( p );
+                    return f/0.96875;
+              }\n\n
+                void main(){
+                      if(type ==0.0){
+                          float alpha;
+                        if(dir==0.0){
+                              alpha = smoothstep(0.0,1.0,vUv.y + sin(time)* 0.1);
+                      }else if(dir==1.0){
+                              alpha = smoothstep(1.0,0.0,vUv.y + sin(time)* 0.1);
+                      }else if(dir==2.0){
+                              alpha = smoothstep(0.7,0.05,(abs(vUv.y-0.5)+sin(time)* 0.1)/0.6);
+                      }else{
+                              alpha = smoothstep(0.0,1.0,vUv.y + sin(time)* 0.1);
+                      }
+                        gl_FragColor =  vec4(color,alpha);
+                  }else if(type==1.0){
+                          vec2 st = vUv ;
+                        float alpha;
+                        st += st * abs(fract(time) *0.01);
+                        vec3 color = vec3(color);
+                        if(dir==0.0){
+                              alpha = smoothstep(0.0,1.0,vUv.y);
+                      }else if(dir==1.0){
+                              alpha = smoothstep(1.0,0.0,vUv.y);
+                      }else if(dir==2.0){
+                              alpha = smoothstep(0.9,0.05,abs(vUv.y - 0.5)/0.5);
+                      }else{
+                              alpha = smoothstep(0.0,1.0,vUv.y);
+                      }\n
+                        vec2 q = vec2(0.);
+                        q.x = fbm( st + 0.05*time);
+                        q.y = fbm( st + vec2(1.0));
+                        vec2 r = vec2(0.);
+                        r.x = fbm( st + 1.0*q + vec2(1.7,9.2)+ 0.15*time * 0.3 );
+                        r.y = fbm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*time * 0.3);
+                        float f = fbm(st+r);
+                        gl_FragColor = vec4((f*f*f + .6*f*f + .5*f)*color,alpha);\n\n
+                        // st = vec2((st.x +time/10.)/2.0,st.y);
+                        // color += fbm6(st*3.0);
+                        // gl_FragColor = vec4(color,alpha);
+                  }else if(type==2.0){
+                          vec3 color = vec3(color);
+                        float alpha;
+                        if(dir==0.0){
+                              alpha = smoothstep(0.0,1.0,vUv.y);
+                      }else if(dir==1.0){
+                              alpha = smoothstep(1.0,0.0,vUv.y);
+                      }else if(dir==2.0){
+                              alpha = smoothstep(0.9,0.05,abs(vUv.y - 0.5)/0.5);
+                      }else{
+                              alpha = smoothstep(0.0,1.0,vUv.y);
+                      }
+                        vec2 st = vUv;
+                        st = vec2(vUv.x,(vUv.y +time/20.)/2.0);
+                        color += fbm6(st*3.0);
+                        gl_FragColor = vec4(color,alpha);
+                  }else if(type==3.0){
+                          vec4 tex = texture2D( map,vec2(vUv.x,(vUv.y +fract(time/10.))/2.0));
+                        gl_FragColor =  tex;
+                  }else if(type==4.0){
+                          float alpha;
+                        if(dir==0.0){
+                              alpha = smoothstep(0.0,1.0,vUv.y + sin(time)* 0.1);
+                      }else if(dir==1.0){
+                              alpha = smoothstep(1.0,0.0,vUv.y + sin(time)* 0.1);
+                      }else if(dir==2.0){
+                              alpha = smoothstep(0.7,0.05,(abs(vUv.y-0.5)+sin(time)* 0.1)/0.6);
+                      }else if(dir==3.0){
+                              // float alphax = smoothstep(1.0,0.0,progress);
+                            // float alphax =1.2 -  sin(progress * 0.5 * 3.141592653589);
+                            float alphax =1.0 -  pow(progress,3.0);
+                            alpha = smoothstep(0.0,1.0,vUv.y);
+                            alpha *= alphax;
+                      }
+                        gl_FragColor =  vec4(color,alpha);
+                  }
+              }`,
+        };
+        let meshMaterial = new THREE.ShaderMaterial({
+                uniforms: shield.uniforms,
+                defaultAttributeValues: {},
+                vertexShader: shield.vertexShaderSource,
+                fragmentShader: shield.fragmentShaderSource,
+                // blending: THREE.NoBlending,
+                blending: THREE.AdditiveBlending,
+                depthWrite: !1,
+                depthTest: !0,
+                side: THREE.DoubleSide,
+                transparent: !1,
+                fog: !0,
+        });
+        animate();
+        function animate() {
+                shield.uniforms.time.value += 0.45;
+                requestAnimationFrame(animate);
+        }
+        return meshMaterial;
+};
+//上升线材质
+export function RiseLineMaterial(opts = {}) {
+        var uniforms = {
+                map: {
+                        type: "t",
+                        value: null,
+                },
+                useMap: {
+                        type: "f",
+                        value: 0,
+                },
+                alphaMap: {
+                        type: "f",
+                        value: null,
+                },
+                useAlphaMap: {
+                        type: "f",
+                        value: 0,
+                },
+                resolution: {
+                        type: "v2",
+                        value: new THREE.Vector2(500, 500),
+                },
+                sizeAttenuation: {
+                        type: "f",
+                        value: 0,
+                },
+                near: {
+                        type: "f",
+                        value: 1,
+                },
+                far: {
+                        type: "f",
+                        value: 1,
+                },
+                dashArray: {
+                        type: "f",
+                        value: 0,
+                },
+                dashOffset: {
+                        type: "f",
+                        value: 0,
+                },
+                dashRatio: {
+                        type: "f",
+                        value: 0.5,
+                },
+                useDash: {
+                        type: "f",
+                        value: 0,
+                },
+                visibility: {
+                        type: "f",
+                        value: 1,
+                },
+                alphaTest: {
+                        type: "f",
+                        value: 0,
+                },
+                lineWidth: {
+                        type: "f",
+                        value: 6,
+                },
+                color: {
+                        type: "c",
+                        value: new THREE.Color("#9999FF"),
+                },
+                time: {
+                        type: "f",
+                        value: 0,
+                },
+                opacity: {
+                        type: "f",
+                        value: 1,
+                },
+                lineTex: {
+                        type: "t",
+                        value: new THREE.TextureLoader().load(opts.image),
+                },
+                repeat: {
+                        type: "f",
+                        value: 3,
+                },
+        };
+        var vertexShaderSource = "\n  #extension GL_OES_standard_derivatives : enable\n  precision highp float;\n  "
+                .concat(THREE.ShaderChunk.logdepthbuf_pars_vertex, "\n  ")
+                .concat(
+                        THREE.ShaderChunk.fog_pars_vertex,
+                        "\n  attribute vec3 position;\n  attribute vec3 previous;\n  attribute vec3 next;\n  attribute float side;\n  attribute float width;\n  attribute vec2 uv;\n  attribute float counters;\n\n  uniform mat4 projectionMatrix;\n  uniform mat4 modelViewMatrix;\n  uniform vec2 resolution;\n  uniform float lineWidth;\n  uniform float near;\n  uniform float far;\n  uniform float sizeAttenuation;\n\n  varying vec2 vUv;\n  // varying float vCounters;\n\n  vec2 fix( vec4 i, float aspect ) {\n    vec2 res = i.xy / i.w;\n    res.x *= aspect;\n    // vCounters = counters;\n    return res;\n  }\n  void main() {\n    float aspect = resolution.x / resolution.y;\n    float pixelWidthRatio = 1. / (resolution.x * projectionMatrix[0][0]);\n    vUv = uv;\n\n    mat4 m = projectionMatrix * modelViewMatrix;\n    vec4 finalPosition = m * vec4( position, 1.0 );\n    vec4 prevPos = m * vec4( previous, 1.0 );\n    vec4 nextPos = m * vec4( next, 1.0 );\n\n    vec2 currentP = fix( finalPosition, aspect );\n    vec2 prevP = fix( prevPos, aspect );\n    vec2 nextP = fix( nextPos, aspect );\n\n    float pixelWidth = finalPosition.w * pixelWidthRatio;\n    float w = 1.8 * pixelWidth * lineWidth * width;\n\n    if( sizeAttenuation == 1. ) {\n      w = 1.8 * lineWidth * width;\n    }\n\n    vec2 dir;\n    if( nextP == currentP ) dir = normalize( currentP - prevP );\n    else if( prevP == currentP ) dir = normalize( nextP - currentP );\n    else {\n      vec2 dir1 = normalize( currentP - prevP );\n      vec2 dir2 = normalize( nextP - currentP );\n      dir = normalize( dir1 + dir2 );\n\n      vec2 perp = vec2( -dir1.y, dir1.x );\n      vec2 miter = vec2( -dir.y, dir.x );\n      //w = clamp( w / dot( miter, perp ), 0., 4. * lineWidth * width );\n    }\n\n    //vec2 normal = ( cross( vec3( dir, 0. ), vec3( 0., 0., 1. ) ) ).xy;\n    vec2 normal = vec2( -dir.y, dir.x );\n    normal.x /= aspect;\n    normal *= .5 * w;\n\n    vec4 offset = vec4( normal * side, 0.0, 1.0 );\n    finalPosition.xy += offset.xy;\n\n    gl_Position = finalPosition;\n    "
+                )
+                .concat(
+                        THREE.ShaderChunk.logdepthbuf_vertex,
+                        "\n    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );\n    "
+                )
+                .concat(THREE.ShaderChunk.fog_vertex, "\n  }\n");
+        var fragmentShaderSource = "\n  #extension GL_OES_standard_derivatives : enable\n  precision highp float;\n  // precision highp int;\n  uniform vec3 color;\n  uniform float time;\n  uniform float opacity;\n  uniform sampler2D lineTex;\n  uniform float repeat;\n\n  "
+                .concat(THREE.ShaderChunk.common, "\n  ")
+                .concat(
+                        THREE.ShaderChunk.fog_pars_fragment,
+                        "\n\n  varying vec2 vUv;\n\n  void main() {\n    vec2 uv = vUv;\n    uv.x *= repeat;\n\n    float format = uv.x - time + 1.;\n    if (format > 1. || format < 0.) {\n      discard;\n    }\n    vec4 tex = texture2D(lineTex, vec2(uv.y, uv.x - time + 1.));\n    gl_FragColor = vec4(tex.rgb * color, opacity);\n\n    "
+                )
+                .concat(THREE.ShaderChunk.fog_fragment, "\n  }\n");
+        let material = new THREE.RawShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: vertexShaderSource,
+                fragmentShader: fragmentShaderSource,
+                depthWrite: !1,
+                depthTest: !0,
+                depthFunc: THREE.AlwaysDepth,
+                transparent: !0,
+                opacity: 1,
+                side: THREE.DoubleSide,
+                blending: THREE.AdditiveBlending,
+        });
 
+        animate();
+        function animate() {
+                uniforms.time.value += 0.0045;
+                requestAnimationFrame(animate);
+        }
+        return material;
+};
 
 
 
@@ -573,7 +1169,11 @@ export function getElectricRippleShieldMaterial(opts = {}) {
         });
         return meshMaterial;
 };
-//贴图罩-需要贴图
+
+
+
+
+//建筑物贴图-需要贴图
 export function getBuildTextureShaderMaterial(imgData, options) {
         const texture = new THREE.TextureLoader().load(imgData);
         // texture.needsUpdate = true; //使用贴图时进行更新
