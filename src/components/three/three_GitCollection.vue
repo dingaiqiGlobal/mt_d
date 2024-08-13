@@ -2,6 +2,9 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
+      <button type="" @click="addBuildingEffectMesh">添加建筑物效果-三种</button>
+      <button type="" @click="removeBuildingEffectMesh">移除建筑物效果</button>
+      <br />
       <button type="" @click="addRingEffectMesh">添加环形效果</button>
       <button type="" @click="removeRingEffectMesh">移除环形效果</button>
       <br />
@@ -72,6 +75,10 @@ import MenshGroup from "@/sceneEffect/MenshGroup";
  * （cnpm i three.meshline@1.2.0 --save）
  */
 
+//建筑物效果
+//import { getRippleWall } from "@/sceneEffect/shader/shader"; //蓝色 共用
+import { getBuildTextureShaderMaterial } from "@/sceneEffect/shader/shader"; //面贴图-有bug
+
 //环形效果
 //import RingEffect from "@/sceneEffect/maptalks.three.objects/ringEffect"; //共用
 import { getRingEffectMaterial } from "@/sceneEffect/shader/shader";
@@ -80,6 +87,7 @@ import { getRingEffectMaterial } from "@/sceneEffect/shader/shader";
 import ElectricShield from "@/sceneEffect/maptalks.three.objects/electricShield"; //半圆-共用
 import RingTextureEffect from "@/sceneEffect/maptalks.three.objects/ringTextureEffect"; //底面
 import { getDiffusionShieldMaterial } from "@/sceneEffect/shader/shader"; //扩散
+
 //扩散圆柱
 //import rippleWall from "@/sceneEffect/maptalks.three.objects/rippleWall";//共用
 import { getWallTextureMaterial } from "@/sceneEffect/shader/shader";
@@ -102,11 +110,10 @@ import { MeshLineMaterial } from "@/sceneEffect/lib/THREE.MeshLine";
 
 //其他线样式
 //threeLayer.toExtrudeLines
-import { getLightningLineMaterial } from "@/sceneEffect/shader/shader";//照明线条材质
+import { getLightningLineMaterial } from "@/sceneEffect/shader/shader"; //照明线条材质
 import { getflowTrailLineMaterial } from "@/sceneEffect/shader/shader"; //流动线材质
 import { getLightBeamMaterial } from "@/sceneEffect/shader/shader"; //光束线材质
 import { RiseLineMaterial } from "@/sceneEffect/shader/shader"; //上升线材质
-
 
 export default {
   components: {},
@@ -118,7 +125,8 @@ export default {
       threeLayer: null,
       menshGroup: null,
       //数据要求不一样
-      ringEffectMesh: [], //环形效果
+      buildingEffectMesh: [], //建筑物
+      ringEffectMesh: [], //环形
       diffusionShieldMesh: [], //扩散罩
       ringBuildMesh: [], //扩散圆柱
       radarMesh: [], //雷达
@@ -214,6 +222,165 @@ export default {
   },
 
   methods: {
+    /**
+     * 建筑物效果
+     */
+
+    async addBuildingEffectMesh() {
+      //样式1
+      //let buildMaterial = this.getBuildMaterial();
+      //样式2
+      let buildMaterial = this.canvasOne();
+      //样式3
+      // let buildMaterial = getBuildTextureShaderMaterial(
+      //   require("@/assets/effect/texture_03.png"),
+      //   {
+      //     opacity: 1,
+      //   }
+      // );
+      //构造
+      this.buildingEffectMesh = await this.build_BildingEffect_Menshs(
+        "data/json/data_effect_building_height.json",
+        this.threeLayer,
+        buildMaterial
+      );
+      this.menshGroup.addMesh(this.buildingEffectMesh);
+    },
+    removeBuildingEffectMesh() {
+      this.menshGroup.removeMesh(this.buildingEffectMesh);
+    },
+    getBuildMaterial() {
+      // MeshBasicMaterial MeshPhongMaterial
+      let material = new THREE.MeshPhongMaterial({
+        //color: "#336699"
+        color: "#001138",
+      });
+      material.vertexColors = THREE.VertexColors;
+      return material;
+      // let tmap = new THREE.TextureLoader().load(require("@/assets/texture/buildVert3.png"));
+      // tmap.wrapS = tmap.wrapT = THREE.RepeatWrapping;
+      // tmap.anisotropy = 10;
+      // let material3 = new THREE.MeshPhongMaterial({
+      //   map: THREE.ImageUtils.loadTexture(require('./buildVert3.png'))
+      // })
+    },
+    canvasOne() {
+      const width = 512,
+        height = 1024;
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      let context = canvas.getContext("2d");
+
+      context.clearRect(0, 0, width, height);
+
+      context.fillStyle = "#16366f";
+      context.fillRect(0, 0, 1024, 1024);
+      let colors2 = ["#00CCFF", "#66FF66", "#fff"];
+      let added = [true, false, false];
+      for (let x = 10; x < width; x += 50) {
+        for (let y = 10; y < height; y += 50) {
+          let isLight = added[this.randomNum(0, 2)];
+          let hsl = `hsl(183,${this.randomNum(10, 90)}%,${this.randomNum(10, 90)}%)`;
+          let _color = colors2[this.randomNum(0, 3)];
+          if (isLight) {
+            context.fillStyle = _color;
+            context.fillRect(x, y, 15, 15);
+            context.globalAlpha = 1;
+            // context.globalCompositeOperation = "lighter";
+            context.shadowColor = _color;
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+            context.shadowBlur = 0;
+          } else {
+            context.fillStyle = "#373839";
+            context.fillRect(x, y, 15, 15);
+            context.globalAlpha = 1;
+            context.shadowColor = "#16366f";
+            context.shadowOffsetX = 0;
+            context.shadowOffsetY = 0;
+            context.shadowBlur = 0;
+          }
+        }
+      }
+      const texture = new THREE.Texture(canvas);
+      texture.needsUpdate = true; //使用贴图时进行更新
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      // texture.repeat.set(0.002, 0.002);
+      // texture.repeat.set(1, 1);
+      // const material = new THREE.MeshLambertMaterial({
+      const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: false,
+      });
+      return material;
+    },
+    randomNum(Min, Max) {
+      let Range = Max - Min;
+      let Rand = Math.random();
+      if (Math.round(Rand * Range) == 0) {
+        return Min + 1;
+      } else if (Math.round(Rand * Max) == Max) {
+        return Max - 1;
+      } else {
+        let num = Min + Math.round(Rand * Range) - 1;
+        return num;
+      }
+    },
+    async build_BildingEffect_Menshs(url, threeLayer, buildMaterial) {
+      let buildMeshs = []; //three-mesh
+      let material = null; //three-材质
+      const result = await axios.get(url);
+      let features = result.data.features;
+      features.forEach((g) => {
+        let height = g.properties.height; //获取属性高度
+        if (height > 200) {
+          material = getRippleWall(); //透明的
+        } else {
+          material = buildMaterial; //贴图的
+        }
+        let mesh = threeLayer.toExtrudePolygon(
+          maptalks.GeoJSON.toGeometry(g),
+          {
+            height: height,
+            topColor: "#fff",
+            addTopBottom: true, //顶面底面
+          },
+          material
+        );
+        //整饰
+        const topColor = new THREE.Color("#EDD464");
+        const bufferGeometry = mesh.getObject3d().geometry;
+        const geometry = new THREE.Geometry().fromBufferGeometry(bufferGeometry);
+        const { vertices, faces, faceVertexUvs } = geometry;
+        for (let i = 0, len = faces.length; i < len; i++) {
+          const { a, b, c } = faces[i];
+          const p1 = vertices[a],
+            p2 = vertices[b],
+            p3 = vertices[c];
+          if (p1.z > 0 && p2.z > 0 && p3.z > 0) {
+            const vertexColors = faces[i].vertexColors;
+            for (let j = 0, len1 = vertexColors.length; j < len1; j++) {
+              vertexColors[j].r = topColor.r;
+              vertexColors[j].g = topColor.g;
+              vertexColors[j].b = topColor.b;
+            }
+            const uvs = faceVertexUvs[0][i];
+            for (let j = 0, len1 = uvs.length; j < len1; j++) {
+              uvs[j].x = 0;
+              uvs[j].y = 0;
+            }
+          }
+        }
+        mesh.getObject3d().geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+        bufferGeometry.dispose();
+        geometry.dispose();
+        //添加
+        buildMeshs.push(mesh);
+      });
+      return buildMeshs;
+    },
+
     /**
      * 环形效果
      */
@@ -587,7 +754,7 @@ export default {
           //three插件的挤出面才能添加特殊材质
           let mesh = threeLayer.toExtrudeLine(
             maptalks.GeoJSON.toGeometry(g),
-            { altitude: 0, width: 3, height: 0.1 },
+            { altitude: 0, width: 3, height: 0.1 }
             //getLightningLineMaterial() //样式1
             // getflowTrailLineMaterial()//样式2
             // getLightBeamMaterial()//样式3

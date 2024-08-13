@@ -1079,7 +1079,7 @@ export function getAlarmShieldMaterial(opts = {}) {
         });
         return meshMaterial;
 };
-//noise罩材质-需要noise贴图
+//noise罩材质-需要noise贴图-bug
 export function getFbmShieldMaterial(opts = {}) {
         var FbmShield = {
                 uniforms: {
@@ -1123,7 +1123,7 @@ export function getFbmShieldMaterial(opts = {}) {
         });
         return meshMaterial;
 };
-//电波纹罩
+//电波纹罩-bug
 export function getElectricRippleShieldMaterial(opts = {}) {
         var Shield = {
                 uniforms: {
@@ -1173,7 +1173,7 @@ export function getElectricRippleShieldMaterial(opts = {}) {
 
 
 
-//建筑物贴图-需要贴图
+//建筑物贴图-需要贴图-bug
 export function getBuildTextureShaderMaterial(imgData, options) {
         const texture = new THREE.TextureLoader().load(imgData);
         // texture.needsUpdate = true; //使用贴图时进行更新
