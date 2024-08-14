@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/sceneConfig/sceneConfig_Weather.jpg",
+          text: "场景-天气",
+          path: "/sceneConfig_Weather",
+        },
+        {
+          id: 1,
           img: "/images/nav/proj4/proj4_base.jpg",
           text: "转换坐标",
           path: "/proj4_base",

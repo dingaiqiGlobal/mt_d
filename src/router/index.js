@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/sceneConfig_Weather',
+    name: 'sceneConfig_Weather',
+    component: () => import("../components/sceneConfig/sceneConfig_Weather.vue")
+  },
+  {
     path: '/proj4_base',
     name: 'proj4_base',
     component: () => import("../components/proj4/proj4_base.vue")
