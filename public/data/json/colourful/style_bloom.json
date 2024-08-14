@@ -136,7 +136,7 @@
             0,
             0,
             0,
-            1
+            0.5
           ],
           "hsv": [
             0.128,
@@ -154,7 +154,7 @@
             0,
             0.65
           ],
-          "emissiveTexture": "images/building/em.png",
+          "emissiveTexture": "images/building/em2.png",
           "emitColorFactor": 1.8,
           "emitMultiplicative": 0
         }
@@ -180,7 +180,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_yellow.png",
+        "linePatternFile": "images/building/flowLine_orange.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-铁路"
@@ -204,7 +204,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_blue.png",
+        "linePatternFile": "images/building/flowLine_orange.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-高速"
@@ -228,7 +228,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_blue.png",
+        "linePatternFile": "images/building/flowLine_blue.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-快速路"
@@ -252,7 +252,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_blue.png",
+        "linePatternFile": "images/building/flowLine_blue.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-主次干路"
@@ -277,7 +277,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_blue.png",
+        "linePatternFile": "images/building/flowLine_green.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-支路"
@@ -302,7 +302,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_blue.png",
+        "linePatternFile": "images/building/flowLine_green.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-支路匝道"
@@ -327,7 +327,7 @@
         "visible": true,
         "lineBloom": true,
         "lineWidth": 5,
-        "linePatternFile": "images/building/path_blue.png",
+        "linePatternFile": "images/building/flowLine_green.png",
         "linePatternAnimSpeed": -0.1
       },
       "name": "R-立交匝道"
