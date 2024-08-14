@@ -1,7 +1,17 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div class="control"></div>
+    <div class="control">
+      <el-select v-model="value" @change="changeSceneConfig">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+    </div>
   </div>
 </template>
 
@@ -17,6 +27,25 @@ export default {
     return {
       map: null,
       groupLayer: null,
+      options: [
+        {
+          value: "clear",
+          label: "晴",
+        },
+        {
+          value: "fog",
+          label: "雾",
+        },
+        {
+          value: "rain",
+          label: "雨",
+        },
+        {
+          value: "snow",
+          label: "雪",
+        },
+      ],
+      value: "雨",
     };
   },
 
@@ -32,7 +61,7 @@ export default {
         projection: "EPSG:3857",
       },
       /**
-       * 晴天(天空盒)
+       * 晴天(也就是天空盒)
        * 1.必须结合--GroupGLLayer
        * 2.sceneConfig开启environment环境属性
        */
@@ -73,6 +102,12 @@ export default {
       urlTemplate:
         "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     });
+    /**
+     * 天气
+     * 1.必须开启postProcess
+     * 2.雾必须添加ground，否则看不见底图
+     * 3.雾、雨、雪三种可叠加使用
+     */
     const sceneConfig = {
       //环境
       environment: {
@@ -85,33 +120,103 @@ export default {
       postProcess: {
         enable: true,
       },
-      /**
-       * 天气
-       * 1.必须开启后期处理
-       */
-      //   weather: {
-      //     enable: true,
-      //     fog: {
-      //       enable: true,
-      //       start: 0.1,
-      //       end: 26,
-      //       color: [0.9, 0.9, 0.9],
-      //     },
-      //   },
-      //天气-雪
+      //地面
+      ground: {
+        enable: true,
+        renderPlugin: {
+          type: "fill",
+        },
+        symbol: {
+          polygonFill: [0.803921568627451, 0.803921568627451, 0.803921568627451, 1],
+          polygonOpacity: 1,
+        },
+      },
+      //天气
       weather: {
         enable: true,
-        snow: {
+        // fog: {
+        //   enable: true,
+        //   start: 0.1,
+        //   end: 26,
+        //   color: [0.9, 0.9, 0.9],
+        // },
+        rain: {
           enable: true,
-          snowGroundTexture: require("@/assets/hdr/perlin.png"),
+          windDirectionX: 0, //沿 X 轴风向（度）
+          windDirectionY: 0, //沿 Y轴风向（度）
+          rippleRadius: 11, //雨滴落下的水花半径
+          rainWidth: 1, //雨滴宽度
+          rainHeight: 1, //雨滴高度
+          speed: 1, //速度
+          density: 2000, //雨滴密度
+          rainTexture: require("@/assets/hdr/rain1.png"), //雨滴材质
         },
+        // snow: {
+        //   enable: true,
+        //   snowGroundTexture: require("@/assets/hdr/perlin.png"), //雪花材质
+        // },
       },
     };
     this.groupLayer = new GroupGLLayer("group", [baseLayer], { sceneConfig });
     this.groupLayer.addTo(this.map);
   },
 
-  methods: {},
+  methods: {
+    changeSceneConfig(value) {
+      console.log(value);
+      let sceneConfig = this.groupLayer.getSceneConfig();
+      if (value == "clear") {
+        sceneConfig.weather = {};
+      }
+      if (value == "fog") {
+        sceneConfig.weather = {
+          enable: true,
+          fog: {
+            enable: true,
+            start: 0.1,
+            end: 26,
+            color: [0.9, 0.9, 0.9],
+          },
+        };
+        sceneConfig.ground = {
+          enable: true,
+          renderPlugin: {
+            type: "fill",
+          },
+          symbol: {
+            polygonFill: [0.803921568627451, 0.803921568627451, 0.803921568627451, 1],
+            polygonOpacity: 1,
+          },
+        };
+      }
+      if (value == "rain") {
+        sceneConfig.weather = {
+          enable: true,
+          rain: {
+            enable: true,
+            windDirectionX: 0,
+            windDirectionY: 0,
+            rippleRadius: 11,
+            rainWidth: 1,
+            rainHeight: 1,
+            speed: 1,
+            density: 2000,
+            rainTexture: require("@/assets/hdr/rain1.png"),
+          },
+        };
+      }
+      if (value == "snow") {
+        sceneConfig.weather = {
+          enable: true,
+          snow: {
+            enable: true,
+            snowGroundTexture: require("@/assets/hdr/perlin.png"),
+          },
+        };
+      }
+      this.groupLayer.setSceneConfig(sceneConfig);
+    },
+  },
 };
 </script>
 <style>
