@@ -1,0 +1,336 @@
+{
+  "style": [
+    {
+      "renderPlugin": {
+        "type": "fill",
+        "dataConfig": {
+          "type": "fill",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_quxianjie_wp"
+      },
+      "symbol": {
+        "visible": true,
+        "polygonFill": "rgba(21, 21, 23, 1)",
+        "polygonOpacity": 1
+      },
+      "name": "BG-区县"
+    },
+    {
+      "renderPlugin": {
+        "type": "fill",
+        "dataConfig": {
+          "type": "fill",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_shuixi_wp"
+      },
+      "symbol": {
+        "visible": true,
+        "polygonFill": "rgba(23, 28, 31, 1)",
+        "polygonOpacity": 1
+      },
+      "name": "BG-水系"
+    },
+    {
+      "renderPlugin": {
+        "type": "fill",
+        "dataConfig": {
+          "type": "fill",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_zhibei_wp"
+      },
+      "symbol": {
+        "visible": true,
+        "polygonFill": "rgba(34, 42, 45, 1)",
+        "polygonOpacity": 1
+      },
+      "name": "BG-植被"
+    },
+    {
+      "renderPlugin": {
+        "type": "lit",
+        "dataConfig": {
+          "type": "3d-extrusion",
+          "altitudeProperty": "height",
+          "altitudeScale": 1,
+          "defaultAltitude": 10,
+          "topThickness": 2,
+          "top": true,
+          "side": false
+        },
+        "sceneConfig": {
+          "animation": null,
+          "animationDuration": 800,
+          "minZoom": 15,
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_jianzhuwu_wp"
+      },
+      "symbol": {
+        "material": {
+          "baseColorFactor": [
+            0.07588,
+            0.07588,
+            0.07588,
+            1
+          ],
+          "outputSRGB": 1,
+          "roughnessFactor": 0.18,
+          "metallicFactor": 0.72
+        }
+      },
+      "name": "BG-建筑物-顶面"
+    },
+    {
+      "renderPlugin": {
+        "type": "lit",
+        "dataConfig": {
+          "type": "3d-extrusion",
+          "altitudeProperty": "height",
+          "altitudeScale": 1,
+          "defaultAltitude": 10,
+          "topThickness": 2,
+          "top": false,
+          "side": true
+        },
+        "sceneConfig": {
+          "animation": null,
+          "animationDuration": 800,
+          "minZoom": 15,
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_jianzhuwu_wp"
+      },
+      "symbol": {
+        "bloom": false,
+        "ssr": true,
+        "polygonOpacity": 1,
+        "material": {
+          "baseColorFactor": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "hsv": [
+            0.128,
+            -0.489,
+            0
+          ],
+          "outputSRGB": 1,
+          "roughnessFactor": 0.32,
+          "metallicFactor": 0.66,
+          "uvScale": [
+            0.14,
+            0.43
+          ],
+          "uvOffset": [
+            0,
+            0.65
+          ],
+          "emissiveTexture": "images/building/em.png",
+          "emitColorFactor": 1.8,
+          "emitMultiplicative": 0
+        }
+      },
+      "name": "BG-建筑物-侧面"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_tielu_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_yellow.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-铁路"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_gaosu_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_blue.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-高速"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_kuaisulu_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_blue.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-快速路"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_zhuciganlu_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_blue.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-主次干路"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "minZoom": 16,
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_zhilu_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_blue.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-支路"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "minZoom": 16,
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_zhiluzadao_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_blue.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-支路匝道"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "minZoom": 16,
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "n110101_lijiaozadao_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineBloom": true,
+        "lineWidth": 5,
+        "linePatternFile": "images/building/path_blue.png",
+        "linePatternAnimSpeed": -0.1
+      },
+      "name": "R-立交匝道"
+    }
+  ]
+}
