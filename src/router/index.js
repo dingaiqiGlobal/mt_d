@@ -20,6 +20,11 @@ const routes = [
     component: () => import("../components/proj4/proj4_base.vue")
   },
   {
+    path: '/animation_videoSurface',
+    name: 'animation_videoSurface',
+    component: () => import("../components/animation/animation_videoSurface.vue")
+  },
+  {
     path: '/animation_view',
     name: 'animation_view',
     component: () => import("../components/animation/view/animation_view.vue")

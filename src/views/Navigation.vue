@@ -31,6 +31,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/animation/animation_videoSurface.jpg",
+          text: "动画-视频",
+          path: "/animation_videoSurface",
+        },
+        {
+          id: 1,
           img: "/images/nav/animation/animation_view.jpg",
           text: "动画-视图-基础",
           path: "/animation_view",
