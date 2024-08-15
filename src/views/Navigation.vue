@@ -409,6 +409,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_contourLine.jpg",
+          text: "等值线",
+          path: "/style_contourLine",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_routeplayer.jpg",
           text: "路况&轨迹",
           path: "/style_routeplayer",

@@ -335,6 +335,11 @@ const routes = [
     component: () => import("../components/symbol/symbol_GeojsonVT_PoineModel_GLTFMarker.vue")
   },
   {
+    path: '/style_contourLine',
+    name: 'style_contourLine',
+    component: () => import("../components/style/style_contourLine.vue")
+  },
+  {
     path: '/style_routeplayer',
     name: 'style_routeplayer',
     component: () => import("../components/style/style_routeplayer.vue")
