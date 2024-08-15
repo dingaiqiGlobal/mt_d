@@ -24,23 +24,36 @@
     },
     {
       "renderPlugin": {
-        "type": "fill",
+        "type": "water",
         "dataConfig": {
-          "type": "fill",
-          "only2D": true
+          "type": "fill"
         },
-        "sceneConfig": {
-          "maxZoom": 24
-        }
+        "sceneConfig": {}
       },
       "filter": {
         "condition": true,
         "layer": "n110101_shuixi_wp"
       },
       "symbol": {
-        "visible": true,
-        "polygonFill": "rgba(23, 28, 31, 1)",
-        "polygonOpacity": 1
+        "ssr": true,
+        "texWaveNormal": "images/building/texWaveNormal.png",
+        "texWavePerturbation": "images/building/texWavePerturbation.png",
+        "waterBaseColor": [
+          0.1,
+          0.6,
+          0.6,
+          1
+        ],
+        "contrast": 1.425,
+        "hsv": [
+          0,
+          -0.596,
+          0
+        ],
+        "uvScale": 3,
+        "animation": true,
+        "waterSpeed": 1,
+        "waterDirection": 0
       },
       "name": "BG-水系"
     },

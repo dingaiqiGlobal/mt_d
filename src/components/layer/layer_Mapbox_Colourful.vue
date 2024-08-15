@@ -101,9 +101,15 @@ export default {
     const sceneConfig = {
       postProcess: {
         enable: true,
-        antialias: { enable: true },
+        antialias: {
+          enable: true,
+        },
+        //水面开启ssr-倒影反射
+        ssr: {
+          enable: true,
+        },
+        //线路开启泛光
         bloom: {
-          //开启泛光
           enable: true,
           threshold: 0,
           factor: 1,
