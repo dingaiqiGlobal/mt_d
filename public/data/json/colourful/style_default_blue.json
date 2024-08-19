@@ -13,7 +13,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_quxianjie_wp"
+        "layer": "bj110101_quxianjie_wp"
       },
       "symbol": {
         "visible": true,
@@ -35,7 +35,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_shuixi_wp"
+        "layer": "bj110101_shuixi_wp"
       },
       "symbol": {
         "visible": true,
@@ -57,14 +57,14 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_zhibei_wp"
+        "layer": "bj110101_lvdi_wp"
       },
       "symbol": {
         "visible": true,
         "polygonFill": "rgba(0, 88, 216, 1)",
         "polygonOpacity": 1
       },
-      "name": "BG-植被"
+      "name": "BG-绿地"
     },
     {
       "renderPlugin": {
@@ -80,7 +80,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_jianzhuwu_wp"
+        "layer": "bj110101_jianzhuwu_wp"
       },
       "symbol": {
         "visible": true,
@@ -102,7 +102,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_tielu_wl"
+        "layer": "bj110101_tielu_wl"
       },
       "symbol": {
         "visible": true,
@@ -136,7 +136,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_gaosu_wl"
+        "layer": "bj110101_gaosulu_wl"
       },
       "symbol": {
         "visible": true,
@@ -157,7 +157,7 @@
         },
         "lineOpacity": 1
       },
-      "name": "R-高速"
+      "name": "R-高速路"
     },
     {
       "renderPlugin": {
@@ -172,7 +172,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_kuaisulu_wl"
+        "layer": "bj110101_kuaisulu_wl"
       },
       "symbol": {
         "visible": true,
@@ -208,7 +208,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_zhuciganlu_wl"
+        "layer": "bj110101_guodao_wl"
       },
       "symbol": {
         "visible": true,
@@ -229,7 +229,115 @@
         },
         "lineOpacity": 1
       },
-      "name": "R-主次干路"
+      "name": "R-国道"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "bj110101_shengdao_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineColor": "rgba(6, 185, 255, 1)",
+        "lineWidth": {
+          "type": "exponential",
+          "default": 1,
+          "stops": [
+            [
+              13,
+              1
+            ],
+            [
+              16,
+              5
+            ]
+          ]
+        },
+        "lineOpacity": 1
+      },
+      "name": "R-省道"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "bj110101_xiandao_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineColor": "rgba(6, 185, 255, 1)",
+        "lineWidth": {
+          "type": "exponential",
+          "default": 1,
+          "stops": [
+            [
+              13,
+              1
+            ],
+            [
+              16,
+              5
+            ]
+          ]
+        },
+        "lineOpacity": 1
+      },
+      "name": "R-县道"
+    },
+    {
+      "renderPlugin": {
+        "type": "line",
+        "dataConfig": {
+          "type": "line",
+          "only2D": true
+        },
+        "sceneConfig": {
+          "maxZoom": 24
+        }
+      },
+      "filter": {
+        "condition": true,
+        "layer": "bj110101_xiangcundaolu_wl"
+      },
+      "symbol": {
+        "visible": true,
+        "lineColor": "rgba(6, 185, 255, 1)",
+        "lineWidth": {
+          "type": "exponential",
+          "default": 1,
+          "stops": [
+            [
+              13,
+              1
+            ],
+            [
+              16,
+              5
+            ]
+          ]
+        },
+        "lineOpacity": 1
+      },
+      "name": "R-乡村道路"
     },
     {
       "renderPlugin": {
@@ -245,7 +353,7 @@
       },
       "filter": {
         "condition": true,
-        "layer": "n110101_zhilu_wl"
+        "layer": "bj110101_qitalu_wl"
       },
       "symbol": {
         "visible": true,
@@ -255,179 +363,18 @@
           "default": 1,
           "stops": [
             [
-              13,
+              16,
               1
             ],
             [
-              16,
+              18,
               5
             ]
           ]
         },
         "lineOpacity": 1
       },
-      "name": "R-支路"
-    },
-    {
-      "renderPlugin": {
-        "type": "line",
-        "dataConfig": {
-          "type": "line",
-          "only2D": true
-        },
-        "sceneConfig": {
-          "minZoom": 16,
-          "maxZoom": 24
-        }
-      },
-      "filter": {
-        "condition": true,
-        "layer": "n110101_zhiluzadao_wl"
-      },
-      "symbol": {
-        "visible": true,
-        "lineColor": "rgba(6, 185, 255, 1)",
-        "lineWidth": {
-          "type": "exponential",
-          "default": 1,
-          "stops": [
-            [
-              13,
-              1
-            ],
-            [
-              16,
-              5
-            ]
-          ]
-        },
-        "lineOpacity": 1
-      },
-      "name": "R-支路匝道"
-    },
-    {
-      "renderPlugin": {
-        "type": "line",
-        "dataConfig": {
-          "type": "line",
-          "only2D": true
-        },
-        "sceneConfig": {
-          "minZoom": 16,
-          "maxZoom": 24
-        }
-      },
-      "filter": {
-        "condition": true,
-        "layer": "n110101_lijiaozadao_wl"
-      },
-      "symbol": {
-        "visible": true,
-        "lineColor": "rgba(6, 185, 255, 1)",
-        "lineWidth": {
-          "type": "exponential",
-          "default": 1,
-          "stops": [
-            [
-              13,
-              1
-            ],
-            [
-              16,
-              5
-            ]
-          ]
-        },
-        "lineOpacity": 1
-      },
-      "name": "R-立交匝道"
-    },
-    {
-      "renderPlugin": {
-        "type": "text",
-        "dataConfig": {
-          "type": "point",
-          "only2D": true
-        },
-        "sceneConfig": {
-          "maxZoom": 24,
-          "collision": true,
-          "fading": true,
-          "depthFunc": "always"
-        }
-      },
-      "filter": {
-        "condition": true,
-        "layer": "n110101_gaosu_wl"
-      },
-      "symbol": {
-        "textName": "{name}",
-        "textSize": 14,
-        "textFill": "rgba(3, 176, 194, 1)",
-        "textOpacity": 2,
-        "textPlacement": "line",
-        "textSpacing": 250,
-        "textAllowOverlap": true
-      },
-      "name": "T-高速"
-    },
-    {
-      "renderPlugin": {
-        "type": "text",
-        "dataConfig": {
-          "type": "point",
-          "only2D": true
-        },
-        "sceneConfig": {
-          "maxZoom": 24,
-          "collision": true,
-          "fading": true,
-          "depthFunc": "always"
-        }
-      },
-      "filter": {
-        "condition": true,
-        "layer": "n110101_kuaisulu_wl"
-      },
-      "symbol": {
-        "textName": "{name}",
-        "textSize": 14,
-        "textFill": "rgba(3, 176, 194, 1)",
-        "textOpacity": 2,
-        "textPlacement": "line",
-        "textSpacing": 250,
-        "textAllowOverlap": true
-      },
-      "name": "T-快速路"
-    },
-    {
-      "renderPlugin": {
-        "type": "text",
-        "dataConfig": {
-          "type": "point",
-          "only2D": true
-        },
-        "sceneConfig": {
-          "maxZoom": 24,
-          "collision": true,
-          "fading": true,
-          "depthFunc": "always"
-        }
-      },
-      "filter": {
-        "condition": true,
-        "layer": "n110101_zhuciganlu_wl"
-      },
-      "symbol": {
-        "textName": "{name}",
-        "textSize": 14,
-        "textFill": "rgba(3, 176, 194, 1)",
-        "textOpacity": 2,
-        "textPlacement": "line",
-        "textSpacing": 250,
-        "textAllowOverlap": true
-      },
-      "name": "T-主次干路"
+      "name": "R-其他路"
     }
   ]
 }

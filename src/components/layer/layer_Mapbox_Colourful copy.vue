@@ -133,9 +133,9 @@ export default {
      */
     addMapBoxLayer() {
       this.vtLayer = new VectorTileLayer("mapbox_vt", {
-        urlTemplate: `http://192.168.201.162:8088/geoserver/gwc/service/tms/1.0.0/zhjy%3Abj110101@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf`,
+        urlTemplate: `http://192.168.201.162:8088/geoserver/gwc/service/tms/1.0.0/zhjy%3Adongchenggroup@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf`,
         tms: true, //这个参数必须设置
-        style: "data/json/colourful/style_ziranglv.json",
+        style: "data/json/colourful/style_bloom.json",
         // enableBloom: true,
       });
       this.groupLayer.addLayer(this.vtLayer);
