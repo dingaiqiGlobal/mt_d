@@ -50,6 +50,11 @@ const routes = [
     component: () => import("../components/tools/tools_jsts_holes.vue")
   },
   {
+    path: '/tools_measure3D',
+    name: 'tools_measure3D',
+    component: () => import("../components/tools/tools_measure3D.vue")
+  },
+  {
     path: '/tools_collection',
     name: 'tools_collection',
     component: () => import("../components/tools/tools_collection.vue")

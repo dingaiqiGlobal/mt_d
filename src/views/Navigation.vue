@@ -67,6 +67,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/tools/tools_measure3D.jpg",
+          text: "3D测量（封装好）",
+          path: "/tools_measure3D",
+        },
+        {
+          id: 1,
           img: "/images/nav/tools/tools_collection.jpg",
           text: "工具集合",
           path: "/tools_collection",
