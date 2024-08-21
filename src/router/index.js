@@ -75,6 +75,11 @@ const routes = [
     component: () => import("../components/three/three_TextureLoader/three_TextureLoader_Road.vue")
   },
   {
+    path: '/terrain_colors',
+    name: 'terrain_colors',
+    component: () => import("../components/terrain/terrain_colors.vue")
+  },
+  {
     path: '/three_Terrain',
     name: 'three_Terrain',
     component: () => import("../components/three/three_Terrain/three_Terrain.vue")

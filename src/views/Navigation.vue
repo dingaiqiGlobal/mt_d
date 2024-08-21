@@ -68,7 +68,7 @@ export default {
         {
           id: 1,
           img: "/images/nav/tools/tools_measure3D.jpg",
-          text: "3D测量（封装好）",
+          text: "3D测量-版本",
           path: "/tools_measure3D",
         },
         {
@@ -94,6 +94,12 @@ export default {
           img: "/images/nav/three/three_TextureLoader_Road.jpg",
           text: "流光线-贴图方式",
           path: "/three_TextureLoader_Road",
+        },
+        {
+          id: 1,
+          img: "/images/nav/terrain/terrain_colors.jpg",
+          text: "地形颜色-版本",
+          path: "/terrain_colors",
         },
         {
           id: 1,
