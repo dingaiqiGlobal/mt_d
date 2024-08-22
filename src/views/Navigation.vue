@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/spatialAnalysis/spatialAnalysis_skylineAnalysis.jpg",
+          text: "分析-天际线",
+          path: "/spatialAnalysis_skylineAnalysis",
+        },
+        {
+          id: 1,
           img: "/images/nav/functionUp/functionUp_loadsvg.jpg",
           text: "加载SVG",
           path: "/functionUp_loadsvg",
