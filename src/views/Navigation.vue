@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/functionUp/functionUp_loadsvg.jpg",
+          text: "加载SVG",
+          path: "/functionUp_loadsvg",
+        },
+        {
+          id: 1,
           img: "/images/nav/functionUp/functionUp_loadsprite.jpg",
           text: "加载雪碧图",
           path: "/functionUp_loadsprite",
