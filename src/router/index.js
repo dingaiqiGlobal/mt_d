@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/spatialAnalysis_inSightAnalysis',
+    name: 'spatialAnalysis_inSightAnalysis',
+    component: () => import("../components/spatialAnalysis/spatialAnalysis_inSightAnalysis.vue")
+  },
+  {
     path: '/spatialAnalysis_skylineAnalysis',
     name: 'spatialAnalysis_skylineAnalysis',
     component: () => import("../components/spatialAnalysis/spatialAnalysis_skylineAnalysis.vue")

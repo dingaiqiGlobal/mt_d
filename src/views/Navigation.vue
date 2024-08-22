@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/spatialAnalysis/spatialAnalysis_inSightAnalysis.jpg",
+          text: "分析-通视",
+          path: "/spatialAnalysis_inSightAnalysis",
+        },
+        {
+          id: 1,
           img: "/images/nav/spatialAnalysis/spatialAnalysis_skylineAnalysis.jpg",
           text: "分析-天际线",
           path: "/spatialAnalysis_skylineAnalysis",
