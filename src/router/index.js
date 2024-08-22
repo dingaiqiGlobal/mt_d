@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: '/functionUp_loadsprite',
+    name: 'functionUp_loadsprite',
+    component: () => import("../components/functionUp/functionUp_loadsprite.vue")
+  },
+  {
     path: '/sceneConfig_Weather',
     name: 'sceneConfig_Weather',
     component: () => import("../components/sceneConfig/sceneConfig_Weather.vue")

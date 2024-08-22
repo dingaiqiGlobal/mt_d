@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/functionUp/functionUp_loadsprite.jpg",
+          text: "加载雪碧图",
+          path: "/functionUp_loadsprite",
+        },
+        {
+          id: 1,
           img: "/images/nav/sceneConfig/sceneConfig_Weather.jpg",
           text: "场景-天气",
           path: "/sceneConfig_Weather",
