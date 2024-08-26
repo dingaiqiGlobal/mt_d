@@ -325,6 +325,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/gltf/gltf_DrawerEntity.jpg",
+          text: "gltf抽屉",
+          path: "/gltf_DrawerEntity",
+        },
+        {
+          id: 1,
           img: "/images/nav/gltf/gltf_GLTFLineString.jpg",
           text: "gltf线性添加（特）",
           path: "/gltf_GLTFLineString",
