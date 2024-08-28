@@ -1,0 +1,460 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31010000000015,
+                        39.99065000000002,
+                        4
+                    ],
+                    [
+                        116.31129803022803,
+                        39.99069565581126,
+                        5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31129803022803,
+                        39.99069565581126,
+                        5
+                    ],
+                    [
+                        116.31249606045591,
+                        39.9907413116225,
+                        5  
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31249606045591,
+                        39.9907413116225,
+                        5
+                    ],
+                    [
+                        116.31369409068381,
+                        39.99078696743374,
+                        5.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31369409068381,
+                        39.99078696743374,
+                        5.5
+                    ],
+                    [
+                        116.3148921209117,
+                        39.990832623244984,
+                        5.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.3148921209117,
+                        39.990832623244984,
+                        5.5
+                    ],
+                    [
+                        116.31609015113958,
+                        39.990878279056226,
+                        6
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "缓慢",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31609015113958,
+                        39.990878279056226,
+                        6
+                    ],
+                    [
+                        116.31728818136746,
+                        39.99092393486747,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "拥堵",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31728818136746,
+                        39.99092393486747,
+                        6.5
+                    ],
+                    [
+                        116.31848621159534,
+                        39.99096959067871,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "拥堵",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31848621159534,
+                        39.99096959067871,
+                        6
+                    ],
+                    [
+                        116.31968424182324,
+                        39.99101524648995,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "缓慢",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.31968424182324,
+                        39.99101524648995,
+                        6.5
+                    ],
+                    [
+                        116.32088227205112,
+                        39.99106090230119,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32088227205112,
+                        39.99106090230119,
+                        6.5
+                    ],
+                    [
+                        116.321121,
+                        39.99107,
+                        6.5
+                    ],
+                    [
+                        116.32208095166264,
+                        39.9910794954447,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32208095166264,
+                        39.9910794954447,
+                        6.5
+                    ],
+                    [
+                        116.32327979287707,
+                        39.99109135388601,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32327979287707,
+                        39.99109135388601,
+                        6.5
+                    ],
+                    [
+                        116.32447863409149,
+                        39.991103212327324,
+                        7
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32447863409149,
+                        39.991103212327324,
+                        7
+                    ],
+                    [
+                        116.3251648407803,
+                        39.99111,
+                        7
+                    ],
+                    [
+                        116.32567688784897,
+                        39.9910849466767,
+                        7
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32567688784897,
+                        39.9910849466767,
+                        7
+                    ],
+                    [
+                        116.3257779894584,
+                        39.99108,
+                        7
+                    ],
+                    [
+                        116.32687528027306,
+                        39.99110912637567,
+                        7
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32687528027306,
+                        39.99110912637567,
+                        6.5
+                    ],
+                    [
+                        116.32807375799895,
+                        39.99114093864642,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "缓慢",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32807375799895,
+                        39.99114093864642,
+                        6.5
+                    ],
+                    [
+                        116.32927223572483,
+                        39.99117275091716,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "缓慢",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.32927223572483,
+                        39.99117275091716,
+                        6.5
+                    ],
+                    [
+                        116.33047071345072,
+                        39.99120456318791,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "缓慢",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33047071345072,
+                        39.99120456318791,
+                        6.5
+                    ],
+                    [
+                        116.33166919117662,
+                        39.99123637545865,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33166919117662,
+                        39.99123637545865,
+                        6.5
+                    ],
+                    [
+                        116.33286766890251,
+                        39.991268187729396,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        116.33286766890251,
+                        39.991268187729396,
+                        6.5
+                    ],
+                    [
+                        116.3340661466284,
+                        39.99130000000014,
+                        6.5
+                    ]
+                ]
+            },
+            "properties": {
+                "conditions": "畅通",
+                "name": "成府路"
+            }
+        }
+    ]
+}
