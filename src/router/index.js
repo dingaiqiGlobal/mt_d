@@ -265,6 +265,11 @@ const routes = [
     component: () => import("../components/layer/layer_WebGL_Context.vue")
   },
   {
+    path: '/gltf_ViewMonomer',
+    name: 'gltf_ViewMonomer',
+    component: () => import("../components/gltf/gltf_ViewMonomer.vue")
+  },
+  {
     path: '/gltf_DrawerEntity',
     name: 'gltf_DrawerEntity',
     component: () => import("../components/gltf/gltf_DrawerEntity.vue")

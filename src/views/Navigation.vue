@@ -325,6 +325,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/gltf/gltf_ViewMonomer.jpg",
+          text: "gltf查看单体",
+          path: "/gltf_ViewMonomer",
+        },
+        {
+          id: 1,
           img: "/images/nav/gltf/gltf_DrawerEntity.jpg",
           text: "gltf抽屉",
           path: "/gltf_DrawerEntity",
