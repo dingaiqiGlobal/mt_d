@@ -55,6 +55,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/animation/animation_routePlayer.jpg",
+          text: "动画-轨迹回放",
+          path: "/animation_routePlayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/animation/animation_videoSurface.jpg",
           text: "动画-视频",
           path: "/animation_videoSurface",
@@ -463,9 +469,15 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/style/style_routeplayer.jpg",
-          text: "路况&轨迹",
-          path: "/style_routeplayer",
+          img: "/images/nav/style/style_roadConditions3D.jpg",
+          text: "路况3D",
+          path: "/style_roadConditions3D",
+        },
+        {
+          id: 1,
+          img: "/images/nav/style/style_roadConditions.jpg",
+          text: "路况2D",
+          path: "/style_roadConditions",
         },
         {
           id: 1,

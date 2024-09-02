@@ -2,10 +2,6 @@
   <div>
     <div id="map" class="container"></div>
     <div class="control">
-      <button>Play</button>
-      <button>Pause</button>
-      <button>Cancel</button>
-      <button>Finish</button>
     </div>
   </div>
 </template>
@@ -14,7 +10,6 @@
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer } from "@maptalks/gl-layers";
-import { RoutePlayer, formatRouteData } from "maptalks.routeplayer";
 
 export default {
   components: {},
@@ -67,7 +62,6 @@ export default {
         .then((res) => res.json())
         .then((json) => {
           this.addLines(json);
-          this.addRouterLine(json);
         });
     },
     //路况线
@@ -83,45 +77,7 @@ export default {
         });
         this.vectorLayer.addGeometry(line);
       });
-    },
-    //轨迹回放
-    addRouterLine(json) {
-      const data = formatRouteData(this.buildData(json), {
-        duration: 1000 * 60 * 10,//持续时间
-      });
-      this.player = new RoutePlayer(data, {
-        unitTime: 1, //单位时间
-        speed: 7, //速度
-        debug: true, //调试
-        autoPlay: true, //是否自动播放
-        repeat: false, //是否重复播放
-      });
-      /**
-       * 待完善
-       */
-    },
-    buildData(json) {
-      let route = [];
-      let features = json.features;
-      for (let i = 0; i < features.length; i++) {
-        route.push(features[i].geometry.coordinates);
-      }
-      const seen = new Set();
-      const route2 = [];
-      route.forEach((subarray) => {
-        subarray.forEach((coord) => {
-          const key = `${coord[0]},${coord[1]}`;
-          if (!seen.has(key)) {
-            seen.add(key);
-            route2.push(coord);
-          }
-        });
-      });
-      const route3 = route2.map((coord) => ({
-        coordinate: coord,
-      }));
-      return route3;
-    },
+    }
   },
 };
 </script>

@@ -136,10 +136,81 @@ export default {
     this.groupLayer = new GroupGLLayer("group", [], { sceneConfig });
     this.groupLayer.addTo(this.map);
 
+    this.add3DTiles();
+    this.addRoadConditionsLayer();
   },
 
   methods: {
-
+    /**
+     * 道路模型
+     */
+    add3DTiles() {
+      const geo3DTilesLayer = new Geo3DTilesLayer("Geo3DTilesLayer", {
+        services: [
+          {
+            url: "data/3dtiles/DaoLu/tileset.json",
+            maximumScreenSpaceError: 16, //该值越小，渲染精度越高，项目允许的情况下，该值越大性能越好
+            ambientLight: [0.2, 0.2, 0.2],
+            heightOffset: -35,
+            scale: [1, 1, 1], //3dtile整体的缩放参数
+            rotation: [0, 0, 0], //3dtile整体的旋转参数
+            coordOffset: [0, 0], //3dtile整体偏移量参数
+          },
+        ],
+      });
+      this.groupLayer.addLayer(geo3DTilesLayer);
+    },
+    /**
+     * 路况
+     */
+    addRoadConditionsLayer() {
+      const style = {
+        renderPlugin: {
+          type: "line",
+          dataConfig: {
+            type: "line",
+          },
+          sceneConfig: {
+            //WebGL深度测试函数，可选的值有 always, never, <, <=, !=, >, >=
+            //数据里必须包含z，例子[116.555,40.651,7]
+            depthFunc: "<=",
+            depthMask: true,
+          },
+        },
+        symbol: {
+          lineBloom: false,
+          lineColor: {
+            type: "categorical",
+            property: "conditions",
+            stops: [
+              ["拥堵", "#ff0006"],
+              ["缓慢", "#fffc00"],
+              ["畅通", "#1fe198"],
+            ],
+          },
+          lineOpacity: 0.3,
+          lineWidth: {
+            type: "exponential",
+            default: 2,
+            stops: [
+              [14, 2],
+              [15, 4],
+              [16, 10],
+              [17, 20],
+              [18, 50],
+              [20.7, 100],
+              [22, 200],
+            ],
+          },
+          visible: true,
+        },
+      };
+      const GeoJSONLayer = new GeoJSONVectorTileLayer("geojson2", {
+        data: "data/json/data_bj_chengfulu.json",
+        style,
+      });
+      this.groupLayer.addLayer(GeoJSONLayer);
+    },
 
   },
 };

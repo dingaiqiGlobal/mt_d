@@ -40,6 +40,11 @@ const routes = [
     component: () => import("../components/proj4/proj4_base.vue")
   },
   {
+    path: '/animation_routePlayer',
+    name: 'animation_routePlayer',
+    component: () => import("../components/animation/routePlayer/animation_routePlayer.vue")
+  },
+  {
     path: '/animation_videoSurface',
     name: 'animation_videoSurface',
     component: () => import("../components/animation/animation_videoSurface.vue")
@@ -380,9 +385,14 @@ const routes = [
     component: () => import("../components/style/style_contourLine.vue")
   },
   {
-    path: '/style_routeplayer',
-    name: 'style_routeplayer',
-    component: () => import("../components/style/style_routeplayer.vue")
+    path: '/style_roadConditions3D',
+    name: 'style_roadConditions3D',
+    component: () => import("../components/style/style_roadConditions3D.vue")
+  },
+  {
+    path: '/style_roadConditions',
+    name: 'style_roadConditions',
+    component: () => import("../components/style/style_roadConditions.vue")
   },
   {
     path: '/style_update_altitude_terrain',
