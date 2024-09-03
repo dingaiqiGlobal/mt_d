@@ -1,8 +1,14 @@
 //maptalks里UI里的dom容器是maptalks自动生成的, 所以要想关闭UI,
 //请调用UI的hide或者remove方法, 用户传入的dom只是UI的内容而已,
 //内容作为dom容器的子节点了, //所以仅仅对你传入的dom节点进行隐藏等是不能关闭UI元素的
-//point.closeInfoWindow(); //or point.removeInfoWindow();
-//orpoint.getInfoWindow().hide(); //or infowindow.hide(); //point.setInfoWindow
+
+关闭
+//point.closeInfoWindow(); 或者 point.removeInfoWindow();或者point.getInfoWindow().hide();或者 infowindow.hide(); 
+
+设置
+//point.setInfoWindow  设置内容---,设置后马上开启
+
+开启
 //point.openInfoWindow();
 
 <template>
