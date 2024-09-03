@@ -85,6 +85,11 @@ const routes = [
     component: () => import("../components/tools/tools_collection.vue")
   },
   {
+    path: '/gifloop',
+    name: 'gifloop',
+    component: () => import("../components/UIMarker/gifloop.vue")
+  },
+  {
     path: '/InfoWindow_Base',
     name: 'InfoWindow_Base',
     component: () => import("../components/UIMarker/InfoWindow_Base.vue")

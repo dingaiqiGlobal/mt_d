@@ -109,6 +109,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/UIMarker/gifloop.jpg",
+          text: "GIF",
+          path: "/gifloop",
+        },
+        {
+          id: 1,
           img: "/images/nav/UIMarker/InfoWindow_Base.jpg",
           text: "InfoWindow基础",
           path: "/InfoWindow_Base",

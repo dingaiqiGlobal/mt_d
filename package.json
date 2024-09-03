@@ -20,6 +20,7 @@
     "dat.gui": "^0.7.9",
     "element-ui": "^2.15.14",
     "gcoord": "^1.0.6",
+    "gifloop": "^0.5.0",
     "gsap": "^3.12.5",
     "mapbox-gl": "^3.5.2",
     "maptalks": "^1.0.0-rc.33",
