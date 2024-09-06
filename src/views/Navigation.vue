@@ -338,7 +338,7 @@ export default {
         {
           id: 1,
           img: "/images/nav/gltf/gltf_ViewMonomer.jpg",
-          text: "gltf-查看单体",
+          text: "gltf-查看单体（特API）",
           path: "/gltf_ViewMonomer",
         },
         {
@@ -350,7 +350,7 @@ export default {
         {
           id: 1,
           img: "/images/nav/gltf/gltf_GLTFLineString.jpg",
-          text: "gltf-线性添加（特）",
+          text: "gltf-线性添加（特API）",
           path: "/gltf_GLTFLineString",
         },
         {

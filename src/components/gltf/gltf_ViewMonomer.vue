@@ -122,7 +122,7 @@ export default {
     };
     this.groupLayer = new GroupGLLayer("group", [], { sceneConfig });
     this.groupLayer.addTo(this.map);
-    this.gltfLayer = new GLTFLayer("glrf").addTo(this.groupLayer);
+    this.gltfLayer = new GLTFLayer("gltf").addTo(this.groupLayer);
     //地图单击事件
     this.map.on("click", (e) => {
       const identifyData = this.groupLayer.identify(e.coordinate)[0];
@@ -207,7 +207,7 @@ export default {
      * 模型样式修改
      */
     updateSymbol(target, symbol) {
-      //以下API未暴露
+      //以下API未暴露target是GLTFMarker****
       target.setUniform(symbol.key, symbol.value);
       target.getAllMeshes().forEach((mesh) => {
         mesh.setUniform(symbol.key, symbol.value);
