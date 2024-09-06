@@ -1,7 +1,9 @@
 <template>
   <div>
     <div id="map" class="container"></div>
-    <div class="control"></div>
+    <div class="control">
+
+    </div>
   </div>
 </template>
 
@@ -65,7 +67,8 @@ export default {
       sceneConfig,
     });
     this.groupLayer.addTo(this.map);
-    this.getJsonData();
+    this.getJsonData();//弧线
+    this.adRoadLines("data/json/bj/beijing_2huan.json", "data/json/bj/path_blue.png")//道路线
   },
 
   methods: {
@@ -127,6 +130,31 @@ export default {
       }
       return coordinates;
     },
+
+    /**
+     * 道路线
+     */
+     adRoadLines(url, img) {
+        const lineStringLayer = new LineStringLayer("road", {
+            enableAltitude: true,
+            enableBloom: true,
+        }).addTo(this.groupLayer);
+        fetch(url)
+            .then((res) => res.json())
+            .then((geojson) => {
+                const lines = maptalks.GeoJSON.toGeometry(geojson);
+                lineStringLayer.addGeometry(lines);
+                lineStringLayer.setStyle([{
+                    filter: true,
+                    symbol: {
+                        linePatternFile: img,
+                        //linePatternGap: 1,//填充图片之间的间隔宽度
+                        linePatternAnimSpeed: 1, //线流动：动画速度，取值范围-5到5，为负数时，动画方向会变为反向的
+                        lineWidth: 8,
+                    },
+                }])
+            })
+    }
   },
 };
 </script>
