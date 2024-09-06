@@ -367,6 +367,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/3dtiles/3dtiles_LoadSeting.jpg",
+          text: "3dtiles-性能设置",
+          path: "/3dtiles_LoadSeting",
+        },
+        {
+          id: 1,
           img: "/images/nav/3dtiles/3dtiles_add.jpg",
           text: "3dtiles-添加",
           path: "/3dtiles_Add",

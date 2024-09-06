@@ -300,6 +300,11 @@ const routes = [
     component: () => import("../components/gltf/gltf_lit.vue")
   },
   {
+    path: '/3dtiles_LoadSeting',
+    name: '3dtiles_LoadSeting',
+    component: () => import("../components/3dtiles/3dtiles_LoadSeting.vue")
+  },
+  {
     path: '/3dtiles_Add',
     name: '3dtiles_Add',
     component: () => import("../components/3dtiles/3dtiles_Add.vue")
