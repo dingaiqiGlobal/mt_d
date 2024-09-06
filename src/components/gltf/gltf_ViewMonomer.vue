@@ -19,6 +19,8 @@ export default {
       map: null,
       groupLayer: null,
       gltfLayer: null,
+
+      houseMarker: null,
     };
   },
 
@@ -121,14 +123,23 @@ export default {
     this.groupLayer = new GroupGLLayer("group", [], { sceneConfig });
     this.groupLayer.addTo(this.map);
     this.gltfLayer = new GLTFLayer("glrf").addTo(this.groupLayer);
+    //地图单击事件
+    this.map.on("click", (e) => {
+      const identifyData = this.groupLayer.identify(e.coordinate)[0];
+      const picked = identifyData && identifyData.data;
+      if (picked && picked.getId() !== "house") {
+        this.updateSymbol(this.houseMarker, { key: "polygonOpacity", value: 0.2 });
+      } else {
+        this.updateSymbol(this.houseMarker, { key: "polygonOpacity", value: 1 });
+      }
+    });
 
     this.add_house_GLTFMarker();
-    //this.add_room_GLTFMarker();
   },
 
   methods: {
     add_house_GLTFMarker() {
-      const houseMarker = new GLTFMarker([116.39079, 39.91724], {
+      this.houseMarker = new GLTFMarker([116.39079, 39.91724], {
         id: "house",
         symbol: {
           shadow: true,
@@ -139,12 +150,12 @@ export default {
           rotationZ: 90.6285,
           uniforms: {
             polygonFill: [1, 1, 1, 1],
-            polygonOpacity: 1,
+            polygonOpacity: 1,  
           },
         },
       }).addTo(this.gltfLayer);
       //加载事件（两个模型同时加载）
-      houseMarker.on("load", () => {
+      this.houseMarker.on("load", () => {
         this.add_room_GLTFMarker();
       });
     },
@@ -198,7 +209,6 @@ export default {
     updateSymbol(target, symbol) {
       //以下API未暴露
       target.setUniform(symbol.key, symbol.value);
-      console.log(target.getAllMeshes());
       target.getAllMeshes().forEach((mesh) => {
         mesh.setUniform(symbol.key, symbol.value);
       });
