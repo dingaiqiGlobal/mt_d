@@ -397,6 +397,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/3dtiles/3dtiles_Entity_Floor.jpg",
+          text: "3dtiles-楼层单体化",
+          path: "/3dtiles_Entity_Floor",
+        },
+        {
+          id: 1,
           img: "/images/nav/symbol/symbol_Marker.jpg",
           text: "样式-Marker",
           path: "/symbol_Marker",

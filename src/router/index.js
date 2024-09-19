@@ -325,6 +325,11 @@ const routes = [
     component: () => import("../components/3dtiles/3dtiles_Entity.vue")
   },
   {
+    path: '/3dtiles_Entity_Floor',
+    name: '3dtiles_Entity_Floor',
+    component: () => import("../components/3dtiles/3dtiles_Entity_Floor.vue")
+  },
+  {
     path: '/symbol_Marker',
     name: 'symbol_Marker',
     component: () => import("../components/symbol/symbol_Marker.vue")
