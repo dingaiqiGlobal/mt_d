@@ -320,6 +320,11 @@ const routes = [
     component: () => import("../components/3dtiles/3dtiles_Mask.vue")
   },
   {
+    path: '/3dtiles_Entity',
+    name: '3dtiles_Entity',
+    component: () => import("../components/3dtiles/3dtiles_Entity.vue")
+  },
+  {
     path: '/symbol_Marker',
     name: 'symbol_Marker',
     component: () => import("../components/symbol/symbol_Marker.vue")

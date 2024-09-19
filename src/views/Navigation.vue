@@ -391,6 +391,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/3dtiles/3dtiles_Entity.jpg",
+          text: "3dtiles-单体化",
+          path: "/3dtiles_Entity",
+        },
+        {
+          id: 1,
           img: "/images/nav/symbol/symbol_Marker.jpg",
           text: "样式-Marker",
           path: "/symbol_Marker",
