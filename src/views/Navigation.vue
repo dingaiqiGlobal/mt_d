@@ -401,6 +401,12 @@ export default {
           text: "3dtiles-楼层单体化",
           path: "/3dtiles_Entity_Floor",
         },
+                {
+          id: 1,
+          img: "/images/nav/3dtiles/3dtiles_ServiceMethod.jpg",
+          text: "3dtiles-service方式添加",
+          path: "/3dtiles_ServiceMethod",
+        },
         {
           id: 1,
           img: "/images/nav/symbol/symbol_Marker.jpg",
