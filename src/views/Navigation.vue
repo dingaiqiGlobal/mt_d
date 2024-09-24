@@ -491,6 +491,12 @@ export default {
           text: "样式-模型GLTFMarker",
           path: "/symbol_GeojsonVT_PoineModel_GLTFMarker",
         },
+                {
+          id: 1,
+          img: "/images/nav/style/style_pbr_Building.jpg",
+          text: "面pbr建筑物",
+          path: "/style_pbr_Building",
+        },
         {
           id: 1,
           img: "/images/nav/style/style_contourLine.jpg",
