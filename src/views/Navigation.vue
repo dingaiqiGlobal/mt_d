@@ -401,7 +401,7 @@ export default {
           text: "3dtiles-楼层单体化",
           path: "/3dtiles_Entity_Floor",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/3dtiles/3dtiles_ServiceMethod.jpg",
           text: "3dtiles-service方式添加",
@@ -493,8 +493,14 @@ export default {
         },
                 {
           id: 1,
+          img: "/images/nav/style/style_pbr_JN.jpg",
+          text: "pbr-济南",
+          path: "/style_pbr_JN",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_pbr_Building.jpg",
-          text: "面pbr建筑物",
+          text: "pbr-建筑物",
           path: "/style_pbr_Building",
         },
         {

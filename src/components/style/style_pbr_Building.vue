@@ -9,8 +9,6 @@
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer, GeoJSONVectorTileLayer } from "@maptalks/gl-layers";
-import * as THREE from "three";
-import { ThreeLayer } from "maptalks.three";
 
 export default {
   components: {},
