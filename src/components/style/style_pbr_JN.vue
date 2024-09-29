@@ -64,13 +64,14 @@ export default {
     const sceneConfig = {
       postProcess: {
         enable: true,
-        bloom: {
-          enable: true,
-          factor: 0.1,
-          threshold: 0,
-          radius: 1.5,
-        },
         antialias: { enable: true },
+        bloom: {
+          //开启泛光
+          enable: true,
+          threshold: 0,
+          factor: 1,
+          radius: 0.02,
+        },
       },
     };
     this.groupLayer = new GroupGLLayer("group", [this.threeLayer], {
@@ -88,7 +89,7 @@ export default {
       collisionBufferSize: 6,
     });
     this.vectorLayer.addTo(this.map);
-
+    this.addOutLines();
     this.addPolygons();
   },
 
@@ -134,8 +135,25 @@ export default {
             return extrudePolygon;
           });
           this.threeLayer.addMesh(extrudePolygons);
-          this.addOutLines(polygons);
+          this.addTextFill(polygons);
         });
+    },
+    addTextFill(polygons) {
+      polygons.forEach((polygon) => {
+        const { NAME } = polygon.getProperties();
+        polygon.setSymbol({
+          polygonOpacity: 0,
+          lineWidth: 2,
+          lineColor: "#ffffff",
+          lineOpacity: 0,
+          textName: NAME,
+          textFaceName: "system-ui",
+          textFill: "#ffffff",
+          textHaloFill: "#000000",
+          textHaloRadius: 0.2,
+        });
+      });
+      this.vectorLayer.addGeometry(polygons);
     },
     mouseEventFunc(e) {
       const highMaterial = new THREE.MeshPhongMaterial({
@@ -155,22 +173,54 @@ export default {
         }
       }
     },
+    //边界线
     addOutLines(polygons) {
-      polygons.forEach((polygon) => {
-        const { NAME } = polygon.getProperties();
-        polygon.setSymbol({
-          polygonOpacity: 0,
-          lineWidth: 2,
-          lineColor: "#ffffff",
-          lineBloom: true,
-          textName: NAME,
-          textFaceName: "system-ui",
-          textFill: "#ffffff",
-          textHaloFill: "#000000",
-          textHaloRadius: 0.2,
-        });
+      let material = new THREE.MeshBasicMaterial({
+        color: "#ffffff",
+        transparent: true,
       });
-      this.vectorLayer.addGeometry(polygons);
+      fetch("data/json/jn/jnqx.json")
+        .then((res) => res.json())
+        .then((geojson) => {
+          let geoLines = this.Polygon2Polyline(geojson);
+          const lines = maptalks.GeoJSON.toGeometry(geoLines);
+          const paths = lines.map((p) => {
+            const path = this.threeLayer.toPath(
+              p,
+              { width: 300, bloom: true },
+              this.highMaterial
+            );
+            return path;
+          });
+          this.threeLayer.addMesh(paths);
+        });
+    },
+    Polygon2Polyline(polygonGeoJson) {
+      var polylineGeoJson = JSON.parse(JSON.stringify(polygonGeoJson));
+      for (var i = 0; i < polylineGeoJson.features.length; i++) {
+        var MultiLineString = [];
+        if (polylineGeoJson.features[i].geometry.type === "Polygon") {
+          var Polygon = polylineGeoJson.features[i].geometry.coordinates;
+          Polygon.forEach((LinearRing) => {
+            var LineString = LinearRing;
+            MultiLineString.push(LineString);
+          });
+        } else if (polylineGeoJson.features[i].geometry.type === "MultiPolygon") {
+          var MultiPolygon = polylineGeoJson.features[i].geometry.coordinates;
+          MultiPolygon.forEach((Polygon) => {
+            Polygon.forEach((LinearRing) => {
+              var LineString = LinearRing;
+              MultiLineString.push(LineString);
+            });
+          });
+        } else {
+          console.error("请确认输入参数为geojson格式面数据！");
+          return null;
+        }
+        polylineGeoJson.features[i].geometry.type = "MultiLineString"; //面转线
+        polylineGeoJson.features[i].geometry.coordinates = MultiLineString;
+      }
+      return polylineGeoJson;
     },
   },
 };
