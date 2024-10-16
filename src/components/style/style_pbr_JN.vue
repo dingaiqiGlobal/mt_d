@@ -66,7 +66,7 @@ export default {
         enable: true,
         antialias: { enable: true },
         bloom: {
-          //开启泛光
+          //泛光效果必须设置这些参数
           enable: true,
           threshold: 0,
           factor: 1,
@@ -131,6 +131,7 @@ export default {
                 opacity: 0.8, // 不透明度为0.5
               })
             );
+            console.log(extrudePolygon,"性质")
             extrudePolygon.on("mouseover mouseout", this.mouseEventFunc); //事件绑定
             return extrudePolygon;
           });
