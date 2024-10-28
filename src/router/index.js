@@ -469,6 +469,11 @@ const routes = [
     name: 'style_BreakPointValue',
     component: () => import("../components/style/style_BreakPointValue.vue")
   },
+  {
+    path: '/style_stops',
+    name: 'style_stops',
+    component: () => import("../components/style/style_stops.vue")
+  },
 ]
 
 const router = new VueRouter({

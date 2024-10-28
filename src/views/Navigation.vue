@@ -491,7 +491,7 @@ export default {
           text: "样式-模型GLTFMarker",
           path: "/symbol_GeojsonVT_PoineModel_GLTFMarker",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/style/style_pbr_JN.jpg",
           text: "pbr-济南",
@@ -568,6 +568,12 @@ export default {
           img: "/images/nav/style/style_BreakPointValue.jpg",
           text: "断点值渲染",
           path: "/style_BreakPointValue",
+        },
+        {
+          id: 1,
+          img: "/images/nav/style/style_stops.jpg",
+          text: "3D_Stops",
+          path: "/style_stops",
         },
       ],
     };
