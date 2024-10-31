@@ -145,6 +145,12 @@
 </template>
 
 <script>
+/**
+ *ExtrudePolygonLayer的作用是用来管理图形，方便的图形的批量显示，隐藏，添加等操作，所以其具有的特性是：、
+ *看不见摸不着
+ *没有click等这些事件的*****所以只能做展示用，业务上不推荐
+ *继承了OverlayLayer的图层他们的用法都是一样的，仅仅是不同的图层管理的数据类别不同和渲染的形态不同罢了
+ */
 import { VueColorpicker } from "vue-pop-colorpicker";
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
@@ -221,7 +227,9 @@ export default {
   },
 
   methods: {
-    changeLineStyle(value) {},
+    changeLineStyle(value) {
+      
+    },
     changeRenderType(value) {
       //0单一渲染 1分色渲染
       if (value == 0) {

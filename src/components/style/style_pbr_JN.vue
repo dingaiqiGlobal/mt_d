@@ -6,6 +6,9 @@
 </template>
 
 <script>
+/**
+ * three插件图层不支持toJSON
+ */
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer } from "@maptalks/gl-layers";
@@ -131,7 +134,6 @@ export default {
                 opacity: 0.8, // 不透明度为0.5
               })
             );
-            console.log(extrudePolygon,"性质")
             extrudePolygon.on("mouseover mouseout", this.mouseEventFunc); //事件绑定
             return extrudePolygon;
           });
