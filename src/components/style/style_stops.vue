@@ -8,32 +8,15 @@
             <template #expandIcon="props">
               <a-icon type="caret-right" :rotate="props.isActive ? 90 : 0" />
             </template>
-            <a-collapse-panel header="描边效果" key="2">
-              <div class="parameter">
-                <span>描边颜色</span>
-                <span class="colorSpan" style="width: 179px; margin-right: 0">
-                  <color-picker
-                    v-model="lineColor"
-                    @change="changeLineStyle"
-                  ></color-picker>
-                </span>
-              </div>
-              <div class="parameter">
-                <span>描边粗细</span>
-                <a-input-number
-                  style="width: 179px"
-                  v-model.number="lineWidth"
-                  :min="0"
-                  :precision="1"
-                  @change="changeLineStyle"
+            <a-collapse-panel header="填充效果" key="3">
+              <div>
+                <div>区划面数据接口</div>
+                <a-textarea
+                  v-model="dataUrl"
+                  :auto-size="{ minRows: 2, maxRows: 4 }"
+                  @change="dataUrlChange"
                 />
               </div>
-              <div class="parameter">
-                <span>是否泛光</span>
-                <a-checkbox v-model="isBloom"></a-checkbox>
-              </div>
-            </a-collapse-panel>
-            <a-collapse-panel header="填充效果" key="3">
               <div class="parameter">
                 <span>渲染类型</span>
                 <a-select
@@ -170,11 +153,11 @@ export default {
       stops3D: null,
 
       //UI
-      lineColor: "#7db500", //描边颜色
-      lineWidth: 10, //描边粗细
-      isBloom: false,
+      // lineColor: "#7db500", //描边颜色
+      // lineWidth: 10, //描边粗细
+      // isBloom: false,
       renderTypeCode: "0", //渲染类型 0:单一渲染 1：分色渲染
-      fields: [], //分色字段
+      // fields: [], //分色字段
       selectedFiled: null, //选中的分色字段
       fieldNames: [], //分色值
       fieldValues: [],
@@ -182,6 +165,7 @@ export default {
       fillColor: "#7db500", //填充颜色
       opacity: 1.0, //透明度
       height: 4000, //高度
+      dataUrl: "data/json/jn/jnqx2.json",
       //style
       styleOptions: {},
     };
@@ -223,12 +207,13 @@ export default {
     this.groupLayer.addTo(this.map);
 
     this.stops3D = new Stops3D(this.map);
-    this.stops3D.addLayer("data/json/jn/jnqx2.json");
+    this.stops3D.addLayer(this.dataUrl);
   },
 
   methods: {
-    changeLineStyle(value) {
-      
+    dataUrlChange() {
+      if (this.dataUrl) {
+      }
     },
     changeRenderType(value) {
       //0单一渲染 1分色渲染
@@ -246,7 +231,7 @@ export default {
         this.stops3D.setStyle("test", this.styleOptions);
       } else if (value == 1) {
         //分色渲染
-        this.fileds = this.stops3D.readField("data/json/jn/jnqx2.json"); //字段
+        this.fileds = this.stops3D.readField(this.dataUrl); //字段
         this.fileds.then((obj) => {
           this.fieldNames = Object.keys(obj).map((key) => ({ name: key }));
         });

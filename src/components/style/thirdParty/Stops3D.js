@@ -7,18 +7,44 @@ class Stops3D {
         this.map = map;
         this.groupLayer = this.map.getLayer("group");
     }
-    getStyle(id) { 
+    getStyle(id){
         let _target = this.groupLayer.getLayer(id);
         let json = _target.toJSON();
-        let style = {};
         if (json.type === "GeoJSONVectorTileLayer") {
-            let styleArr = _target.getStyle().style;
-            style = {
-                ...styleArr[0].renderPlugin.dataConfig,
-                ...styleArr[0].symbol,
-            };
+            //dataUrl
+            let dataUrl = json.options.data;
+            //params
+            let { polygonFill, polygonOpacity } = json.options.style.style[0].symbol;
+            let defaultAltitude = json.options.style.style[0].renderPlugin.dataConfig.defaultAltitude;
+            let renderTypeCode, fillColor, selectedFiled, fieldValues, fillColors;
+            if (polygonFill instanceof Object) {
+                renderTypeCode = "1";
+                fillColor = null;
+                let { property, stops } = polygonFill;
+                selectedFiled = property
+                fieldValues = stops.map(item => item[0]);
+                fillColors = stops.map(item => item[1]);
+            } else {
+                renderTypeCode = "0";
+                fillColor = polygonFill;
+                selectedFiled = null;
+                fieldValues = [];
+                fillColors= [];
+            }
+            //return
+            let params = {
+                dataUrl,
+                opacity: polygonOpacity, //透明度
+                height: defaultAltitude, //高度
+                renderTypeCode, //渲染类型 0:单一渲染 1：分色渲染
+                fillColor, //填充颜色
+                selectedFiled, //选中的分色字段
+                fieldValues,//分色值
+                fillColors, //填充颜色数组
+            }
+            return params
         }
-        return style
+
     }
     readField(url) {
         return new Promise((res, rej) => {
