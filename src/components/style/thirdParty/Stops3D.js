@@ -78,6 +78,10 @@ class Stops3D {
         this.groupLayer.addLayer(layer)
         this.setStyle(key, style);
     }
+    removeLayer(id) {
+        let _target = this.groupLayer.getLayer(id);
+        this.groupLayer.removeLayer(_target);
+    }
     setStyle(id, options) {
         let defaultAltitude = options.defaultAltitude || 4000;
         let polygonOpacity = options.polygonOpacity || 0.8;
