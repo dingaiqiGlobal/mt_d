@@ -575,6 +575,30 @@ export default {
           text: "3D_Stops",
           path: "/style_stops",
         },
+        {
+          id: 1,
+          img: "/images/nav/ogc/ocg_TileLayer_ArcGIS.jpg",
+          text: "ocg_TileLayer_ArcGIS",
+          path: "/ocg_TileLayer_ArcGIS",
+        },
+        {
+          id: 1,
+          img: "/images/nav/ogc/ocg_TileLayer_WMTS.jpg",
+          text: "ocg_TileLayer_WMTS",
+          path: "/ocg_TileLayer_WMTS",
+        },
+        {
+          id: 1,
+          img: "/images/nav/ogc/ocg_TileLayer_WMS.jpg",
+          text: "ocg_TileLayer_WMS",
+          path: "/ocg_TileLayer_WMS",
+        },
+                {
+          id: 1,
+          img: "/images/nav/ogc/ocg_TileLayer_BD.jpg",
+          text: "ocg_TileLayer_BD",
+          path: "/ocg_TileLayer_BD",
+        },
       ],
     };
   },

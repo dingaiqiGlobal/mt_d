@@ -474,6 +474,26 @@ const routes = [
     name: 'style_stops',
     component: () => import("../components/style/style_stops.vue")
   },
+  {
+    path: '/ocg_TileLayer_ArcGIS',
+    name: 'ocg_TileLayer_ArcGIS',
+    component: () => import("../components/ogc/ocg_TileLayer_ArcGIS.vue")
+  },
+  {
+    path: '/ocg_TileLayer_WMTS',
+    name: 'ocg_TileLayer_WMTS',
+    component: () => import("../components/ogc/ocg_TileLayer_WMTS.vue")
+  },
+  {
+    path: '/ocg_TileLayer_WMS',
+    name: 'ocg_TileLayer_WMS',
+    component: () => import("../components/ogc/ocg_TileLayer_WMS.vue")
+  },
+  {
+    path: '/ocg_TileLayer_BD',
+    name: 'ocg_TileLayer_BD',
+    component: () => import("../components/ogc/ocg_TileLayer_BD.vue")
+  },
 ]
 
 const router = new VueRouter({
