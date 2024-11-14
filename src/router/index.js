@@ -494,6 +494,11 @@ const routes = [
     name: 'ocg_TileLayer_BD',
     component: () => import("../components/ogc/ocg_TileLayer_BD.vue")
   },
+  {
+    path: '/geo_GeometryCollection',
+    name: 'geo_GeometryCollection',
+    component: () => import("../components/geometry/geo_GeometryCollection.vue")
+  },
 ]
 
 const router = new VueRouter({

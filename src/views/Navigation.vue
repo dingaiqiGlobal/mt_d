@@ -593,11 +593,17 @@ export default {
           text: "ocg_TileLayer_WMS",
           path: "/ocg_TileLayer_WMS",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/ogc/ocg_TileLayer_BD.jpg",
           text: "ocg_TileLayer_BD",
           path: "/ocg_TileLayer_BD",
+        },
+        {
+          id: 1,
+          img: "/images/nav/geometry/geo_GeometryCollection.jpg",
+          text: "geo_GeometryCollection",
+          path: "/geo_GeometryCollection",
         },
       ],
     };
