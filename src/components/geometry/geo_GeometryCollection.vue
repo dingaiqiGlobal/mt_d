@@ -39,9 +39,10 @@ export default {
       symbol: {
         textFaceName: "sans-serif",
         textName: "MapTalks",
-        textFill: "#fffff",
-        textHorizontalAlignment: "right",
-        textSize: 14,
+        textFill: "#34495e",
+        textSize: 20,
+        textHaloColor: "white",
+        textHaloRadius: 8,
       },
     });
     //line
@@ -98,6 +99,15 @@ export default {
         });
       }
     });
+    //flash
+    marker.flash(
+      500, // flash interval in ms
+      3, // count
+      function () {
+        // callback when flash end
+        alert("flash ended");
+      }
+    );
   },
 
   methods: {},
