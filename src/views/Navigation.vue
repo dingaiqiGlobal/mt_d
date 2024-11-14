@@ -602,8 +602,14 @@ export default {
         {
           id: 1,
           img: "/images/nav/geometry/geo_GeometryCollection.jpg",
-          text: "geo_GeometryCollection",
+          text: "geo_Geometry属性",
           path: "/geo_GeometryCollection",
+        },
+        {
+          id: 1,
+          img: "/images/nav/geometry/geo_Altitude.jpg",
+          text: "geo_高度",
+          path: "/geo_Altitude",
         },
       ],
     };

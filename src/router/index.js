@@ -499,6 +499,11 @@ const routes = [
     name: 'geo_GeometryCollection',
     component: () => import("../components/geometry/geo_GeometryCollection.vue")
   },
+  {
+    path: '/geo_Altitude',
+    name: 'geo_Altitude',
+    component: () => import("../components/geometry/geo_Altitude.vue")
+  },
 ]
 
 const router = new VueRouter({
