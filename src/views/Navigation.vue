@@ -577,6 +577,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_params_collection.jpg",
+          text: "style样式参数集合",
+          path: "/style_params_collection",
+        },
+        {
+          id: 1,
           img: "/images/nav/ogc/ocg_TileLayer_ArcGIS.jpg",
           text: "ocg_TileLayer_ArcGIS",
           path: "/ocg_TileLayer_ArcGIS",

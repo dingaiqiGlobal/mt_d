@@ -475,6 +475,11 @@ const routes = [
     component: () => import("../components/style/style_stops.vue")
   },
   {
+    path: '/style_params_collection',
+    name: 'style_params_collection',
+    component: () => import("../components/style/style_params_collection.vue")
+  },
+  {
     path: '/ocg_TileLayer_ArcGIS',
     name: 'ocg_TileLayer_ArcGIS',
     component: () => import("../components/ogc/ocg_TileLayer_ArcGIS.vue")
