@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import * as maptalks from "maptalks";
-import * as earcut from "earcut"
+import * as earcut from "earcut";
 import { BaseObject } from "maptalks.three";
 //default values
 var OPTIONS = {

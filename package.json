@@ -18,6 +18,7 @@
     "colorin": "^0.6.0",
     "core-js": "^3.8.3",
     "dat.gui": "^0.7.9",
+    "earcut": "^3.0.0",
     "element-ui": "^2.15.14",
     "gcoord": "^1.0.6",
     "gifloop": "^0.5.0",

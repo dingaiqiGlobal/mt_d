@@ -305,14 +305,14 @@ const routes = [
     component: () => import("../components/3dtiles/3dtiles_LoadSeting.vue")
   },
   {
-    path: '/3dtiles_Add',
-    name: '3dtiles_Add',
-    component: () => import("../components/3dtiles/3dtiles_Add.vue")
+    path: '/3dtiles_add',
+    name: '3dtiles_add',
+    component: () => import("../components/3dtiles/3dtiles_add.vue")
   },
   {
-    path: '/3dtiles_View',
-    name: '3dtiles_View',
-    component: () => import("../components/3dtiles/3dtiles_View.vue")
+    path: '/3dtiles_view',
+    name: '3dtiles_view',
+    component: () => import("../components/3dtiles/3dtiles_view.vue")
   },
   {
     path: '/3dtiles_Mask',

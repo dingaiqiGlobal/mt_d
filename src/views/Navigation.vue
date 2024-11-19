@@ -375,13 +375,13 @@ export default {
           id: 1,
           img: "/images/nav/3dtiles/3dtiles_add.jpg",
           text: "3dtiles-添加",
-          path: "/3dtiles_Add",
+          path: "/3dtiles_add",
         },
         {
           id: 1,
           img: "/images/nav/3dtiles/3dtiles_view.jpg",
           text: "3dtiles-视图",
-          path: "/3dtiles_View",
+          path: "/3dtiles_view",
         },
         {
           id: 1,
