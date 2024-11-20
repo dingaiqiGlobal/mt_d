@@ -116,8 +116,15 @@ export default {
         },
       }
     );
+    //polygon
+    console.log(123);
 
-    const collection = new maptalks.GeometryCollection([marker0, marker1, line0, line1]);
+    const collection = new maptalks.GeometryCollection([
+      marker0,
+      marker1,
+      line0,
+      line1,
+    ]);
     new maptalks.VectorLayer("vector", collection).addTo(this.map);
   },
 
