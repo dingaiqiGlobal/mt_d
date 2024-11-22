@@ -116,14 +116,35 @@ export default {
         },
       }
     );
-    //polygon
-    console.log(123);
+    const line2 = new maptalks.LineString(
+      [
+        [116.37609, 39.88875],
+        [116.37609, 39.88775],
+        [116.38639, 39.88575],
+        [116.39678, 39.88775],
+        [116.39678, 39.88875],
+      ],
+      {
+        symbol: {
+          lineColor: "#1bbc9b",
+          lineWidth: 3,
+          lineDasharray: [10, 10],
+          markerFile: "images/icon/icon_Red.png",
+          markerPlacement: "vertex", // vertex, point, vertex-first, vertex-last, center
+          markerVerticalAlignment: "middle", //top, middle, bottom
+          markerWidth: 30,
+          markerHeight: 30,
+        },
+        smoothness: 0.5,//平滑曲线
+      }
+    );
 
     const collection = new maptalks.GeometryCollection([
       marker0,
       marker1,
       line0,
       line1,
+      line2,
     ]);
     new maptalks.VectorLayer("vector", collection).addTo(this.map);
   },
