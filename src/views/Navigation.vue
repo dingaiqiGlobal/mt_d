@@ -337,6 +337,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_ParticleLayer.jpg",
+          text: "粒子图层",
+          path: "/layer_ParticleLayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/gltf/gltf_ViewMonomer.jpg",
           text: "gltf-查看单体（特API）",
           path: "/gltf_ViewMonomer",

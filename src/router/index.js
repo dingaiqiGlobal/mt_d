@@ -274,6 +274,11 @@ const routes = [
     name: 'layer_WebGL_Context',
     component: () => import("../components/layer/layer_WebGL_Context.vue")
   },
+    {
+    path: '/layer_ParticleLayer',
+    name: 'layer_ParticleLayer',
+    component: () => import("../components/layer/layer_ParticleLayer.vue")
+  },
   {
     path: '/gltf_ViewMonomer',
     name: 'gltf_ViewMonomer',
