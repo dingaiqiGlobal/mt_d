@@ -91,6 +91,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/tools/tools_interactiveCollection.jpg",
+          text: "交互集合",
+          path: "/tools_interactiveCollection",
+        },
+        {
+          id: 1,
           img: "/images/nav/tools/tools_jsts_holes.jpg",
           text: "绘制孔洞",
           path: "/tools_jsts_holes",
