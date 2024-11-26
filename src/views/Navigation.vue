@@ -43,9 +43,15 @@ export default {
         },
         {
           id: 1,
-          img: "/images/nav/sceneConfig/sceneConfig_Weather.jpg",
+          img: "/images/nav/scene/scene_Weather.jpg",
           text: "scene-天气",
-          path: "/sceneConfig_Weather",
+          path: "/scene_Weather",
+        },
+        {
+          id: 1,
+          img: "/images/nav/scene/scene_vignette.jpg",
+          text: "scene-暗角（未暴露）",
+          path: "/scene_vignette",
         },
         {
           id: 1,

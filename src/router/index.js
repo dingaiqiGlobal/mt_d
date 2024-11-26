@@ -37,10 +37,14 @@ const routes = [
       import("../components/functionUp/functionUp_loadsprite.vue"),
   },
   {
-    path: "/sceneConfig_Weather",
-    name: "sceneConfig_Weather",
-    component: () =>
-      import("../components/sceneConfig/sceneConfig_Weather.vue"),
+    path: "/scene_Weather",
+    name: "scene_Weather",
+    component: () => import("../components/scene/scene_Weather.vue"),
+  },
+  {
+    path: "/scene_vignette",
+    name: "scene_vignette",
+    component: () => import("../components/scene/scene_vignette.vue"),
   },
   {
     path: "/proj4_base",
