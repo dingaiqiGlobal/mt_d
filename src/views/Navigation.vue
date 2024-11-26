@@ -181,6 +181,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/control/control_setMenu.jpg",
+          text: "control-右键",
+          path: "/control_setMenu",
+        },
+        {
+          id: 1,
           img: "/images/nav/control/control_custom_save.jpg",
           text: "control-存储",
           path: "/control_custom_save",
@@ -418,6 +424,12 @@ export default {
           img: "/images/nav/3dtiles/3dtiles_ServiceMethod.jpg",
           text: "3dtiles-service方式添加",
           path: "/3dtiles_ServiceMethod",
+        },
+        {
+          id: 1,
+          img: "/images/nav/symbol/symbol_styleJson.jpg",
+          text: "symbol-styleJson",
+          path: "/symbol_styleJson",
         },
         {
           id: 1,

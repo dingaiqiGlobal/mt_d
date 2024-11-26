@@ -162,6 +162,11 @@ const routes = [
     component: () => import("../components/map/map_options.vue"),
   },
   {
+    path: "/control_setMenu",
+    name: "control_setMenu",
+    component: () => import("../components/control/control_setMenu.vue"),
+  },
+  {
     path: "/control_custom_scene",
     name: "control_custom_scene",
     component: () => import("../components/control/control_custom_scene.vue"),
@@ -374,6 +379,11 @@ const routes = [
     path: "/3dtiles_ServiceMethod",
     name: "3dtiles_ServiceMethod",
     component: () => import("../components/3dtiles/3dtiles_ServiceMethod.vue"),
+  },
+  {
+    path: "/symbol_StyleJson",
+    name: "symbol_StyleJson",
+    component: () => import("../components/symbol/symbol_styleJson.vue"),
   },
   {
     path: "/symbol_Marker",
