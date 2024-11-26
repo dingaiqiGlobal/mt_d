@@ -211,20 +211,26 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/layer/layer_vtLayer_highlightFeature.jpg",
+          text: "vtLayer-feature（未API）",
+          path: "/layer_vtLayer_highlightFeature",
+        },
+        {
+          id: 1,
           img: "/images/nav/layer/layer_vtLayer_highlight_id.jpg",
-          text: "layer-矢量切片ID高亮",
+          text: "vtLayer-ID高亮",
           path: "/layer_vtLayer_highlight_id",
         },
         {
           id: 1,
           img: "/images/nav/layer/layer_vtLayer_highlight_bytileload.jpg",
-          text: "layer-矢量切片高亮",
+          text: "vtLayer-高亮",
           path: "/layer_vtLayer_highlight_bytileload",
         },
         {
           id: 1,
           img: "/images/nav/layer/layer_vtLayer_geoserver.jpg",
-          text: "layer-矢量切片_GeoServer",
+          text: "vtLayer_GeoServer",
           path: "/layer_vtLayer_geoserver",
         },
         {

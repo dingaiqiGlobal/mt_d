@@ -186,6 +186,12 @@ const routes = [
     component: () => import("../components/control/control_collection.vue"),
   },
   {
+    path: "/layer_vtLayer_highlightFeature",
+    name: "layer_vtLayer_highlightFeature",
+    component: () =>
+      import("../components/layer/vtLayer/layer_vtLayer_highlightFeature.vue"),
+  },
+  {
     path: "/layer_vtLayer_highlight_id",
     name: "layer_vtLayer_highlight_id",
     component: () =>
