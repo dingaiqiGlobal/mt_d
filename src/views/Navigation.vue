@@ -595,6 +595,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/style/style_UniqueFeature.jpg",
+          text: "style-featureStyle渲染（未API）",
+          path: "/style_UniqueFeature",
+        },
+        {
+          id: 1,
           img: "/images/nav/style/style_UniqueValue.jpg",
           text: "style-唯一值渲染",
           path: "/style_UniqueValue",

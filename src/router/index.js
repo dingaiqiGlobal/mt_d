@@ -533,6 +533,11 @@ const routes = [
     component: () => import("../components/style/style_hk_echarts.vue"),
   },
   {
+    path: "/style_UniqueFeature",
+    name: "style_UniqueFeature",
+    component: () => import("../components/style/style_UniqueFeature.vue"),
+  },
+  {
     path: "/style_UniqueValue",
     name: "style_UniqueValue",
     component: () => import("../components/style/style_UniqueValue.vue"),
