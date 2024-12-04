@@ -140,6 +140,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/UIMarker/UIMarker_TimeUpdate.jpg",
+          text: "弹框-实时更新",
+          path: "/UIMarker_TimeUpdate",
+        },
+        {
+          id: 1,
           img: "/images/nav/UIMarker/gifloop.jpg",
           text: "弹框-GIF",
           path: "/gifloop",

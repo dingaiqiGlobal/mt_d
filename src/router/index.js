@@ -123,6 +123,11 @@ const routes = [
     component: () => import("../components/tools/tools_collection.vue"),
   },
   {
+    path: "/UIMarker_TimeUpdate",
+    name: "UIMarker_TimeUpdate",
+    component: () => import("../components/UIMarker/UIMarker_TimeUpdate.vue"),
+  },
+  {
     path: "/gifloop",
     name: "gifloop",
     component: () => import("../components/UIMarker/gifloop.vue"),
