@@ -85,14 +85,21 @@ const routes = [
       import("../components/animation/animation_beat_native.vue"),
   },
   {
+    path: "/ModelDraw_gltf",
+    name: "ModelDraw_gltf",
+    component: () => import("../components/tools/ModelDraw/ModelDraw_gltf.vue"),
+  },
+  {
     path: "/ModelDraw_three",
     name: "ModelDraw_three",
-    component: () => import("../components/tools/ModelDraw/ModelDraw_three.vue"),
+    component: () =>
+      import("../components/tools/ModelDraw/ModelDraw_three.vue"),
   },
-    {
+  {
     path: "/ModelDraw_polyExtrude",
     name: "ModelDraw_polyExtrude",
-    component: () => import("../components/tools/ModelDraw/ModelDraw_polyExtrude.vue"),
+    component: () =>
+      import("../components/tools/ModelDraw/ModelDraw_polyExtrude.vue"),
   },
   {
     path: "/tools_interactiveCollection",

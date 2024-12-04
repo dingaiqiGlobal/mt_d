@@ -95,13 +95,20 @@ export default {
           text: "动画-原生",
           path: "/animation_beat_native",
         },
+
+        {
+          id: 1,
+          img: "/images/nav/tools/ModelDraw_gltf.jpg",
+          text: "绘制线-model-gltf",
+          path: "/ModelDraw_gltf",
+        },
         {
           id: 1,
           img: "/images/nav/tools/ModelDraw_three.jpg",
           text: "绘制线-model-three",
           path: "/ModelDraw_three",
         },
-                {
+        {
           id: 1,
           img: "/images/nav/tools/ModelDraw_polyExtrude.jpg",
           text: "绘制线-model-三方库",
