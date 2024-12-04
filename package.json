@@ -33,6 +33,7 @@
     "maptalks.routeplayer": "^1.0.0-rc.1",
     "maptalks.three": "^0.38.1",
     "maptalks.tileclusterlayer": "^0.0.13",
+    "poly-extrude": "^0.3.0",
     "proj4": "^2.11.0",
     "raw-loader": "^4.0.2",
     "three": "^0.116.1",

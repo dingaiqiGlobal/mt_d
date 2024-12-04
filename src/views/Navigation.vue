@@ -97,6 +97,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/tools/ModelDraw_three.jpg",
+          text: "绘制线-model-three",
+          path: "/ModelDraw_three",
+        },
+        {
+          id: 1,
           img: "/images/nav/tools/tools_interactiveCollection.jpg",
           text: "工具-编辑",
           path: "/tools_interactiveCollection",

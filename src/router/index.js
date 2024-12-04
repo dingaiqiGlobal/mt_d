@@ -85,6 +85,11 @@ const routes = [
       import("../components/animation/animation_beat_native.vue"),
   },
   {
+    path: "/ModelDraw_three",
+    name: "ModelDraw_three",
+    component: () => import("../components/tools/ModelDraw/ModelDraw_three.vue"),
+  },
+  {
     path: "/tools_interactiveCollection",
     name: "tools_interactiveCollection",
     component: () =>
