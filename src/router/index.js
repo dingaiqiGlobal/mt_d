@@ -89,6 +89,11 @@ const routes = [
     name: "ModelDraw_three",
     component: () => import("../components/tools/ModelDraw/ModelDraw_three.vue"),
   },
+    {
+    path: "/ModelDraw_polyExtrude",
+    name: "ModelDraw_polyExtrude",
+    component: () => import("../components/tools/ModelDraw/ModelDraw_polyExtrude.vue"),
+  },
   {
     path: "/tools_interactiveCollection",
     name: "tools_interactiveCollection",

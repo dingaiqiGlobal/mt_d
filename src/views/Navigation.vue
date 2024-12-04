@@ -101,6 +101,12 @@ export default {
           text: "绘制线-model-three",
           path: "/ModelDraw_three",
         },
+                {
+          id: 1,
+          img: "/images/nav/tools/ModelDraw_polyExtrude.jpg",
+          text: "绘制线-model-三方库",
+          path: "/ModelDraw_polyExtrude",
+        },
         {
           id: 1,
           img: "/images/nav/tools/tools_interactiveCollection.jpg",

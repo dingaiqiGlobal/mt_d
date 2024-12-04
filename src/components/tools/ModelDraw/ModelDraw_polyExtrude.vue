@@ -9,11 +9,99 @@
 </template>
 
 <script>
+/**
+ * npm i poly-extrude --save
+ * import {extrudePolygons,extrudePolylines,cylinder,expandPaths} from 'poly-extrude';
+ * 挤出面、线、圆柱、路径
+ * API
+ *   import {extrudePolygons,extrudePolylines,cylinder,expandPaths} from 'poly-extrude';
+
+  const polygons = [
+      //polygon
+      [
+          //outring
+          [
+              [x, y],
+              [x, y], ...........
+          ],
+          //holes
+          [
+              [x, y],
+              [x, y], ...........
+          ],
+          ........
+
+      ],
+      //other polygons
+      ......
+  ]
+  const result = extrudePolygons(polygons, {
+      depth: 2
+  });
+  const {positon,normal,uv,indices} = result;
+  //do something
+
+
+
+  const polylines = [
+      // polyline
+      [
+          [x, y],
+          [x, y], ...........
+      ],
+      //polyline
+      [
+          [x, y],
+          [x, y], ...........
+      ],
+  ];
+  const result = extrudePolylines(polylines, {
+      depth: 2,
+      lineWidth: 2
+  });
+  const {positon,normal,uv,indices} = result;
+  //do something
+
+
+
+  const center = [0, 0];
+  const result = cylinder(center, {
+      radius: 1,
+      height: 2,
+      radialSegments: 6
+  });
+  const {positon,normal,uv,indices} = result;
+  //do something
+  
+
+
+  const polylines = [
+      // polyline
+      [
+          [x, y],
+          [x, y], ...........
+      ],
+      //polyline
+      [
+          [x, y],
+          [x, y], ...........
+      ],
+  ];
+  const result = expandPaths(polylines, {
+      cornerRadius: 0.5,
+      lineWidth: 2
+  });
+  const {positon,normal,uv,indices} = result;
+  //do something
+ * 
+ * 
+ */
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer } from "@maptalks/gl-layers";
 import * as THREE from "three";
 import { ThreeLayer } from "maptalks.three";
+import { extrudePolylines } from "poly-extrude";
 
 export default {
   components: {},
@@ -35,7 +123,7 @@ export default {
   mounted() {
     this.map = new maptalks.Map("map", {
       center: [116.39259, 39.90473],
-      zoom: 16,
+      zoom: 18,
       pitch: 60,
       bearing: -25,
       spatialReference: {
@@ -144,29 +232,23 @@ export default {
       requestAnimationFrame(this.animation);
     },
     createWall(lineString) {
-      const height = 100;
-      const wall = this.threeLayer.toExtrudeLine(
-        lineString,
-        { height, width: 6 },
-        this.material
-      );
-      this.threeLayer.addMesh(wall);
-      const coordinates = lineString.getCoordinates();
-      console.log(this.material);
-      const bars = coordinates.map((c) => {
-        return this.threeLayer.toBar(
-          c,
-          { height: height + 5, radius: 10, radialSegments: 40 },
-          this.material
-        );
+      const coordinates = lineString.getCoordinates().map((c) => {
+        return c.toArray();
       });
-      this.threeLayer.addMesh(bars);
-      const top = this.threeLayer.toExtrudeLine(
-        lineString,
-        { width: 30, height: 6, altitude: height },
-        this.material1
-      );
-      this.threeLayer.addMesh(top);
+      for (let i = 0, len = 10; i < len; i++) {//层数
+        const result= extrudePolylines(coordinates, {
+          lineWidth: 0.00003 * (len - i),
+        });
+        const {positon,lines,normal,uv,indices} = result;
+        console.log(result,"结果")
+        const line = new maptalks.LineString(lines).addTo(this.vecLayer);
+        const extrudeLine = this.threeLayer.toExtrudeLine(
+          line,
+          { width: (len - i) * 3, height: 1, altitude: i * 1 },
+          i % 2 == 0 ? this.material : this.material1
+        );
+        this.threeLayer.addMesh(extrudeLine);
+      }
     },
     updateGeometrySymbol(geometry) {
       const mode = this.drawTool.getMode();
