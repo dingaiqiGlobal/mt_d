@@ -10,6 +10,11 @@ const routes = [
   //   component: () => import("../components/base_maptalks.vue")
   // },
   {
+    path: "/property_tileLayer",
+    name: "property_tileLayer",
+    component: () => import("../components/property/property_tileLayer.vue"),
+  },
+  {
     path: "/spatialAnalysis_inSightAnalysis",
     name: "spatialAnalysis_inSightAnalysis",
     component: () =>

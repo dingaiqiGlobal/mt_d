@@ -10,7 +10,6 @@ import Vue from "vue/dist/vue.esm.js"; //特殊引用
 import "maptalks/dist/maptalks.css";
 import * as maptalks from "maptalks";
 import { GroupGLLayer } from "@maptalks/gl-layers";
-import Util from "@/utils/Util";
 
 export default {
   components: {},

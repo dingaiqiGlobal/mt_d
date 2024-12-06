@@ -19,6 +19,12 @@ export default {
       list: [
         {
           id: 1,
+          img: "/images/nav/property/property_tileLayer.jpg",
+          text: "性能提升-底图",
+          path: "/property_tileLayer",
+        },
+        {
+          id: 1,
           img: "/images/nav/spatialAnalysis/spatialAnalysis_inSightAnalysis.jpg",
           text: "分析-通视",
           path: "/spatialAnalysis_inSightAnalysis",
