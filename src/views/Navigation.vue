@@ -188,6 +188,12 @@ export default {
         },
         {
           id: 1,
+          img: "/images/nav/three/three_ConeGeometry.jpg",
+          text: "three-椎体",
+          path: "/three_ConeGeometry",
+        },
+        {
+          id: 1,
           img: "/images/nav/three/three_GitCollection.jpg",
           text: "three-特效Git集合",
           path: "/three_GitCollection",
